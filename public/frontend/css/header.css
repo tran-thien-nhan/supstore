@@ -1,0 +1,76 @@
+.navbar {
+    margin-bottom: 2.5rem;
+    margin-top: 2.5rem;
+    opacity: 0.95;
+}
+
+.navbar .logo {
+    height: 5rem;
+    width: fit-content;
+    margin-top: -1rem;
+}
+
+.products {
+    display: none;
+}
+
+.dropdown-item {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+
+@media (max-width: 576px) {
+    .navbar .navbar-nav {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .navbar .navbar-nav .nav-item {
+        margin-bottom: 1rem;
+    }
+
+    .navbar .navbar-nav .nav-link {
+        padding: 0.5rem;
+    }
+
+    .navbar .navbar-nav .dropdown-menu {
+        position: absolute;
+        top: 100%;
+        /* Move the dropdown menu below the navbar */
+        left: 0;
+        z-index: 1000;
+        /* Adjust the z-index to make sure it appears above other elements */
+        display: none;
+        /* Hide the dropdown menu by default */
+        float: none;
+    }
+
+    .navbar .navbar-nav .dropdown-menu .dropdown-item {
+        display: block;
+        width: 100%;
+        text-align: center;
+    }
+
+    .navbar .navbar-nav .show .dropdown-menu {
+        display: block;
+        /* Show the dropdown menu when the parent item is active */
+    }
+
+    .navbar .navbar-nav .form-inline {
+        margin-top: 1rem;
+    }
+
+    .navbar .navbar-nav .form-control {
+        width: 100%;
+    }
+
+    .products-dropdown {
+        display: none;
+    }
+
+    .products {
+        display: block;
+    }
+
+}

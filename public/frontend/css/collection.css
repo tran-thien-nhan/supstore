@@ -1,0 +1,41 @@
+.status {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 0.5rem 1rem;
+    color: white;
+    font-weight: bold;
+}
+
+.status.sale {
+    background-color: #d54d4d;
+}
+
+.status.out-of-stock {
+    background-color: #333333;
+}
+
+.flavor-status {
+    font-size: 1rem;
+    color: black;
+    background-color: green;
+    width: fit-content;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.flavor-status.sale {
+    background-color: yellow;
+}
+
+.flavor-status.out-of-stock {
+    background-color: yellow;
+}
+
+.Show{
+    display: block;
+}
+
+.Hide{
+    display: none;
+}

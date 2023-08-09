@@ -1,0 +1,188 @@
+<?php
+
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BrandProduct;
+use App\Http\Controllers\CartController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\BlogController;
+use App\Http\Controllers\CategoryProduct;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\CouponController;
+use App\Http\Controllers\SendMailController;
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider and all of them will
+| be assigned to the "web" middleware group. Make something great!
+|
+*/
+
+// Route::get('/', function () {
+//     return view('layout');
+// });
+
+// Route::get('/trang-chu', function () {
+//     return view('layout');
+// });
+
+
+//frontend
+Route::get('/', [HomeController::class, 'index']);
+Route::get('/trang-chu', [HomeController::class, 'index']);
+Route::post('/tim-kiem', [HomeController::class, 'search']);
+Route::get('/customer-information', [HomeController::class, 'customer_information']);
+Route::get('/cart-history', [HomeController::class, 'cart_history']);
+
+// danh mục sản phẩm trang chủ
+Route::get('/danh-muc-san-pham', [CategoryProduct::class, 'show_all_category_product']);
+Route::get('/danh-muc-san-pham/{category_id}', [CategoryProduct::class, 'show_category_home']);
+Route::get('/thuong-hieu-san-pham', [CategoryProduct::class, 'show_all_brand_product']);
+Route::get('/thuong-hieu-san-pham/{brand_id}', [CategoryProduct::class, 'show_brand_home']);
+Route::get('/danh-muc-bai-viet', [CategoryProduct::class, 'show_all_blog']);
+Route::get('/danh-muc-bai-viet/{blog_category_id}', [CategoryProduct::class, 'show_blog_by_category']);
+
+//backend (admin)
+Route::get('/admin', [AdminController::class, 'index']);
+Route::get('/dashboard', [AdminController::class, 'show_dashboard']);
+Route::get('/logout', [AdminController::class, 'logout']);
+Route::post('/admin-dashboard', [AdminController::class, 'dashboard']);
+
+//category-product
+Route::get('/add-category-product', [CategoryProduct::class, 'add_category_product']);
+Route::get('/edit-category-product/{category_product_id}', [CategoryProduct::class, 'edit_category_product']);
+Route::get('/delete-category-product/{category_product_id}', [CategoryProduct::class, 'delete_category_product']);
+Route::get('/all-category-product', [CategoryProduct::class, 'all_category_product']);
+
+Route::get('/unactive-category-product/{category_product_id}', [CategoryProduct::class, 'unactive_category_product']);
+Route::get('/active-category-product/{category_product_id}', [CategoryProduct::class, 'active_category_product']);
+
+Route::post('/save-category-product', [CategoryProduct::class, 'save_category_product']);
+Route::post('/update-category-product/{category_product_id}', [CategoryProduct::class, 'update_category_product']);
+
+//trang product-info
+Route::get('/chi-tiet-san-pham/{product_id}', [ProductController::class, 'details_product']);
+//Route::get('/chi-tiet-san-pham/{product_name}/{product_id}', [ProductController::class, 'details_product']);
+//Route::get('/chi-tiet-san-pham/{product_id}', [ProductController::class, 'details_product']);
+
+//brand-product
+Route::get('/add-brand-product', [BrandProduct::class, 'add_brand_product']);
+Route::get('/edit-brand-product/{brand_product_id}', [BrandProduct::class, 'edit_brand_product']);
+Route::get('/delete-brand-product/{brand_product_id}', [BrandProduct::class, 'delete_brand_product']);
+Route::get('/all-brand-product', [BrandProduct::class, 'all_brand_product']);
+
+Route::get('/unactive-brand-product/{brand_product_id}', [BrandProduct::class, 'unactive_brand_product']);
+Route::get('/active-brand-product/{brand_product_id}', [BrandProduct::class, 'active_brand_product']);
+
+Route::post('/save-brand-product', [BrandProduct::class, 'save_brand_product']);
+Route::post('/update-brand-product/{brand_product_id}', [BrandProduct::class, 'update_brand_product']);
+
+//product
+Route::get('/add-product', [ProductController::class, 'add_product']);
+Route::get('/edit-product/{product_id}', [ProductController::class, 'edit_product']);
+Route::get('/delete-product/{product_id}', [ProductController::class, 'delete_product']);
+Route::get('/all-product', [ProductController::class, 'all_product']);
+
+Route::get('/unactive-product/{product_id}', [ProductController::class, 'unactive_product']);
+Route::get('/active-product/{product_id}', [ProductController::class, 'active_product']);
+
+Route::post('/save-product', [ProductController::class, 'save_product']);
+Route::post('/update-product/{product_id}', [ProductController::class, 'update_product']);
+
+Route::get('/all-product/category-product/{category_id}', [ProductController::class, 'all_product_by_category']);
+Route::get('/all-product/brand-product/{brand_id}', [ProductController::class, 'all_product_by_brand']);
+
+Route::get('/all-product/filter-by-date', [ProductController::class, 'filter_by_date'])->name('filterData');    
+
+//cart
+Route::post('/save-cart/{product_id}', [CartController::class, 'save_cart'])->name('cart.save_cart');
+Route::get('/show-cart', [CartController::class, 'show_cart'])->name('cart.show_cart');
+Route::get('/remove/{rowId}', [CartController::class, 'remove'])->name('cart.remove');
+Route::get('/destroy', [CartController::class, 'destroy'])->name('cart.destroy');
+Route::post('/update', [CartController::class, 'update'])->name('cart.update');
+// routes/web.php or routes/api.php
+//Route::post('/update-point', [CartController::class, 'update_point'])->name('cart.update_point');
+
+//checkout
+Route::get('/login-checkout', [CheckoutController::class, 'login_checkout']);
+Route::post('/add-customer', [CheckoutController::class, 'add_customer']);
+Route::get('/checkout', [CheckoutController::class, 'checkout']);
+Route::get('/payment', [CheckoutController::class, 'payment']);
+Route::post('/save-checkout-customer', [CheckoutController::class, 'save_checkout_customer']);
+Route::post('/login-customer', [CheckoutController::class, 'login_customer']);
+Route::post('/login-customer-phone', [CheckoutController::class, 'login_customer_phone']);
+Route::post('/order-place', [CheckoutController::class, 'order_place']);
+Route::get('/logout-checkout', [CheckoutController::class, 'logout_checkout']);
+
+//order
+//Route::get('/manage-order', [OrderController::class, 'manage_order']);
+Route::get('/manage-order', [CheckoutController::class, 'manage_order']);
+Route::get('/view-order/{order_id}', [CheckoutController::class, 'view_order']);
+Route::get('/delete-order/{order_id}', [CheckoutController::class, 'delete_order']);
+
+//send gmail
+// Route::get('/send-mail',[SendMailController::class,'index']);
+Route::get('/send-mail',[SendMailController::class,'sendMail'])->name('mail.send');
+
+//Login facebook
+Route::get('/auth/facebook', [LoginController::class, 'login_facebook']);
+Route::get('/auth/facebook/callback', [LoginController::class, 'callback_facebook']);
+
+//Login google admin
+Route::get('/auth/google', [LoginController::class, 'login_google']);
+Route::get('auth/google/callback', [LoginController::class, 'callback_google']);
+
+// //Login google customer
+// Route::get('/auth/google', [LoginController::class, 'login_google_customer']);
+// Route::get('auth/google/callback', [LoginController::class, 'callback_google_customer']);
+
+//coupon
+Route::post('/check-coupon', [CartController::class, 'check_coupon'])->name('check.coupon');
+Route::get('/insert-coupon', [CouponController::class, 'insert_coupon']);
+Route::get('/list-coupon', [CouponController::class, 'list_coupon']);
+Route::post('/insert-coupon-code', [CouponController::class, 'insert_coupon_code']);
+Route::get('/delete-coupon/{coupon_id}', [CouponController::class, 'delete_coupon']);
+Route::get('/insert-coupon', [CouponController::class, 'unset_coupon'])->name('unset.coupon');
+Route::get('/edit-coupon/{coupon_id}', [CouponController::class, 'edit_coupon']);
+Route::post('/save-coupon', [CouponController::class, 'save_coupon']);
+Route::post('/update-coupon/{coupon_id}', [CouponController::class, 'update_coupon']);
+Route::get('/unactive-coupon/{coupon_id}', [CouponController::class, 'unactive_coupon']);
+Route::get('/active-coupon/{coupon_id}', [CouponController::class, 'active_coupon']);
+
+//blog
+Route::get('/add-blog', [BlogController::class, 'add_blog']);
+Route::get('/all-blog', [BlogController::class, 'all_blog']);
+Route::get('/all-blog-category', [BlogController::class, 'all_blog_category']);
+Route::post('/save-blog', [BlogController::class, 'save_blog']);
+
+Route::get('/unactive-blog/{blog_id}', [BlogController::class, 'unactive_blog']);
+Route::get('/active-blog/{blog_id}', [BlogController::class, 'active_blog']);
+
+Route::get('/add-blog-category', [BlogController::class, 'add_category_blog']);
+Route::get('/edit-category-blog/{blog_category_id}', [BlogController::class, 'edit_category_blog']);
+
+Route::get('/unactive-category-blog/{blog_category_id}', [BlogController::class, 'unactive_category_blog']);
+Route::get('/active-category-blog/{blog_category_id}', [BlogController::class, 'active_category_blog']);
+
+Route::post('/save-category-blog', [BlogController::class, 'save_category_blog']);
+Route::get('/edit-blog/{blog_id}', [BlogController::class, 'edit_blog']);
+Route::post('/update-blog/{blog_id}', [BlogController::class, 'update_blog']);
+Route::get('/delete-blog/{blog_id}', [BlogController::class, 'delete_blog']);
+Route::post('/update-category-blog/{blog_category_id}', [BlogController::class, 'update_category_blog']);
+Route::get('/delete-category-blog/{blog_category_id}', [BlogController::class, 'delete_category_blog']);
+
+Route::get('/chi-tiet-bai-viet/{blog_id}', [BlogController::class, 'show_blog_details']);
+
+//update order status
+Route::get('/edit-order-status/{order_id}', [OrderController::class, 'edit_order_status']);
+Route::post('/save-order-status', [OrderController::class, 'save_order_status']);
+Route::post('/update-order-status/{order_id}', [OrderController::class, 'update_order_status']);
+
+
+
