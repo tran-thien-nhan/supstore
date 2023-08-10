@@ -70,7 +70,7 @@
                 </div>
             </div>
         </div>
-        <div class="fb-comments" data-href="{{ URL::current() }}" data-width="100%" data-numposts="20">
+        <div class="fb-comments" data-href="{{ URL::current() }}" data-width="100%" data-numposts="20"></div>
         </div>
         <hr>
     </div>
