@@ -198,8 +198,23 @@ class ProductController extends Controller
         $detail_product_by_id = DB::table('tbl_product')
             ->join('tbl_category_product', 'tbl_category_product.category_id', '=', 'tbl_product.category_id')
             ->join('tbl_brand', 'tbl_brand.brand_id', '=', 'tbl_product.brand_id')
+            // ->join('tbl_comments', 'tbl_comments.product_id', '=', 'tbl_product.product_id')
             ->where('tbl_product.product_id', $product_id)
             ->get();
+
+        $product = Product::with('comments')->find($product_id);
+
+        $comments_count = Product::with('comments')->find($product_id)->comments->count();
+
+        // Lấy customer_id từ session
+        $customer_id = Session::get('customer_id');
+
+        // Lấy thông tin customer_name từ bảng tbl_customer
+        $customer_name = DB::table('tbl_customer')->where('customer_id', $customer_id)->value('customer_name');
+
+        // Thêm thông tin customer_name vào dữ liệu sản phẩm
+        $product->customer_name = $customer_name;
+
 
         $product_name = $detail_product_by_id->first()->product_name;
 
@@ -243,7 +258,9 @@ class ProductController extends Controller
             ->with('meta_caegory_title', $meta_caegory_title)
             ->with('meta_image', $meta_image)
             ->with('url_canonical', $url_canonical)
-            ->with('blog_category', $blog_category);
+            ->with('blog_category', $blog_category)
+            ->with('product', $product)
+            ->with('comments_count', $comments_count);
         // ;
     }
 

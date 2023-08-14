@@ -2,16 +2,17 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BrandProduct;
+use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CategoryProduct;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\CouponController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CheckoutController;
-use App\Http\Controllers\CouponController;
 use App\Http\Controllers\SendMailController;
 /*
 |--------------------------------------------------------------------------
@@ -184,5 +185,13 @@ Route::get('/edit-order-status/{order_id}', [OrderController::class, 'edit_order
 Route::post('/save-order-status', [OrderController::class, 'save_order_status']);
 Route::post('/update-order-status/{order_id}', [OrderController::class, 'update_order_status']);
 
+//comment
+Route::get('/admin/comments', [CommentController::class, 'index'])->name('admin.comments.index');
+Route::post('/submit-comment', [CommentController::class, 'store'])->name('submit.comment');
+// Route::put('/admin/comments/approve/{id}', [CommentController::class, 'approveComment'])->name('admin.comments.approve');
+// Route::delete('/admin/comments/delete/{id}', [CommentController::class, 'deleteComment'])->name('admin.comments.delete');
+
+Route::get('/approve-comment/{id}', [CommentController::class, 'approveComment'])->name('approve.comment');
+Route::get('/delete-comment/{id}', [CommentController::class, 'deleteComment'])->name('delete.comment');
 
 

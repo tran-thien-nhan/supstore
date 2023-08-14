@@ -20,6 +20,77 @@
     <meta property="og:type" content="website" />
     <!-- End Các thẻ Meta OG -->
     <title>{{ $meta_title }}</title>
+    <style>
+        /* Style for comment form */
+        .comment-form {
+            margin-bottom: 20px;
+        }
+
+        .comment-form form {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .comment-form textarea {
+            width: 100%;
+            height: 100px;
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            resize: none;
+        }
+
+        .comment-form button {
+            background-color: #007bff;
+            color: white;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        /* Style for comment list */
+        .comment-list {
+            border-top: 1px solid #ccc;
+            padding-top: 20px;
+        }
+
+        .comment {
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .comment-content {
+            margin-bottom: 5px;
+        }
+
+        .comment-info {
+            font-size: 12px;
+            color: #777;
+        }
+
+        .comment-author {
+            margin-right: 10px;
+        }
+
+        .comment-date {
+            font-style: italic;
+            margin-bottom: 0rem;
+        }
+
+        /* Additional styles for comment box */
+        .box-product-mini {
+            padding: 15px;
+            border: 1px solid #eee;
+            border-radius: 5px;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+    </style>
 @endsection
 @section('product_content')
     <!-- CSS -->
@@ -27,6 +98,16 @@
     <!-- Default theme -->
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css" />
     {{-- <script src="sweetalert2.min.js"></script> --}}
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
     <div class="container-fluid mt-2">
         <div class="container d-flex justify-content-center">
             @foreach ($detail_product_by_id as $key => $detail_product_by_id)
@@ -111,7 +192,9 @@
 
                     <div class="col-md-6">
                         <h4 style="margin-top: 6rem;">{{ $detail_product_by_id->product_name }}</h4>
-                        <div class="fb-save" data-uri="{{URL::to('/chi-tiet-san-pham/'.$detail_product_by_id->product_id)}}" data-size=""></div>
+                        <div class="fb-save"
+                            data-uri="{{ URL::to('/chi-tiet-san-pham/' . $detail_product_by_id->product_id) }}"
+                            data-size=""></div>
                         <div class="horizon-line"></div>
                         <div class="d-flex">
                             <h4 style="color: red; font-weight: bold; margin-right: 1rem">
@@ -225,8 +308,66 @@
                 {!! $detail_product_by_id->product_content !!}
             </div>
         </div>
-        <div class="fb-comments" data-href="{{ URL::current() }}" data-width="100%" data-numposts="20">
-        </div>
+        {{-- <div class="fb-comments" data-href="{{ URL::current() }}" data-width="100%" data-numposts="20">
+        </div> --}}
+        <span type="button" class="button-cm mt-10 write-rate"
+            style="background: #005696; font-size: 17px; text-align: left; padding: 10px; border: none; color: white">Phần Bình Luận - Có {{$comments_count}} Bình Luận</span>
+        @foreach ($product->comments as $comment)
+            @if ($comment->approved)
+                <div class="box-product-mini index mb-4" id="comment-{{ $comment->comment_id }}">
+                    <div class="row align-items-center">
+                        <div class="col-md-1">
+                            <a href="#" class="image d-block">
+                                <img src="https://www.wheystore.vn/asset/site/images/user.jpg"
+                                    alt="Bình luận của khách {{ $comment->customer->customer_name }}"
+                                    title="Bình luận của khách {{ $comment->customer->customer_name }}"
+                                    class="img-fluid rounded-circle" width="55" height="55">
+                            </a>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="about">
+                                <p class="title d-flex mt-0 mb-0 cm-font">
+                                    <b>
+                                        {{ $comment->customer->customer_name }} -
+                                        {{ substr_replace($comment->customer->customer_phone, 'xxx', -3) }}
+                                    </b>
+                                </p>
+                                <p class="comment-date">
+                                    {{ $comment->created_at->format('Y-m-d H:i:s') }}
+                                </p>
+                                <div class="star" total="5" point="5">
+                                    @for ($i = 1; $i <= 5; $i++)
+                                        @if ($i <= 5)
+                                            <i class="fas fa-star mr-1 text-warning"></i>
+                                        @else
+                                            <i class="far fa-star mr-1 text-warning"></i>
+                                        @endif
+                                    @endfor
+                                </div>
+                                <p class="comment-content">
+                                    {{ $comment->content }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endif
+        @endforeach
+
+        @if (Session::has('customer_id'))
+            <div class="comment-form">
+                <form method="POST" action="{{ route('submit.comment') }}">
+                    @csrf
+                    <input type="hidden" name="product_id" value="{{ $product->product_id }}">
+                    <textarea name="content" placeholder="Enter your comment"></textarea>
+                    <button type="submit">Submit Comment</button>
+                </form>
+            </div>
+        @else
+            <em class="text-primary">Vui Lòng Đăng Nhập Để Nhập Bình Luận.</em>
+            <a href="{{ url('/login-checkout') }}" class="btn btn-success my-2">Login</a>
+        @endif
+
         <hr>
         <h2 class="title text-center">RELATED PRODUCTS</h2>
         <hr>

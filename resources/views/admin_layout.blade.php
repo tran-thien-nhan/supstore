@@ -166,6 +166,15 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                 <li><a href="{{ URL::to('/all-blog') }}">liệt kê bài viết</a></li>
                             </ul>
                         </li>
+                        <li class="sub-menu">
+                            <a href="javascript:;">
+                                <i class="fa fa-book"></i>
+                                <span>Danh Sách Comments</span>
+                            </a>
+                            <ul class="sub">
+                                <li><a href="{{ URL::to('/admin/comments') }}">Quản Lý Comment</a></li>
+                            </ul>
+                        </li>
                     </ul>
                 </div>
                 <!-- sidebar menu end-->
