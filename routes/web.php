@@ -14,6 +14,7 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\SendMailController;
+use App\Http\Controllers\RevenueChartController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -149,7 +150,7 @@ Route::get('/insert-coupon', [CouponController::class, 'insert_coupon']);
 Route::get('/list-coupon', [CouponController::class, 'list_coupon']);
 Route::post('/insert-coupon-code', [CouponController::class, 'insert_coupon_code']);
 Route::get('/delete-coupon/{coupon_id}', [CouponController::class, 'delete_coupon']);
-Route::get('/insert-coupon', [CouponController::class, 'unset_coupon'])->name('unset.coupon');
+Route::get('/unset-coupon', [CouponController::class, 'unset_coupon'])->name('unset.coupon');
 Route::get('/edit-coupon/{coupon_id}', [CouponController::class, 'edit_coupon']);
 Route::post('/save-coupon', [CouponController::class, 'save_coupon']);
 Route::post('/update-coupon/{coupon_id}', [CouponController::class, 'update_coupon']);
@@ -194,4 +195,6 @@ Route::post('/submit-comment', [CommentController::class, 'store'])->name('submi
 Route::get('/approve-comment/{id}', [CommentController::class, 'approveComment'])->name('approve.comment');
 Route::get('/delete-comment/{id}', [CommentController::class, 'deleteComment'])->name('delete.comment');
 
+// chart
+Route::get('/dashboard', [RevenueChartController::class, 'index'])->name('revenue.chart');
 

@@ -159,11 +159,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         <li class="sub-menu">
                             <a href="javascript:;">
                                 <i class="fa fa-book"></i>
-                                <span>bài viết</span>
+                                <span>Bài Viết</span>
                             </a>
                             <ul class="sub">
-                                <li><a href="{{ URL::to('/add-blog') }}">thêm bài viết</a></li>
-                                <li><a href="{{ URL::to('/all-blog') }}">liệt kê bài viết</a></li>
+                                <li><a href="{{ URL::to('/add-blog') }}">Thêm Bài Viết</a></li>
+                                <li><a href="{{ URL::to('/all-blog') }}">Liệt Kê Bài Viết</a></li>
                             </ul>
                         </li>
                         <li class="sub-menu">
@@ -187,13 +187,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 @yield('admin_content')
             </section>
             <!-- footer -->
-            <div class="footer">
+            {{-- <div class="footer">
                 <div class="wthree-copyright">
-                    <p>© 2017 Visitors. All rights reserved | Design by <a href="http://w3layouts.com">W3layouts</a>
-                    </p>
                 </div>
             </div>
-            <!-- / footer -->
+            <!-- / footer --> --}}
         </section>
         <!--main content end-->
     </section>

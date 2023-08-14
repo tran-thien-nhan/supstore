@@ -25,7 +25,7 @@ class CouponController extends Controller
         }
     }
 
-    public function insert_coupon(Request $request)
+    public function insert_coupon()
     {
         return view('admin.coupon.insert_coupon');
     }
@@ -48,7 +48,8 @@ class CouponController extends Controller
             isset($data['coupon_number']) &&
             isset($data['coupon_code']) &&
             isset($data['coupon_time']) &&
-            isset($data['coupon_condition'])
+            isset($data['coupon_condition'])&&
+            isset($data['coupon_status'])
         ) {
             // Khởi tạo đối tượng Coupon
             $coupon = new Coupon();
@@ -57,6 +58,7 @@ class CouponController extends Controller
             $coupon->coupon_code = $data['coupon_code'];
             $coupon->coupon_time = $data['coupon_time'];
             $coupon->coupon_condition = $data['coupon_condition'];
+            $coupon->coupon_status = 0;
 
             // Lưu đối tượng Coupon vào CSDL
             $coupon->save();

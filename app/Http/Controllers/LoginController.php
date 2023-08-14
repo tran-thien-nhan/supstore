@@ -18,53 +18,6 @@ use Laravel\Socialite\Facades\Socialite;
 
 class LoginController extends Controller
 {
-    public function login_facebook()
-    {
-        return Socialite::driver('facebook')->redirect();
-    }
-
-    public function callback_facebook()
-    {
-        $providerUser = Socialite::driver('facebook')->user();
-
-        $account = Social::where('provider', 'facebook')->where('provider_user_id', $providerUser->getId())->first();
-
-        if ($account) {
-            // User already logged in before, log them in
-            $admin = Login::where('admin_id', $account->user)->first();
-
-            Session::put('admin_name', $admin->admin_name);
-            Session::put('admin_id', $admin->admin_id);
-
-            return redirect('/dashboard')->with('message', 'Đăng nhập Admin thành công');
-        } else {
-            // User is logging in for the first time, create an account for them
-            $admin = Login::where('admin_email', $providerUser->getEmail())->first();
-
-            if (!$admin) {
-                $admin = Login::create([
-                    'admin_name' => $providerUser->getName(),
-                    'admin_email' => $providerUser->getEmail(),
-                    'admin_password' => '',
-                    'admin_phone' => '',
-                ]);
-            }
-
-            $account = new Social([
-                'provider_user_id' => $providerUser->getId(),
-                'provider' => 'facebook'
-            ]);
-
-            $account->login()->associate($admin);
-            $account->save();
-
-            Session::put('admin_name', $admin->admin_name);
-            Session::put('admin_id', $admin->admin_id);
-
-            return redirect('/dashboard')->with('message', 'Đăng nhập Admin thành công');
-        }
-    }
-
     public function login_google()
     {
         return Socialite::driver('google')->redirect();
@@ -72,6 +25,23 @@ class LoginController extends Controller
 
     public function callback_google()
     {
+        $dailyRevenue = DB::table('tbl_order')
+            ->select(DB::raw('DATE(created_at) as date'), DB::raw('SUM(order_total) as total'))
+            ->where('order_status', 3)
+            ->groupBy('date')
+            ->get();
+
+        $currentMonth = now()->format('m'); // Lấy tháng hiện tại (định dạng 'mm')
+
+        $totalRevenueCurrentMonth = DB::table('tbl_order')
+            ->where('order_status', 3)
+            ->whereMonth('created_at', $currentMonth)
+            ->sum('order_total');
+
+        $mostPurchasedProduct = DB::table('tbl_product')
+            ->orderBy('product_quantity', 'asc') // Sắp xếp tăng dần theo product_quantity
+            ->first(); // Chọn sản phẩm có product_quantity thấp nhất (MIN)
+
         try {
             $user = Socialite::driver('google')->user();
         } catch (\Exception $e) {
@@ -121,10 +91,12 @@ class LoginController extends Controller
             Auth::login($newAdminUser); // Thay đổi $existingUser thành $newAdminUser
         }
 
-        return view('admin.dashboard'); // Chuyển hướng đến trang sau khi đăng nhập thành công
+        return view('admin.dashboard')
+            ->with('dailyRevenue', $dailyRevenue)
+            ->with('mostPurchasedProduct', $mostPurchasedProduct)
+            ->with('totalRevenueCurrentMonth', $totalRevenueCurrentMonth)
+            ->with('currentMonth', $currentMonth); // Chuyển hướng đến trang sau khi đăng nhập thành công
     }
-
-
 
     public function findOrCreateUser($users, $provider)
     {
@@ -156,91 +128,5 @@ class LoginController extends Controller
 
         // Return the created $account_name (Social) model instead of redirecting to another view
         return $account_name;
-    }
-
-    public function login_google_customer()
-    {
-        return Socialite::driver('google')->redirect();
-    }
-
-    public function callback_google_customer()
-    {
-        try {
-            $user = Socialite::driver('google')->user();
-        } catch (\Exception $e) {
-            return view('pages.checkout.login_checkout');
-        }
-
-        // Kiểm tra xem người dùng đã tồn tại trong CSDL chưa
-        $existingUser = Customer::where('customer_email', $user->getEmail())->first();
-        $account_name = Login1::where('customer_id', $user->getId())->first();
-
-        // Khởi tạo các biến $cate_product và $brand_product trước khi sử dụng
-        $cate_product = [];
-        $brand_product = [];
-
-        if ($account_name) {
-            $cate_product = DB::table('tbl_category_product')
-                ->where('category_status', '0')
-                ->orderBy('category_id', 'desc')
-                ->get();
-
-            $brand_product = DB::table('tbl_brand')
-                ->where('brand_status', '0')
-                ->orderBy('brand_id', 'desc')
-                ->get();
-
-            Session::put('customer_name', $account_name->customer_name);
-            Session::put('customer_id', $account_name->customer_id);
-        }
-
-        if ($existingUser) {
-            $account_name = Login1::where('customer_id', $existingUser->customer_id)->first();
-            Session::put('customer_name', $account_name->customer_name);
-            Session::put('customer_id', $account_name->customer_id);
-            Auth::login($existingUser);
-        } else {
-            // Nếu người dùng chưa tồn tại, bạn có thể tạo một người dùng mới tại đây
-            // Tạo thông tin mới cho bảng tbl_social
-            $newSocialUser = new Social();
-            $newSocialUser->provider_user_id = $user->getId();
-            $newSocialUser->email = $user->getEmail();
-            $newSocialUser->provider = 'google';
-            $newSocialUser->user = $user->getName(); // Mã hóa tên người dùng trước khi lưu vào CSDL
-            $newSocialUser->save();
-
-            // Tạo thông tin mới cho bảng tbl_admin
-            $newCustomerUser = new Customer();
-            $newCustomerUser->customer_id = null; // Bạn cần đặt giá trị phù hợp cho customer_id.
-            $newCustomerUser->customer_name = $user->getName();
-            $newCustomerUser->customer_email = $user->getEmail();
-            $newCustomerUser->customer_password = ''; // Bạn cần cung cấp mật khẩu cho admin hoặc sử dụng mã hóa phù hợp.
-            $newCustomerUser->customer_phone = ''; // Bạn cần cung cấp số điện thoại cho customer.
-            $newCustomerUser->customer_point = 0;
-            $newCustomerUser->created_at = now();
-            $newCustomerUser->updated_at = now();
-            $newCustomerUser->save();
-
-            // Lưu admin_name vào session
-            $cate_product = DB::table('tbl_category_product')
-                ->where('category_status', '0')
-                ->orderBy('category_id', 'desc')
-                ->get();
-
-            $brand_product = DB::table('tbl_brand')
-                ->where('brand_status', '0')
-                ->orderBy('brand_id', 'desc')
-                ->get();
-
-            Session::put('customer_name', $user->getName());
-            Session::put('customer_id', $newCustomerUser->customer_id);
-
-            // Đăng nhập người dùng mới tạo
-            Auth::login($newCustomerUser); // Thay đổi $existingUser thành $newCustomerUser
-        }
-
-        return view('layout')
-            ->with('category', $cate_product)
-            ->with('brand', $brand_product); // Chuyển hướng đến trang sau khi đăng nhập thành công
     }
 }

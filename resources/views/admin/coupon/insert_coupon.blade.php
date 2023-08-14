@@ -12,13 +12,6 @@
                 <header class="panel-heading">
                     thêm mã giảm giá
                 </header>
-                <?php
-                // $message = Session::get('message');
-                // if ($message) {
-                //     echo '<span style="color: red; text-align: center; font-size: 17px; width: 100%; font-weight: bold">' . $message . '</span>';
-                //     Session::put('message', null);
-                // }
-                ?>
                 @if (session('success'))
                     <div class="alert alert-success alert-dismissible">
                         <strong>Success!</strong> {{ session('success') }}
@@ -51,6 +44,14 @@
                             <div class="form-group">
                                 <label for="exampleInputPassword1">nhập số %/ số tiền giảm</label>
                                 <input type="text" class="form-control" name="coupon_number" id="coupon_number">
+                            </div>
+                            <div class="form-group">
+                                <label for="coupon_status">hiển thị</label>
+                                <select name="coupon_status" class="form-control input-sm m-bot15">
+                                    <option value="0" {{ old('coupon_status') == 0 ? 'selected' : '' }}>ẩn</option>
+                                    <option value="1" {{ old('coupon_status') == 1 ? 'selected' : '' }}>hiển thị
+                                    </option>
+                                </select>
                             </div>
                             <button type="submit" name="add_coupon" class="btn btn-info">thêm mã giảm giá</button>
                         </form>
