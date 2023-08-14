@@ -19,7 +19,7 @@ class CommentController extends Controller
 {
     public function index()
     {
-        $comments = Comment::with('customer')->get(); // Eager load the customer relationship
+        $comments = Comment::with(['customer', 'product'])->paginate(5); // Eager load the customer relationship
     
         // Check if customer information exists in session
         $customer_id = Session::get('customer_id');

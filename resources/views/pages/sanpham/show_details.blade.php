@@ -311,7 +311,7 @@
         {{-- <div class="fb-comments" data-href="{{ URL::current() }}" data-width="100%" data-numposts="20">
         </div> --}}
         <span type="button" class="button-cm mt-10 write-rate"
-            style="background: #005696; font-size: 17px; text-align: left; padding: 10px; border: none; color: white">Phần Bình Luận - Có {{$comments_count}} Bình Luận</span>
+            style="background: #005696; font-size: 17px; text-align: left; padding: 10px; border: none; color: white">Phần Bình Luận ({{$comments_count}})</span>
         @foreach ($product->comments as $comment)
             @if ($comment->approved)
                 <div class="box-product-mini index mb-4" id="comment-{{ $comment->comment_id }}">

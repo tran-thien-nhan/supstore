@@ -15,7 +15,7 @@ class Comment extends Model
     protected $primaryKey = 'comment_id'; // Đặt tên khóa chính
     public function product()
     {
-        return $this->belongsTo(Product::class);
+        return $this->belongsTo(Product::class, 'product_id');
     }
     public function customer()
     {

@@ -20,10 +20,11 @@
                                         <input type="checkbox"><i></i>
                                     </label>
                                 </th>
-                                <th>comment id</th>
-                                <th>product id</th>
+                                <th>product ID</th>
+                                <th>product name</th>
                                 <th>customer id</th>
-                                <th>nội dung content</th>
+                                <th>customer name</th>
+                                <th>nội dung bình luận</th>
                                 <th>Trạng thái</th>
                                 <th style="width:30px;"></th>
                             </tr>
@@ -32,11 +33,11 @@
                             @foreach ($comments as $comment)
                                 <tr>
                                     <td><label class="i-checks m-b-none"><input type="checkbox"
-                                                name="post[]"><i></i></label>
-                                    </td>
-                                    <td>{{ $comment->comment_id }}</td>
+                                                name="post[]"><i></i></label></td>
                                     <td>{{ $comment->product_id }}</td>
+                                    <td>{{ $comment->product->product_name }}</td>
                                     <td>{{ $comment->customer_id }}</td>
+                                    <td>{{ $comment->customer->customer_name }}</td>
                                     <td>{{ $comment->content }}</td>
                                     <td>
                                         @if ($comment->approved)
@@ -55,11 +56,11 @@
                                             class="active styling-delete" ui-toggle-class="">
                                             <i class="fa fa-trash text-danger text"></i>
                                         </a>
-                                        
                                     </td>
                                 </tr>
                             @endforeach
                         </tbody>
+
                     </table>
 
                 </div>
@@ -69,7 +70,7 @@
                             <small class="text-muted inline m-t-sm m-b-sm">showing 20-30 of 50 items</small>
                         </div>
                         <div class="col-sm-7 text-right text-center-xs">
-                            {{-- {{ $comments->links() }} --}}
+                            {{ $comments->links() }}
                         </div>
                     </div>
                 </footer>
