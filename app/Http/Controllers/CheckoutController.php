@@ -291,9 +291,10 @@ class CheckoutController extends Controller
         $customer_email = $customer->customer_email;
         $customer_name = $customer->customer_name;
         Mail::send('pages.mail.order_confirmation', $order_data, function ($message) use ($customer_email, $customer_name) {
-            $message->to($customer_email, $customer_name)->subject('Xác nhận đơn hàng'); // Gửi email với tiêu đề
-            $message->from('pipclup28061997@gmail.com', 'Axe & Sledge Supplement'); // Gửi từ địa chỉ email này
+            $message->to($customer_email, $customer_name)->subject('Xác nhận đơn hàng');
+            $message->from(config('mail.from.address'), config('mail.from.name'));
         });
+
 
         if ($data['payment_method'] == 1) {
             echo 'thanh toán bằng thẻ ATM';
