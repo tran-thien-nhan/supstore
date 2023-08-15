@@ -16,6 +16,7 @@ return new class extends Migration
             $table->text('blog_category_name');
             $table->text('blog_category_desc');
             $table->integer('blog_category_status');
+            $table->text('meta_keywords');
             $table->timestamps();
         });
     }

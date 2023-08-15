@@ -14,8 +14,9 @@ return new class extends Migration
         Schema::create('tbl_social', function (Blueprint $table) {
             $table->id('user_id');
             $table->string('provider_user_id');
+            $table->text('email');
             $table->string('provider');
-            $table->integer('user');
+            $table->string('user');
             $table->timestamps();
         });
     }

@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('tbl_category_product', function (Blueprint $table) {
             $table->id('category_id');
             $table->string('category_name');
+            $table->text('meta_keywords');
             $table->text('category_desc');
             $table->integer('category_status');
             $table->timestamps();

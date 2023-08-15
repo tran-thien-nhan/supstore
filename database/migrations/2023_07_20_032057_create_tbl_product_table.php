@@ -18,11 +18,12 @@ return new class extends Migration
             $table->string('product_name');
             $table->integer('product_quantity');
             $table->text('product_desc');
-            $table->text('product_content');
+            $table->longText('product_content');
             $table->string('product_price');
             $table->integer('product_discount');
             $table->string('product_image');
             $table->string('product_flavour');
+            $table->float('product_point');
             $table->integer('product_status');
             $table->timestamps();
         });

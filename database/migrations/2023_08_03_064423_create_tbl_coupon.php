@@ -18,6 +18,7 @@ return new class extends Migration
             $table->integer('coupon_condition');
             $table->integer('coupon_number');
             $table->string('coupon_code');
+            $table->integer('coupon_status');
             $table->timestamps();
         });
     }

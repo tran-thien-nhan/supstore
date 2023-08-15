@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('customer_email');
             $table->string('customer_password');
             $table->string('customer_phone');
+            $table->float('customer_point');
             $table->timestamps();
         });
     }
