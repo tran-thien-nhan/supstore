@@ -1,3 +1,8 @@
+0.
+vào phpmyadmin tạo 1 database mới tên là "supstore"
+lấy file supstore(2).sql được gửi vào phpmyadmin nạp vào, hướng dẫn cách nạp theo link sau:
+https://longvan.net/cong-dong/huong-dan-import-export-database-trong-phpmyadmin/?gidzl=tkXcU0pJrqVS_cH_0C_MIDtyP7uMpTOMnwzdBXlAXXNA_JLw7Po75yYeOoeVc8D2d_vWV3db0u8E2TlMGm
+
 1.
 git clone https://github.com/tran-thien-nhan/supstore.git
 
