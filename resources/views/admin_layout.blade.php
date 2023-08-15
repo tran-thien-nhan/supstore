@@ -100,10 +100,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         <li class="sub-menu">
                             <a href="javascript:;">
                                 <i class="fa fa-book"></i>
-                                <span>đơn hàng</span>
+                                <span>Đơn Hàng</span>
                             </a>
                             <ul class="sub">
-                                <li><a href="{{ URL::to('/manage-order') }}">quản lý đơn hàng</a></li>
+                                <li><a href="{{ URL::to('/manage-order') }}">Quản Lý Đơn Hàng</a></li>
                             </ul>
                         </li>
                         <li class="sub-menu">
@@ -112,48 +112,48 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                 <span>Quản Lý Mã Gỉảm Gía</span>
                             </a>
                             <ul class="sub">
-                                <li><a href="{{ URL::to('/insert-coupon') }}">thêm mã Gỉảm Gía</a></li>
-                                <li><a href="{{ URL::to('/list-coupon') }}">danh sách mã Gỉảm Gía</a></li>
+                                <li><a href="{{ URL::to('/insert-coupon') }}">Thêm Mã Gỉảm Gía</a></li>
+                                <li><a href="{{ URL::to('/list-coupon') }}">Danh Sách Mã Gỉảm Gía</a></li>
                             </ul>
                         </li>
                         <li class="sub-menu">
                             <a href="javascript:;">
                                 <i class="fa fa-book"></i>
-                                <span>danh mục sản phẩm</span>
+                                <span>Danh Mục Sản Phẩm</span>
                             </a>
                             <ul class="sub">
-                                <li><a href="{{ URL::to('/add-category-product') }}">thêm danh mục sản phẩm</a></li>
-                                <li><a href="{{ URL::to('/all-category-product') }}">liệt kê danh mục sản phẩm</a></li>
+                                <li><a href="{{ URL::to('/add-category-product') }}">Thêm Danh Mục Sản Phẩm</a></li>
+                                <li><a href="{{ URL::to('/all-category-product') }}">Liệt Kê Danh Mục Sản Phẩm</a></li>
                             </ul>
                         </li>
                         <li class="sub-menu">
                             <a href="javascript:;">
                                 <i class="fa fa-book"></i>
-                                <span>thương hiệu sản phẩm</span>
+                                <span>Thương Hiệu Sản Phẩm</span>
                             </a>
                             <ul class="sub">
-                                <li><a href="{{ URL::to('/add-brand-product') }}">thêm thương hiệu sản phẩm</a></li>
-                                <li><a href="{{ URL::to('/all-brand-product') }}">liệt kê thương hiệu sản phẩm</a></li>
+                                <li><a href="{{ URL::to('/add-brand-product') }}">Thêm Thương Hiệu Sản Phẩm</a></li>
+                                <li><a href="{{ URL::to('/all-brand-product') }}">Liệt Kê Thương Hiệu Sản Phẩm</a></li>
                             </ul>
                         </li>
                         <li class="sub-menu">
                             <a href="javascript:;">
                                 <i class="fa fa-book"></i>
-                                <span>sản phẩm</span>
+                                <span>Sản Phẩm</span>
                             </a>
                             <ul class="sub">
-                                <li><a href="{{ URL::to('/add-product') }}">thêm sản phẩm</a></li>
-                                <li><a href="{{ URL::to('/all-product') }}">liệt kê sản phẩm</a></li>
+                                <li><a href="{{ URL::to('/add-product') }}">Thêm Sản Phẩm</a></li>
+                                <li><a href="{{ URL::to('/all-product') }}">Liệt Kê Sản Phẩm</a></li>
                             </ul>
                         </li>
                         <li class="sub-menu">
                             <a href="javascript:;">
                                 <i class="fa fa-book"></i>
-                                <span>danh mục bài viết</span>
+                                <span>Danh Mục Bài Viết</span>
                             </a>
                             <ul class="sub">
-                                <li><a href="{{ URL::to('/add-blog-category') }}">thêm danh mục bài viết</a></li>
-                                <li><a href="{{ URL::to('/all-blog-category') }}">liệt kê danh mục bài viết</a></li>
+                                <li><a href="{{ URL::to('/add-blog-category') }}">Thêm Danh Mục Bài Viết</a></li>
+                                <li><a href="{{ URL::to('/all-blog-category') }}">Liệt Kê Danh Mục Bài Viết</a></li>
                             </ul>
                         </li>
                         <li class="sub-menu">
