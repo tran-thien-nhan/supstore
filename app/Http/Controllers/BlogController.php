@@ -73,6 +73,7 @@ class BlogController extends Controller
         $data['pre_blog_content'] = $request->pre_blog_content;
         $data['blog_content'] = $request->blog_content;
         $data['blog_category_id'] = $request->blog_cate;
+        $data['blog_status'] = 0;
         $get_image = $request->file('blog_thumbnail');
 
         if ($get_image) {

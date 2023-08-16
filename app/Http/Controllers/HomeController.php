@@ -5,9 +5,10 @@ namespace App\Http\Controllers;
 use App\Http\Requests;
 
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Session;
 use App\Models\Customer;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\DB; // Import DB facade
 
@@ -98,6 +99,42 @@ class HomeController extends Controller
             ->with('brand', $brand_product)
             ->with('customer', $customer)
             ->with('blog_category', $blog_category);
+    }
+
+    public function updateCustomer(Request $request, $customerId)
+    {
+        $request->validate([
+            'customer_name' => 'nullable|string|max:255|unique:tbl_customer,customer_name,' . $customerId . ',customer_id',
+            'customer_email' => 'nullable|email|unique:tbl_customer,customer_email,' . $customerId . ',customer_id',
+            'customer_phone' => 'nullable|string|max:15|unique:tbl_customer,customer_phone,' . $customerId . ',customer_id',
+            'customer_password' => 'nullable|string|min:5|unique:tbl_customer,customer_password,' . $customerId . ',customer_id',
+        ], [
+            'required' => ':attribute bắt buộc nhập.',
+            'min' => ':attribute phải chứa ít nhất :min ký tự.',
+            'max' => ':attribute không được vượt quá :max ký tự.',
+            'email' => 'phải đúng định dạng email.',
+            'unique' => 'đã tồn tại, vui lòng nhập giá trị khác.',
+        ]);
+
+        $blog_category = DB::table('tbl_category_blog')->get();
+        $cate_product = DB::table('tbl_category_product')->where('category_status', '0')->orderBy('category_id', 'desc')->get();
+        $brand_product = DB::table('tbl_brand')->where('brand_status', '0')->orderBy('brand_id', 'desc')->get();
+
+        $customer = Customer::findOrFail($customerId);
+
+        // Update other fields
+        $customer->update([
+            'customer_name' => $request->input('customer_name'),
+            'customer_email' => $request->input('customer_email'),
+            'customer_phone' => $request->input('customer_phone'),
+            'customer_password' => md5($request->input('customer_password')),
+        ]);
+
+        return view('pages.customer_information', compact('customer'))
+            ->with('blog_category', $blog_category)
+            ->with('category', $cate_product)
+            ->with('brand', $brand_product)
+            ->with('success', 'Customer information updated successfully.');
     }
 
     public function cart_history()

@@ -174,22 +174,47 @@ class CheckoutController extends Controller
         // Insert order table: tbl_order
         $total = str_replace(',', '', Cart::total());
         $order_data = array();
+        $coupon_time = 0;
         $order_data['customer_id'] = Session::get('customer_id');
         $order_data['shipping_id'] = Session::get('shipping_id');
         $order_data['payment_id'] = $payment_id;
 
         $order_total = $total; // Tạo biến mới để lưu trữ giá trị order_total
-        $coupons = Session::get('coupon'); // Đổi tên biến để tránh trùng lặp với biến $coupon
+        $coupons = Session::get('coupon');
 
         if ($coupons) {
-            foreach ($coupons as $key => &$cou) { // Lưu ý dấu & để trỏ đến tham chiếu của mảng
+            foreach ($coupons as $key => $cou) {
                 if (isset($cou['coupon_condition'])) {
                     if ($cou['coupon_condition'] == 1) {
                         $coupon_discount = ($total * $cou['coupon_number']) / 100;
-                        $order_total -= $coupon_discount; // Giảm giá từ coupon
+                        $order_total -= $coupon_discount;
+
+                        $coupon_data = $cou;
+                        $coupon_id = $coupon_data['coupon_id'];
+                        $coupon = DB::table('tbl_coupon')
+                            ->where('coupon_id', $coupon_id)
+                            ->first();
+                        if ($coupon) {
+                            $new_coupon_time = $coupon->coupon_time - 1;
+                            DB::table('tbl_coupon')
+                                ->where('coupon_id', $coupon_id)
+                                ->update(['coupon_time' => $new_coupon_time]);
+                        }
                     } elseif ($cou['coupon_condition'] == 2) {
                         $coupon_discount = $cou['coupon_number'];
-                        $order_total -= $coupon_discount; // Giảm giá từ coupon
+                        $order_total -= $coupon_discount;
+
+                        $coupon_data = $cou;
+                        $coupon_id = $coupon_data['coupon_id'];
+                        $coupon = DB::table('tbl_coupon')
+                            ->where('coupon_id', $coupon_id)
+                            ->first();
+                        if ($coupon) {
+                            $new_coupon_time = $coupon->coupon_time - 1;
+                            DB::table('tbl_coupon')
+                                ->where('coupon_id', $coupon_id)
+                                ->update(['coupon_time' => $new_coupon_time]);
+                        }
                     }
                 }
             }
@@ -197,26 +222,6 @@ class CheckoutController extends Controller
 
         $order_data['order_total'] = $order_total;
         $order_data['order_status'] = 1;
-
-        // Check if the update_point checkbox is checked
-        if ($request->has('update_point')) {
-            // Get the customer's total points
-            $customer_id = Session::get('customer_id');
-            $customer = Customer::find($customer_id);
-            $customer_total_point = $customer->customer_point ?? 0; // Default value is 0
-
-            // Calculate the total points in currency value (points * 1000)
-            $point_value = $customer_total_point * 1000;
-
-            // Update the order total by deducting the points value
-            $order_data['order_total'] -= $point_value;
-
-            // Reset the customer's points to 0
-            if ($customer) {
-                $customer->customer_point = 0;
-                $customer->save();
-            }
-        }
 
         // Insert the order into the tbl_order table
         $order_id = DB::table('tbl_order')->insertGetId($order_data);

@@ -40,6 +40,8 @@ Route::get('/', [HomeController::class, 'index']);
 Route::get('/trang-chu', [HomeController::class, 'index']);
 Route::post('/tim-kiem', [HomeController::class, 'search']);
 Route::get('/customer-information', [HomeController::class, 'customer_information']);
+Route::put('/update-customer/{customerId}', [HomeController::class, 'updateCustomer'])->name('update_customer');
+Route::put('/update-customer-password/{customerId}', [HomeController::class, 'updateCustomerPassword'])->name('update_customer_password');
 Route::get('/cart-history', [HomeController::class, 'cart_history']);
 
 // danh mục sản phẩm trang chủ

@@ -20,7 +20,7 @@
                 </div>
                 <canvas id="revenueChart"></canvas>
                 <hr>
-                <h3 class="text-center">MONTHLY REGISTRATION RATE</h3>
+                <h3 class="text-center">MONTHLY REGISTRATION RATE IN {{ $currentYear }}</h3>
                 <canvas id="registrationsChart"></canvas>
                 <hr>
                 <h3 class="text-center">MONTHLY REVENUE IN {{ $currentYear }}</h3>

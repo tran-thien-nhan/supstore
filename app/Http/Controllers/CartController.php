@@ -58,13 +58,16 @@ class CartController extends Controller
         $cate_product = DB::table('tbl_category_product')->where('category_status', '0')->orderBy('category_id', 'desc')->get();
         $brand_product = DB::table('tbl_brand')->where('brand_status', '0')->orderBy('brand_id', 'desc')->get();
         $customer_id = Session::get('customer_id');
+        $coupon_id = Session::get('coupon_id');
 
         // Assuming you have a method to fetch the customer data by ID (e.g., using Eloquent ORM in Laravel)
         $customer = Customer::find($customer_id);
+        $coupon = Customer::find($coupon_id);
         return view('pages.cart.show_cart')
             ->with('category', $cate_product)
             ->with('brand', $brand_product)
             ->with('customer', $customer)
+            ->with('coupon', $coupon)
             ->with('blog_category', $blog_category);
     }
 
@@ -101,11 +104,14 @@ class CartController extends Controller
             if ($count_coupon > 0) {
                 $coupon_session = Session::get('coupon');
 
-                if (!$coupon_session && $coupon->coupon_status == 0) {
+                if (!$coupon_session && $coupon->coupon_status == 0 && $coupon->coupon_time >= 0) {
                     $coupon_data = [
+                        'coupon_id' => $coupon->coupon_id,
+                        'coupon_name' => $coupon->coupon_name,
                         'coupon_code' => $coupon->coupon_code,
                         'coupon_condition' => $coupon->coupon_condition,
                         'coupon_number' => $coupon->coupon_number,
+                        'coupon_time' => $coupon->coupon_time,
                     ];
 
                     Session::put('coupon', [$coupon_data]);
@@ -114,7 +120,7 @@ class CartController extends Controller
                     return redirect()->back()->with('success', 'Thêm mã giảm giá thành công.');
                 }
             }
-        } 
+        }
         return redirect()->back()->with('error', 'không thể thêm mã giảm giá.');
     }
 }

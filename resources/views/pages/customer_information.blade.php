@@ -45,5 +45,74 @@
                 </tr>
             </tbody>
         </table>
+
+        <!-- Button to trigger the modal -->
+        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#updateModal">
+            Update Information
+        </button>
+
+        <!-- Modal for updating customer information -->
+        <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="updateModalLabel">Update Customer Information</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form action="{{ route('update_customer', $customer->customer_id) }}" method="POST">
+                        @csrf
+                        @method('PUT')
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="customer_name">Name:</label>
+                                <input type="text" class="form-control" id="customer_name" name="customer_name"
+                                    value="{{ $customer->customer_name }}">
+                                @error('customer_name')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label for="customer_email">Email:</label>
+                                <input type="email" class="form-control" id="customer_email" name="customer_email"
+                                    value="{{ $customer->customer_email }}">
+                                @error('customer_email')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label for="customer_phone">Phone:</label>
+                                <input type="tel" class="form-control" id="customer_phone" name="customer_phone"
+                                    value="{{ $customer->customer_phone }}">
+                                @error('customer_phone')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label for="customer_password">Password:</label>
+                                <input type="password" class="form-control" id="customer_password" name="customer_password"
+                                    value="{{ $customer->customer_password }}">
+                                @error('customer_password')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Update</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const passwordInput = document.getElementById('customer_password');
+            const passwordValue = passwordInput.value;
+    
+            if (passwordValue.length > 1) {
+                passwordInput.value = '**********';
+            }
+        });
+    </script>
 @endsection
