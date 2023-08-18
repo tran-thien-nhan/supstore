@@ -107,7 +107,7 @@ class HomeController extends Controller
             'customer_name' => 'nullable|string|max:255|unique:tbl_customer,customer_name,' . $customerId . ',customer_id',
             'customer_email' => 'nullable|email|unique:tbl_customer,customer_email,' . $customerId . ',customer_id',
             'customer_phone' => 'nullable|string|max:15|unique:tbl_customer,customer_phone,' . $customerId . ',customer_id',
-            'customer_password' => 'nullable|string|min:5|unique:tbl_customer,customer_password,' . $customerId . ',customer_id',
+            'customer_address' => 'nullable|string|max:255|unique:tbl_customer,customer_address,' . $customerId . ',customer_id',
         ], [
             'required' => ':attribute bắt buộc nhập.',
             'min' => ':attribute phải chứa ít nhất :min ký tự.',
@@ -127,7 +127,7 @@ class HomeController extends Controller
             'customer_name' => $request->input('customer_name'),
             'customer_email' => $request->input('customer_email'),
             'customer_phone' => $request->input('customer_phone'),
-            'customer_password' => md5($request->input('customer_password')),
+            'customer_address' => $request->input('customer_address'),
         ]);
 
         return view('pages.customer_information', compact('customer'))
@@ -136,6 +136,50 @@ class HomeController extends Controller
             ->with('brand', $brand_product)
             ->with('success', 'Customer information updated successfully.');
     }
+
+
+    public function showChangePasswordForm()
+    {
+        $blog_category = DB::table('tbl_category_blog')->get();
+        $cate_product = DB::table('tbl_category_product')->where('category_status', '0')->orderBy('category_id', 'desc')->get();
+        $brand_product = DB::table('tbl_brand')->where('brand_status', '0')->orderBy('brand_id', 'desc')->get();
+
+        $customer_id = Session::get('customer_id');
+        $customer = Customer::find($customer_id);
+
+        return view('pages.change_password', [
+            'blog_category' => $blog_category,
+            'category' => $cate_product,
+            'brand' => $brand_product,
+            'customer' => $customer, // Truyền biến customer vào view
+        ]);
+    }
+
+
+    public function changePassword(Request $request, $customer_id)
+    {
+        $this->validate($request, [
+            'new_password' => 'required|min:5|confirmed',
+        ]);
+
+        $customer = Customer::find($customer_id);
+
+        if (!$customer) {
+            return redirect()
+                ->route('change_password')
+                ->with('error', 'Không tìm thấy thông tin khách hàng.');
+        }
+
+        // Update customer's password using md5()
+        $customer->update([
+            'customer_password' => md5($request->input('new_password')),
+        ]);
+
+        return redirect()
+            ->route('change_password')
+            ->with('success', 'Mật khẩu đã được cập nhật thành công.');
+    }
+
 
     public function cart_history()
     {

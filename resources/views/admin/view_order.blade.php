@@ -17,6 +17,7 @@
                             <tr>
                                 <th>tên người đặt</th>
                                 <th>số điện thoại</th>
+                                <th>địa chỉ</th>
                                 <th style="width:30px;"></th>
                             </tr>
                         </thead>
@@ -24,6 +25,7 @@
                             <tr>
                                 <td>{{ $order_by_id->customer_name }}</td>
                                 <td>{{ $order_by_id->customer_phone }}</td>
+                                <td>{{ $order_by_id->customer_address }}</td>
                             </tr>
                         </tbody>
                     </table>

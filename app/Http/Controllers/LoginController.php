@@ -119,6 +119,25 @@ class LoginController extends Controller
             Session::put('admin_name', $account_name->admin_name);
             Session::put('admin_id', $account_name->admin_id);
             Auth::login($existingUser);
+            $role_value = $existingUser->role_value;
+
+            if ($role_value == 1) {
+                return view('admin.dashboard')
+                    ->with('dailyRevenue', $dailyRevenue)
+                    ->with('currentMonth', $currentMonth)
+                    ->with('totalRevenueCurrentMonth', $totalRevenueCurrentMonth)
+                    ->with('mostPurchasedProduct', $mostPurchasedProduct)
+                    ->with('customerRegistrations', $customerRegistrations)
+                    ->with('customerRegistrationLabels', $customerRegistrationLabels)
+                    ->with('customerRegistrationData', $customerRegistrationData)
+                    ->with('topCustomers', $topCustomers)
+                    ->with('topProducts', $topProducts)
+                    ->with('monthlyRevenue', $monthlyRevenue)
+                    ->with('monthlyData', $monthlyData)
+                    ->with('currentYear', $currentYear);
+            } elseif ($role_value == 2) {
+                return Redirect::to('/manage-order');
+            }
         } else {
             // Nếu người dùng chưa tồn tại, bạn có thể tạo một người dùng mới tại đây
             // Tạo thông tin mới cho bảng tbl_social

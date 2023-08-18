@@ -4,6 +4,14 @@ Author URL: http://w3layouts.com
 License: Creative Commons Attribution 3.0 Unported
 License URL: http://creativecommons.org/licenses/by/3.0/
 -->
+@php
+    // Lấy thông tin người dùng đang đăng nhập từ cơ sở dữ liệu
+    $loggedInUserId = Auth::id(); // Lấy ID của người dùng đang đăng nhập
+    $adminRole = DB::table('tbl_admin')
+        ->where('admin_id', $loggedInUserId)
+        ->value('role_value');
+@endphp
+
 <!DOCTYPE html>
 
 <head>
@@ -43,9 +51,15 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         <header class="header fixed-top clearfix">
             <!--logo start-->
             <div class="brand">
-                <a href="{{ URL::to('/dashboard') }}" class="logo">
-                    ADMIN
-                </a>
+                @if ($adminRole == 1)
+                    <a href="{{ URL::to('/dashboard') }}" class="logo">
+                        ADMIN
+                    </a>
+                @elseif ($adminRole == 2)
+                    <a href="{{ URL::to('/manage-order') }}" class="logo">
+                        ADMIN
+                    </a>
+                @endif
                 <div class="sidebar-toggle-box">
                     <div class="fa fa-bars"></div>
                 </div>
@@ -53,7 +67,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             <!--logo end-->
             <div class="top-nav clearfix">
                 <!--search & user info start-->
-                
+
                 <ul class="nav pull-right top-menu">
                     <li>
                         <input type="text" class="form-control search" placeholder=" Search">
@@ -91,13 +105,14 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 <!-- sidebar menu start-->
                 <div class="leftside-navigation">
                     <ul class="sidebar-menu" id="nav-accordion">
-                        <li>
+                        <li class="sub-menu {{ $adminRole != 1 ? 'hidden' : '' }}">
                             <a class="active" href="{{ URL::to('/dashboard') }}">
                                 <i class="fa fa-dashboard"></i>
                                 <span>Dashboard</span>
                             </a>
                         </li>
-                        <li class="sub-menu">
+                        {{-- <li class="sub-menu {{ $adminRole != 1 && $adminRole != 2 ? 'hidden' : '' }}"> --}}
+                        <li class="sub-menu {{ $adminRole != 1 ? 'hidden' : '' }}">
                             <a href="javascript:;">
                                 <i class="fa fa-book"></i>
                                 <span>Đơn Hàng</span>
@@ -106,7 +121,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                 <li><a href="{{ URL::to('/manage-order') }}">Quản Lý Đơn Hàng</a></li>
                             </ul>
                         </li>
-                        <li class="sub-menu">
+                        <li class="sub-menu {{ $adminRole != 1 ? 'hidden' : '' }}">
                             <a href="javascript:;">
                                 <i class="fa fa-book"></i>
                                 <span>Quản Lý Mã Gỉảm Gía</span>
@@ -116,27 +131,31 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                 <li><a href="{{ URL::to('/list-coupon') }}">Danh Sách Mã Gỉảm Gía</a></li>
                             </ul>
                         </li>
-                        <li class="sub-menu">
+                        <li class="sub-menu {{ $adminRole != 1 ? 'hidden' : '' }}">
                             <a href="javascript:;">
                                 <i class="fa fa-book"></i>
                                 <span>Danh Mục Sản Phẩm</span>
                             </a>
                             <ul class="sub">
-                                <li><a href="{{ URL::to('/add-category-product') }}">Thêm Danh Mục Sản Phẩm</a></li>
-                                <li><a href="{{ URL::to('/all-category-product') }}">Liệt Kê Danh Mục Sản Phẩm</a></li>
+                                <li><a href="{{ URL::to('/add-category-product') }}">Thêm Danh Mục Sản Phẩm</a>
+                                </li>
+                                <li><a href="{{ URL::to('/all-category-product') }}">Liệt Kê Danh Mục Sản Phẩm</a>
+                                </li>
                             </ul>
                         </li>
-                        <li class="sub-menu">
+                        <li class="sub-menu {{ $adminRole != 1 ? 'hidden' : '' }}">
                             <a href="javascript:;">
                                 <i class="fa fa-book"></i>
                                 <span>Thương Hiệu Sản Phẩm</span>
                             </a>
                             <ul class="sub">
-                                <li><a href="{{ URL::to('/add-brand-product') }}">Thêm Thương Hiệu Sản Phẩm</a></li>
-                                <li><a href="{{ URL::to('/all-brand-product') }}">Liệt Kê Thương Hiệu Sản Phẩm</a></li>
+                                <li><a href="{{ URL::to('/add-brand-product') }}">Thêm Thương Hiệu Sản Phẩm</a>
+                                </li>
+                                <li><a href="{{ URL::to('/all-brand-product') }}">Liệt Kê Thương Hiệu Sản Phẩm</a>
+                                </li>
                             </ul>
                         </li>
-                        <li class="sub-menu">
+                        <li class="sub-menu {{ $adminRole != 1 ? 'hidden' : '' }}">
                             <a href="javascript:;">
                                 <i class="fa fa-book"></i>
                                 <span>Sản Phẩm</span>
@@ -146,17 +165,18 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                 <li><a href="{{ URL::to('/all-product') }}">Liệt Kê Sản Phẩm</a></li>
                             </ul>
                         </li>
-                        <li class="sub-menu">
+                        <li class="sub-menu {{ $adminRole != 1 ? 'hidden' : '' }}">
                             <a href="javascript:;">
                                 <i class="fa fa-book"></i>
                                 <span>Danh Mục Bài Viết</span>
                             </a>
                             <ul class="sub">
                                 <li><a href="{{ URL::to('/add-blog-category') }}">Thêm Danh Mục Bài Viết</a></li>
-                                <li><a href="{{ URL::to('/all-blog-category') }}">Liệt Kê Danh Mục Bài Viết</a></li>
+                                <li><a href="{{ URL::to('/all-blog-category') }}">Liệt Kê Danh Mục Bài Viết</a>
+                                </li>
                             </ul>
                         </li>
-                        <li class="sub-menu">
+                        <li class="sub-menu {{ $adminRole != 1 ? 'hidden' : '' }}">
                             <a href="javascript:;">
                                 <i class="fa fa-book"></i>
                                 <span>Bài Viết</span>
@@ -166,7 +186,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                 <li><a href="{{ URL::to('/all-blog') }}">Liệt Kê Bài Viết</a></li>
                             </ul>
                         </li>
-                        <li class="sub-menu">
+                        <li class="sub-menu {{ $adminRole != 1 ? 'hidden' : '' }}">
                             <a href="javascript:;">
                                 <i class="fa fa-book"></i>
                                 <span>Danh Sách Comments</span>

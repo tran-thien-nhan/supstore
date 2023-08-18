@@ -17,37 +17,20 @@
                         <strong>Error!</strong> {{ session('error') }}
                     </div>
                 @endif
-
-                <div class="row w3-res-tb">
-                    <div class="col-sm-5 m-b-xs">
-                        <select class="input-sm form-control w-sm inline v-middle">
-                            <option value="0">Bulk action</option>
-                            <option value="1">Delete selected</option>
-                            <option value="2">Bulk edit</option>
-                            <option value="3">Export</option>
-                        </select>
-                        <button class="btn btn-sm btn-default">Apply</button>
-                    </div>
-                    <div class="col-sm-4">
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="input-group">
-                            <input type="text" class="input-sm form-control" placeholder="Search">
-                            <span class="input-group-btn">
-                                <button class="btn btn-sm btn-default" type="button">Go!</button>
-                            </span>
-                        </div>
-                    </div>
-                </div>
+                <br>
                 <div style="margin-left: 1rem; margin-bottom:1rem">
                     total: {{ $count_order }} đơn hàng
                 </div>
                 <div style="margin-left: 1rem">
-                    <span class="badge bg-dark" style= margin-right:1rem">{{ $count_orderst_1 }} đơn đang xử lý</span>
-                    <span class="badge bg-info" style="margin-right:1rem; color: white">{{ $count_orderst_2 }} đơn đang giao</span>
-                    <span class="badge bg-success" style="margin-right:1rem; color: white">{{ $count_orderst_3 }} đơn giao thành công</span>
-                    <span class="badge bg-warning" style="margin-right:1rem; color: white">{{ $count_orderst_4 }} đơn trả</span>
-                    <span class="badge bg-danger" style="margin-right:1rem; color: white">{{ $count_orderst_5 }} đơn hủy</span>
+                    <span class="badge bg-dark" style=margin-right:1rem">{{ $count_orderst_1 }} đơn đang xử lý</span>
+                    <span class="badge bg-info" style="margin-right:1rem; color: white">{{ $count_orderst_2 }} đơn đang
+                        giao</span>
+                    <span class="badge bg-success" style="margin-right:1rem; color: white">{{ $count_orderst_3 }} đơn giao
+                        thành công</span>
+                    <span class="badge bg-warning" style="margin-right:1rem; color: white">{{ $count_orderst_4 }} đơn
+                        trả</span>
+                    <span class="badge bg-danger" style="margin-right:1rem; color: white">{{ $count_orderst_5 }} đơn
+                        hủy</span>
                 </div>
                 <div class="table-responsive">
                     <table class="table table-striped b-t b-light">
@@ -90,7 +73,7 @@
                                         @else
                                             <span class="badge bg-secondary">Đơn hàng không tồn tại</span>
                                         @endif
-                                    </td>                                    
+                                    </td>
                                     <td>{{ $order->created_at }}</td>
 
                                     <td>

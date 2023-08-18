@@ -63,7 +63,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <body>
     <div class="log-w3">
         <div class="w3layouts-main">
-            <h2>Sign In Now</h2>
+            <h2>Sign Up Now</h2>
             <?php
             $message = Session::get('message');
             if ($message) {
@@ -71,16 +71,43 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 Session::put('message', null);
             }
             ?>
-            <form action="{{ URL::to('/admin-login') }}" method="post">
+            <!-- Đoạn mã HTML hiển thị form đăng ký tài khoản mới -->
+            <form action="{{ route('post.create.account') }}" method="post">
                 @csrf
-                <input type="email" class="ggg" name="admin_email" placeholder="điền email" required="">
-                <input type="password" class="ggg" name="admin_password" placeholder="điền password" required="">
-                <span><input type="checkbox" />Remember Me</span>
-                <h6><a href="#">Forgot Password?</a></h6>
+                <input type="text" class="ggg" name="admin_name" placeholder="điền tên" required="">
+                @error('admin_name')
+                    <span class=""
+                        style="color: white; text-align: center; font-size: 17px; width: 100%; font-weight: bold; background-color:black">{{ $message }}</span>
+                @enderror
+                <input type="email" class="ggg" name="admin_email" placeholder="Enter email" required="">
+                @error('admin_email')
+                    <span class=""
+                        style="color: white; text-align: center; font-size: 17px; width: 100%; font-weight: bold; background-color:black">{{ $message }}</span>
+                @enderror
+                <input type="password" class="ggg" name="admin_password" placeholder="Enter password" required="">
+                @error('admin_password')
+                    <span class=""
+                        style="color: white; text-align: center; font-size: 17px; width: 100%; font-weight: bold; background-color:black">{{ $message }}</span>
+                @enderror
+                <input type="password" class="ggg" name="re_admin_password" placeholder="Enter password"
+                    required="">
+                @error('re_admin_password')
+                    <span class=""
+                        style="color: white; text-align: center; font-size: 17px; width: 100%; font-weight: bold; background-color:black">{{ $message }}</span>
+                @enderror
+                <input type="text" class="ggg" name="admin_phone" placeholder="điền SĐT" required="">
+                @error('admin_phone')
+                    <span class=""
+                        style="color: white; text-align: center; font-size: 17px; width: 100%; font-weight: bold; background-color:black">{{ $message }}</span>
+                @enderror
+                <select name="role_value" class="form-control" required>
+                    <option value="1">Admin</option>
+                    <option value="2">Shipper</option>
+                </select>
                 <div class="clearfix"></div>
-                <input type="submit" value="Sign In" name="login">
+                <input type="submit" value="Create Account" name="register">
             </form>
-            <p>Don't Have an Account ?<a href="{{URL::to('/create-account')}}">Create an account</a></p>
+            <p><a href="{{ URL::to('/admin') }}">Login</a></p>
             <hr>
             <div class="custom-button-container">
                 <a href="{{ URL::to('auth/google') }}" class="custom-button">Sign up with Google</a>

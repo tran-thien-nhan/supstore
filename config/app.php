@@ -171,6 +171,7 @@ return [
         Gloudemans\Shoppingcart\ShoppingcartServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class, 
         App\Providers\CustomShoppingCartProvider::class,  
+        App\Providers\AppServiceProvider::class,
     ])->toArray(),
 
     /*

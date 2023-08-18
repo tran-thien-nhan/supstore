@@ -21,6 +21,10 @@
                     <td>{{ $customer->customer_phone }}</td>
                 </tr>
                 <tr>
+                    <th>Address:</th>
+                    <td>{{ $customer->customer_address }}</td>
+                </tr>
+                <tr>
                     <th>Point:</th>
                     <td>{{ number_format($customer->customer_point, 1) }}</td>
                 </tr>
@@ -45,7 +49,6 @@
                 </tr>
             </tbody>
         </table>
-
         <!-- Button to trigger the modal -->
         <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#updateModal">
             Update Information
@@ -88,10 +91,9 @@
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label for="customer_password">Password:</label>
-                                <input type="password" class="form-control" id="customer_password" name="customer_password"
-                                    value="{{ $customer->customer_password }}">
-                                @error('customer_password')
+                                <label for="customer_address">Address:</label>
+                                <textarea class="form-control" id="customer_address" name="customer_address">{{ old('customer_address', $customer->customer_address) }}</textarea>
+                                @error('customer_address')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
@@ -105,14 +107,5 @@
             </div>
         </div>
     </div>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const passwordInput = document.getElementById('customer_password');
-            const passwordValue = passwordInput.value;
-    
-            if (passwordValue.length > 1) {
-                passwordInput.value = '**********';
-            }
-        });
-    </script>
+    <a href="{{ route('change_password') }}">thiết lập mật khẩu</a>
 @endsection

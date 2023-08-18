@@ -19,6 +19,7 @@ return new class extends Migration
             $table->integer('coupon_number');
             $table->string('coupon_code');
             $table->integer('coupon_status');
+            $table->date('coupon_expire_date')->nullable();
             $table->timestamps();
         });
     }

@@ -49,6 +49,7 @@ class CheckoutController extends Controller
             'customer_password' => 'required|min:10|max:50',
             're_customer_password' => 'required|same:customer_password|min:10|max:50',
             'customer_phone' => 'required|numeric|digits:10',
+            'customer_address' => 'required|string',
         ], [
             'required' => 'bắt buộc nhập',
             'min' => 'phải chứa ít nhất :min ký tự',
@@ -69,6 +70,7 @@ class CheckoutController extends Controller
         $data['customer_phone'] = $request->customer_phone;
         $data['customer_email'] = $request->customer_email;
         $data['customer_password'] = bcrypt($request->customer_password); // Use bcrypt for password hashing
+        $data['customer_address'] = $request->customer_address;
         $data['customer_point'] = 0;
 
         $insert_customer = DB::table('tbl_customer')->insertGetId($data);
@@ -174,10 +176,13 @@ class CheckoutController extends Controller
         // Insert order table: tbl_order
         $total = str_replace(',', '', Cart::total());
         $order_data = array();
-        $coupon_time = 0;
         $order_data['customer_id'] = Session::get('customer_id');
         $order_data['shipping_id'] = Session::get('shipping_id');
         $order_data['payment_id'] = $payment_id;
+
+        $customer_id = Session::get('customer_id');
+        $customer = Customer::find($customer_id);
+        $order_data['order_address'] = $customer->customer_address;
 
         $order_total = $total; // Tạo biến mới để lưu trữ giá trị order_total
         $coupons = Session::get('coupon');

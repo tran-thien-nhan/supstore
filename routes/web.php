@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Admin;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BrandProduct;
 use App\Http\Controllers\BlogController;
@@ -26,22 +27,18 @@ use App\Http\Controllers\RevenueChartController;
 |
 */
 
-// Route::get('/', function () {
-//     return view('layout');
-// });
-
-// Route::get('/trang-chu', function () {
-//     return view('layout');
-// });
-
-
 //frontend
 Route::get('/', [HomeController::class, 'index']);
 Route::get('/trang-chu', [HomeController::class, 'index']);
 Route::post('/tim-kiem', [HomeController::class, 'search']);
 Route::get('/customer-information', [HomeController::class, 'customer_information']);
 Route::put('/update-customer/{customerId}', [HomeController::class, 'updateCustomer'])->name('update_customer');
+
 Route::put('/update-customer-password/{customerId}', [HomeController::class, 'updateCustomerPassword'])->name('update_customer_password');
+
+Route::get('/change-password', [HomeController::class, 'showChangePasswordForm'])->name('change_password');
+Route::post('/change-password/{customer_id}', [HomeController::class, 'changePassword'])->name('update_password');
+
 Route::get('/cart-history', [HomeController::class, 'cart_history']);
 
 // danh mục sản phẩm trang chủ
@@ -56,7 +53,10 @@ Route::get('/danh-muc-bai-viet/{blog_category_id}', [CategoryProduct::class, 'sh
 Route::get('/admin', [AdminController::class, 'index']);
 Route::get('/dashboard', [AdminController::class, 'show_dashboard']);
 Route::get('/logout', [AdminController::class, 'logout']);
-Route::post('/admin-dashboard', [AdminController::class, 'dashboard']);
+Route::post('/admin-login', [AdminController::class, 'AdminLogin']);
+
+Route::get('/create-account', [AdminController::class, 'showCreateAccountForm'])->name('create.account');
+Route::post('/create-account', [AdminController::class, 'createAccount'])->name('post.create.account');
 
 //category-product
 Route::get('/add-category-product', [CategoryProduct::class, 'add_category_product']);
@@ -72,8 +72,6 @@ Route::post('/update-category-product/{category_product_id}', [CategoryProduct::
 
 //trang product-info
 Route::get('/chi-tiet-san-pham/{product_id}', [ProductController::class, 'details_product']);
-//Route::get('/chi-tiet-san-pham/{product_name}/{product_id}', [ProductController::class, 'details_product']);
-//Route::get('/chi-tiet-san-pham/{product_id}', [ProductController::class, 'details_product']);
 
 //brand-product
 Route::get('/add-brand-product', [BrandProduct::class, 'add_brand_product']);
@@ -102,7 +100,7 @@ Route::post('/update-product/{product_id}', [ProductController::class, 'update_p
 Route::get('/all-product/category-product/{category_id}', [ProductController::class, 'all_product_by_category']);
 Route::get('/all-product/brand-product/{brand_id}', [ProductController::class, 'all_product_by_brand']);
 
-Route::get('/all-product/filter-by-date', [ProductController::class, 'filter_by_date'])->name('filterData');    
+Route::get('/all-product/filter-by-date', [ProductController::class, 'filter_by_date'])->name('filterData');
 
 //cart
 Route::post('/save-cart/{product_id}', [CartController::class, 'save_cart'])->name('cart.save_cart');
@@ -110,8 +108,6 @@ Route::get('/show-cart', [CartController::class, 'show_cart'])->name('cart.show_
 Route::get('/remove/{rowId}', [CartController::class, 'remove'])->name('cart.remove');
 Route::get('/destroy', [CartController::class, 'destroy'])->name('cart.destroy');
 Route::post('/update', [CartController::class, 'update'])->name('cart.update');
-// routes/web.php or routes/api.php
-//Route::post('/update-point', [CartController::class, 'update_point'])->name('cart.update_point');
 
 //checkout
 Route::get('/login-checkout', [CheckoutController::class, 'login_checkout']);
@@ -132,7 +128,7 @@ Route::get('/delete-order/{order_id}', [CheckoutController::class, 'delete_order
 
 //send gmail
 // Route::get('/send-mail',[SendMailController::class,'index']);
-Route::get('/send-mail',[SendMailController::class,'sendMail'])->name('mail.send');
+Route::get('/send-mail', [SendMailController::class, 'sendMail'])->name('mail.send');
 
 //Login facebook
 Route::get('/auth/facebook', [LoginController::class, 'login_facebook']);
@@ -199,4 +195,3 @@ Route::get('/delete-comment/{id}', [CommentController::class, 'deleteComment'])-
 
 // chart
 Route::get('/dashboard', [RevenueChartController::class, 'index'])->name('revenue.chart');
-

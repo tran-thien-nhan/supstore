@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Session;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Facades\Redirect; // Add the Redirect facade
 use App\Models\Coupon;
+use Carbon\Carbon;
 
 session_start();
 
@@ -48,8 +49,9 @@ class CouponController extends Controller
             isset($data['coupon_number']) &&
             isset($data['coupon_code']) &&
             isset($data['coupon_time']) &&
-            isset($data['coupon_condition'])&&
-            isset($data['coupon_status'])
+            isset($data['coupon_condition']) &&
+            isset($data['coupon_status']) &&
+            isset($data['coupon_expire_date'])
         ) {
             // Khởi tạo đối tượng Coupon
             $coupon = new Coupon();
@@ -58,13 +60,14 @@ class CouponController extends Controller
             $coupon->coupon_code = $data['coupon_code'];
             $coupon->coupon_time = $data['coupon_time'];
             $coupon->coupon_condition = $data['coupon_condition'];
+            $coupon->coupon_expire_date = $data['coupon_expire_date'];
             $coupon->coupon_status = 0;
 
             // Lưu đối tượng Coupon vào CSDL
             $coupon->save();
 
             // Chuyển hướng về trang insert-coupon và gửi thông báo thành công
-            return Redirect::to('insert-coupon')->with('success', 'Tạo mã giảm giá mới thành công');
+            return Redirect::to('list-coupon')->with('success', 'Tạo mã giảm giá mới thành công');
         } else {
             // Nếu thiếu dữ liệu trong request, chuyển hướng về trang insert-coupon với thông báo lỗi
             return Redirect::to('insert-coupon')->with('error', 'Vui lòng nhập đầy đủ thông tin để tạo mã giảm giá');
@@ -104,6 +107,7 @@ class CouponController extends Controller
         $data['coupon_condition'] = $request->coupon_condition;
         $data['coupon_number'] = $request->coupon_number;
         $data['coupon_code'] = $request->coupon_code;
+        $data['coupon_expire_date'] = $request->coupon_expire_date;
 
         DB::table('tbl_coupon')->insert($data);
         return Redirect::to('list-coupon')->with('success', 'coupon created successfully');
@@ -118,18 +122,19 @@ class CouponController extends Controller
         $data['coupon_condition'] = $request->coupon_condition;
         $data['coupon_number'] = $request->coupon_number;
         $data['coupon_code'] = $request->coupon_code;
+        $data['coupon_expire_date'] = $request->coupon_expire_date;
 
         DB::table('tbl_coupon')->where('coupon_id', $coupon_id)->update($data);
         return Redirect::to('list-coupon')->with('success', 'coupon updated successfully');
     }
-    
+
     public function unactive_coupon($coupon_id)
     {
         $this->Authenlogin();
         DB::table('tbl_coupon')->where('coupon_id', $coupon_id)->update(['coupon_status' => 1]);
         return Redirect::to('list-coupon')->with('success', 'không kích hoạt coupon thành công');
     }
-
+    
     public function active_coupon($coupon_id)
     {
         $this->Authenlogin();

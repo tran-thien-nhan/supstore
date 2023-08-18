@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Role;
+use App\Models\Admin;
+
 use App\Models\Login;
 use App\Http\Requests;
-
 use App\Models\Social;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Redirect;
 use Laravel\Socialite\Facades\Socialite;
@@ -26,6 +29,7 @@ class AdminController extends Controller
             return Redirect::to('/admin')->send();
         }
     }
+
     public function index()
     {
         return view('admin_login');
@@ -34,28 +38,75 @@ class AdminController extends Controller
     public function show_dashboard()
     {
         $this->Authenlogin();
-        return view('admin.dashboard');
+        return Redirect::to('/dashboard');
     }
 
-    public function dashboard(Request $request)
+    public function AdminLogin(Request $request)
     {
-        $data = $request->all();
-        $admin_email = $data['admin_email'];
-        $admin_password = md5($data['admin_password']);
+        $admin_email = $request->admin_email;
+        $admin_password = md5($request->admin_password);
+        $existingUser = Admin::where('admin_email', $admin_email)->first();
+        $login = Login::where('admin_email', $admin_email)
+            ->where('admin_password', $admin_password)
+            ->first();
 
-        $login = Login::where('admin_email',$admin_email)
-        ->where('admin_password',$admin_password)
-        ->first();
-
-        $login_count = $login->count();
-        if ($login_count) {
-            Session::put('admin_name',$login->admin_name);
+        if ($login && $existingUser) {
+            Session::put('admin_name', $login->admin_name);
             Session::put('admin_id', $login->admin_id);
-            return Redirect::to('/dashboard');
+            Auth::login($existingUser);
+            $role_value = $existingUser->role_value;
+
+            if ($role_value == 1) {
+                return Redirect::to('/dashboard');
+            } elseif ($role_value == 2) {
+                return Redirect::to('/manage-order');
+            }
         } else {
-            Session::put('message', 'mật khẩu hoặc tài khoản chưa đúng, vui lòng nhập lại');
+            Session::put('message', 'Mật khẩu hoặc tài khoản chưa đúng, vui lòng nhập lại');
             return Redirect::to('/admin');
         }
+    }
+
+    public function showCreateAccountForm()
+    {
+        return view('admin.create_account');
+    }
+
+    public function createAccount(Request $request)
+    {
+        $request->validate([
+            'admin_email' => 'required|email|unique:tbl_admin',
+            'admin_name' => 'required',
+            'admin_password' => 'required|min:5|max:50',
+            're_admin_password' => 'required|same:admin_password|min:5|max:50',
+            'admin_phone' => 'required|numeric|digits:10',
+            'role_value' => 'required|in:1,2',
+        ], [
+            'required' => 'bắt buộc nhập',
+            'min' => 'phải chứa ít nhất :min ký tự',
+            'max' => 'không được vượt quá :max ký tự',
+            'email' => 'phải đúng định dạng email',
+            'same' => 'không giống password đã nhập ở trên',
+            'numeric' => ':attribute phải là số',
+            'digits' => ':attribute phải có đúng :digits chữ số',
+            'unique' => 'email đã tồn tại, vui lòng nhập email khác'
+        ]);
+
+        $role = Role::where('role_value', $request->role_value)->first();
+        if (!$role) {
+            return back()->with('message', 'Invalid role value');
+        }
+
+        $admin = new Admin();
+        $admin->admin_email = $request->admin_email;
+        $admin->admin_name = $request->admin_name;
+        $admin->admin_phone = $request->admin_phone;
+        $admin->admin_password = md5($request->admin_password);
+        $admin->role_id = $role->role_id;
+        $admin->role_value = $request->role_value;
+        $admin->save();
+
+        return Redirect::to('/admin')->with('message', 'Account created successfully. You can now log in.');
     }
 
     public function logout()

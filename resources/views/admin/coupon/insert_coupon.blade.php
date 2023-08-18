@@ -23,22 +23,31 @@
                             @csrf
                             <div class="form-group">
                                 <label for="coupon_name">tên mã giảm giá</label>
-                                <input type="text" name="coupon_name" class="form-control"
-                                    id="coupon_name" placeholder="tên mã giảm giá">
+                                <input type="text" name="coupon_name" class="form-control" id="coupon_name"
+                                    placeholder="tên mã giảm giá">
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputPassword1">mã giảm giá</label>
-                                <input type="text" class="form-control" name="coupon_code" id="coupon_code" placeholder="mã giảm giá">
+                                <input type="text" class="form-control" name="coupon_code" id="coupon_code"
+                                    placeholder="mã giảm giá">
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputPassword1">số lượng mã giảm giá</label>
-                                <input type="text" class="form-control" name="coupon_time" id="coupon_time" placeholder="SL mã giảm giá">
+                                <input type="text" class="form-control" name="coupon_time" id="coupon_time"
+                                    placeholder="SL mã giảm giá">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">ngày hết hạn mã giảm giá</label>
+                                <input type="date" class="form-control" name="coupon_expire_date"
+                                    id="coupon_expire_date">
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputPassword1">tính năng mã giảm giá</label>
                                 <select name="coupon_condition" class="form-control input-sm m-bot15">
-                                    <option value="1" {{ old('coupon_condition') == 1 ? 'selected' : '' }}>giảm theo phần trăm</option>
-                                    <option value="2" {{ old('coupon_condition') == 2 ? 'selected' : '' }}>giảm theo số tiền</option>
+                                    <option value="1" {{ old('coupon_condition') == 1 ? 'selected' : '' }}>giảm theo
+                                        phần trăm</option>
+                                    <option value="2" {{ old('coupon_condition') == 2 ? 'selected' : '' }}>giảm theo số
+                                        tiền</option>
                                 </select>
                             </div>
                             <div class="form-group">

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Role;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\Authenticatable;
@@ -44,7 +45,7 @@ class Admin extends Model implements Authenticatable
 
     // Nếu bạn cần hỗ trợ các phương thức khác của giao diện Authenticatable, bạn có thể triển khai chúng ở đây.
     protected $fillable = [
-        'admin_email', 'admin_password',  'admin_name'
+        'admin_email', 'admin_password',  'admin_name', 'admin_phone', 'role_value', 'role_id'
     ];
 
     protected $primaryKey = 'admin_id';
@@ -52,5 +53,10 @@ class Admin extends Model implements Authenticatable
     public function social()
     {
         return $this->hasOne(Social::class);
+    }
+
+    public function role()
+    {
+        return $this->belongsTo(Role::class, 'role_id');
     }
 }

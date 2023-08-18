@@ -46,6 +46,11 @@
                                         placeholder="SL mã giảm giá" value="{{ $cou->coupon_time }}">
                                 </div>
                                 <div class="form-group">
+                                    <label for="exampleInputPassword1">ngày hết hạn mã giảm giá</label>
+                                    <input type="date" class="form-control" name="coupon_expire_date"
+                                        id="coupon_expire_date" value="{{ $cou->coupon_expire_date }}">
+                                </div>
+                                <div class="form-group">
                                     <label for="exampleInputPassword1">tính năng mã giảm giá</label>
                                     <select name="coupon_condition" class="form-control input-sm m-bot15">
                                         <option value="1" {{ $cou->coupon_condition == 1 ? 'selected' : '' }}>giảm theo
