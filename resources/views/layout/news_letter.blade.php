@@ -11,7 +11,7 @@
     }
 </style>
 <section class="section is-width-wide has-no-side-gutter">
-    <div class="newsletter_section newsletter-both-names--false newsletter-bgr-true text-center blur-up lazyloaded" data-bg="//axeandsledge.com/cdn/shop/files/Banner_d29f134e-2d84-422d-8016-21406da74ef1_1600x.jpg?v=1613692537" data-sizes="100vw" style="background-image: url(&quot;//axeandsledge.com/cdn/shop/files/Banner_d29f134e-2d84-422d-8016-21406da74ef1_1600x.jpg?v=1613692537&quot;);">
+    <div class="newsletter_section newsletter-both-names--false newsletter-bgr-true text-center blur-up lazyloaded" data-bg="//axeandsledge.com/cdn/shop/files/Banner_d29f134e-2d84-422d-8016-21406da74ef1_1600x.jpg?v=1613692537" data-sizes="100vw" style="background-image: url(&quot;https://www.sportyshealth.com.au/blog/files/cache/db0a01768a1217ae8a4c290068d528ac_f1774.jpg&quot;); opacity: 0.8">
         <div class="container d-flex align-items-center" style="height: 400px;">
             <div class="offset-md-3 col-md-6 col-12 section_form">
                 <h2 class="title text-white display-4 fw-bold">Sign up for our newsletter</h2>

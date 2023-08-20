@@ -109,7 +109,7 @@ class CartController extends Controller
                 $currentDate = Carbon::now()->format('Y-m-d');
                 $expireDate = $coupon->coupon_expire_date;
 
-                if (!$coupon_session && $coupon->coupon_status == 0 && $coupon->coupon_time >= 0 && $currentDate <= $expireDate) {
+                if (!$coupon_session && $coupon->coupon_status == 0 && $coupon->coupon_time > 0 && $currentDate <= $expireDate) {
                     $coupon_data = [
                         'coupon_id' => $coupon->coupon_id,
                         'coupon_name' => $coupon->coupon_name,
