@@ -125,6 +125,8 @@ Route::get('/logout-checkout', [CheckoutController::class, 'logout_checkout']);
 Route::get('/manage-order', [CheckoutController::class, 'manage_order']);
 Route::get('/view-order/{order_id}', [CheckoutController::class, 'view_order']);
 Route::get('/delete-order/{order_id}', [CheckoutController::class, 'delete_order']);
+Route::get('/assign-shipper/{order_id}', [OrderController::class, 'showAssignShipperForm']);
+Route::post('/assign-shipper/{order_id}', [OrderController::class, 'assignShipper']);
 
 //send gmail
 // Route::get('/send-mail',[SendMailController::class,'index']);
@@ -154,6 +156,8 @@ Route::post('/save-coupon', [CouponController::class, 'save_coupon']);
 Route::post('/update-coupon/{coupon_id}', [CouponController::class, 'update_coupon']);
 Route::get('/unactive-coupon/{coupon_id}', [CouponController::class, 'unactive_coupon']);
 Route::get('/active-coupon/{coupon_id}', [CouponController::class, 'active_coupon']);
+Route::get('/create-batch-coupon', [CouponController::class, 'createBatchCoupon'])->name('create-batch-coupon');
+Route::post('/store-batch-coupon', [CouponController::class, 'storeBatchCoupon'])->name('store-batch-coupon');
 
 //blog
 Route::get('/add-blog', [BlogController::class, 'add_blog']);

@@ -12,6 +12,7 @@
                     </div>
                 @endif
                 <div class="row w3-res-tb">
+                    <a href="{{ route('create-batch-coupon') }}" class="btn btn-success">Tạo mã giảm giá hàng loạt</a>
                 </div>
                 <div class="table-responsive">
                     <table class="table table-striped b-t b-light">

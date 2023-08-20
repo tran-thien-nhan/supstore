@@ -77,7 +77,7 @@
                             <div class="form-group">
                                 <label for="customer_email">Email:</label>
                                 <input type="email" class="form-control" id="customer_email" name="customer_email"
-                                    value="{{ $customer->customer_email }}">
+                                    value="{{ $customer->customer_email }}" readonly>
                                 @error('customer_email')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror

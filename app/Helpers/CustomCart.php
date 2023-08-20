@@ -580,4 +580,11 @@ class CustomCart extends BaseCart
 
         return number_format($value, $decimals, $decimalPoint, $thousandSeperator);
     }
+
+    // function isDistrictMatch($address, $district) {
+    //     $normalizedAddress = preg_replace('/[^a-zA-Z0-9]/', '', strtolower($address));
+    //     $normalizedDistrict = preg_replace('/[^a-zA-Z0-9]/', '', strtolower($district));
+
+    //     return strpos($normalizedAddress, $normalizedDistrict) !== false;
+    // }
 }

@@ -30,7 +30,20 @@
                             <option value="5" {{ $edit_order_status->order_status == 5 ? 'selected' : '' }}>Hủy hàng</option>
                         </select>                        
                     </div>
+                    @if ($admin_role_value != 2) {{-- Kiểm tra nếu không phải là shipper --}}
+                    <div class="form-group">
+                        <label for="shipper_id">Chọn shipper mới:</label>
+                        <select class="form-control" id="shipper_id" name="shipper_id">
+                            @foreach ($shippers as $shipper)
+                                <option value="{{ $shipper->admin_id }}" {{ $selectedShipperId == $shipper->admin_id ? 'selected' : '' }}>
+                                    {{ $shipper->admin_name }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+                    @endif
                     <button type="submit" class="btn btn-primary">Cập nhật</button>
+                    <a href="{{ URL::to('/manage-order') }}" class="btn btn-warning">Trở Lại</a>
                 </form>
             </div>
         </section>

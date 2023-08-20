@@ -35,10 +35,12 @@ class CheckoutController extends Controller
             ->get();
         $cate_product = DB::table('tbl_category_product')->orderBy('category_id', 'desc')->get();
         $brand_product = DB::table('tbl_brand')->orderBy('brand_id', 'desc')->get();
+        $districts = DB::table('tbl_district')->get();
         return view('pages.checkout.login_checkout')
             ->with('category', $cate_product)
             ->with('brand', $brand_product)
-            ->with('blog_category', $blog_category);
+            ->with('blog_category', $blog_category)
+            ->with('districts', $districts);
     }
 
     public function add_customer(Request $request)
@@ -72,6 +74,7 @@ class CheckoutController extends Controller
         $data['customer_password'] = bcrypt($request->customer_password); // Use bcrypt for password hashing
         $data['customer_address'] = $request->customer_address;
         $data['customer_point'] = 0;
+        $data['district_id'] = $request->district_id;
 
         $insert_customer = DB::table('tbl_customer')->insertGetId($data);
 
@@ -183,7 +186,7 @@ class CheckoutController extends Controller
         $customer_id = Session::get('customer_id');
         $customer = Customer::find($customer_id);
         $order_data['order_address'] = $customer->customer_address;
-
+        $order_data['district_id'] = $customer->district_id;
         $order_total = $total; // Tạo biến mới để lưu trữ giá trị order_total
         $coupons = Session::get('coupon');
 
@@ -227,6 +230,7 @@ class CheckoutController extends Controller
 
         $order_data['order_total'] = $order_total;
         $order_data['order_status'] = 1;
+        $order_data['admin_id'] = 20;
 
         // Insert the order into the tbl_order table
         $order_id = DB::table('tbl_order')->insertGetId($order_data);
@@ -325,16 +329,31 @@ class CheckoutController extends Controller
     {
         $this->Authenlogin();
 
+        $admin_id = Session::get('admin_id'); // Lấy admin_id từ session
+        $admin_role_value = Session::get('admin_role_value'); // Lấy role_value từ session
+
         // Lấy tất cả các đơn đặt hàng và thêm phân trang
-        $all_order = DB::table('tbl_order')
+        $all_order_query = DB::table('tbl_order')
             ->join('tbl_customer', 'tbl_customer.customer_id', '=', 'tbl_order.customer_id')
-            ->select('tbl_order.*', 'tbl_customer.customer_name')
-            ->orderBy('tbl_order.order_id', 'desc')
-            ->paginate(5);
+            ->join('tbl_district', 'tbl_district.district_id', '=', 'tbl_order.district_id')
+            ->join('tbl_admin', 'tbl_admin.admin_id', '=', 'tbl_order.admin_id')
+            ->select('tbl_order.*', 'tbl_customer.customer_name', 'tbl_district.district_name', 'tbl_admin.admin_name')
+            ->orderBy('tbl_order.order_id', 'desc');
+
+        if ($admin_role_value == 1) {
+            // Hiển thị tất cả đơn hàng nếu là admin
+            $all_order = $all_order_query->paginate(5);
+        } else {
+            // Lọc đơn hàng dựa trên admin_id nếu là shipper
+            $all_order = $all_order_query
+                ->where('tbl_order.admin_id', $admin_id)
+                ->paginate(5);
+        }
 
         // Đếm số lượng đơn đặt hàng
         $count_order = DB::table('tbl_order')->count();
 
+        // Đếm số lượng đơn đặt hàng theo trạng thái
         $count_orderst_1 = DB::table('tbl_order')
             ->where('order_status', 1)
             ->count();
@@ -366,6 +385,7 @@ class CheckoutController extends Controller
             'count_orderst_5' => $count_orderst_5
         ]);
     }
+
 
     public function view_order($order_id)
     {

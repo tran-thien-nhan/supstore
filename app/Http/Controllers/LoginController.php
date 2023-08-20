@@ -112,12 +112,14 @@ class LoginController extends Controller
         if ($account_name) {
             Session::put('admin_name', $account_name->admin_name);
             Session::put('admin_id', $account_name->admin_id);
+            Session::put('admin_role_value', $existingUser->role_value); // Thêm role_value vào session
         }
 
         if ($existingUser) {
             $account_name = Login::where('admin_id', $existingUser->admin_id)->first();
             Session::put('admin_name', $account_name->admin_name);
             Session::put('admin_id', $account_name->admin_id);
+            Session::put('admin_role_value', $existingUser->role_value); // Thêm role_value vào session
             Auth::login($existingUser);
             $role_value = $existingUser->role_value;
 

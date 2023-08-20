@@ -53,6 +53,7 @@ class AdminController extends Controller
         if ($login && $existingUser) {
             Session::put('admin_name', $login->admin_name);
             Session::put('admin_id', $login->admin_id);
+            Session::put('admin_role_value', $existingUser->role_value); // Thêm role_value vào session
             Auth::login($existingUser);
             $role_value = $existingUser->role_value;
 
@@ -69,7 +70,8 @@ class AdminController extends Controller
 
     public function showCreateAccountForm()
     {
-        return view('admin.create_account');
+        $districts = DB::table('tbl_district')->get();
+        return view('admin.create_account')->with('districts', $districts);
     }
 
     public function createAccount(Request $request)
@@ -81,6 +83,7 @@ class AdminController extends Controller
             're_admin_password' => 'required|same:admin_password|min:5|max:50',
             'admin_phone' => 'required|numeric|digits:10',
             'role_value' => 'required|in:1,2',
+            'address' => 'required',
         ], [
             'required' => 'bắt buộc nhập',
             'min' => 'phải chứa ít nhất :min ký tự',
@@ -104,6 +107,8 @@ class AdminController extends Controller
         $admin->admin_password = md5($request->admin_password);
         $admin->role_id = $role->role_id;
         $admin->role_value = $request->role_value;
+        $admin->district_id = $request->district_id;
+        $admin->address = $request->address;
         $admin->save();
 
         return Redirect::to('/admin')->with('message', 'Account created successfully. You can now log in.');

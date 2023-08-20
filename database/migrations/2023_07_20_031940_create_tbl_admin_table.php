@@ -17,6 +17,9 @@ return new class extends Migration
             $table->string('admin_password');
             $table->string('admin_name');
             $table->string('admin_phone');
+            $table->integer('status');
+            $table->text('address');
+            $table->integer('district_id');
             $table->timestamps();
         });
     }

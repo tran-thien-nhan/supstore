@@ -134,11 +134,44 @@ class CouponController extends Controller
         DB::table('tbl_coupon')->where('coupon_id', $coupon_id)->update(['coupon_status' => 1]);
         return Redirect::to('list-coupon')->with('success', 'không kích hoạt coupon thành công');
     }
-    
+
     public function active_coupon($coupon_id)
     {
         $this->Authenlogin();
         DB::table('tbl_coupon')->where('coupon_id', $coupon_id)->update(['coupon_status' => 0]);
         return Redirect::to('list-coupon')->with('success', 'kích hoạt coupon thành công');
+    }
+
+    public function createBatchCoupon()
+    {
+        return view('admin.coupon.create_batch_coupon');
+    }
+
+    public function storeBatchCoupon(Request $request)
+    {
+        $couponName = 'giảm giá ' . $request->input('coupon_name') . ' ' . $request->input('coupon_expire_date');
+        $couponTime = 1;
+        $couponCondition = $request->input('coupon_condition');
+        $couponNumber = $request->input('coupon_number');
+        $couponStatus = 0;
+        $couponExpireDate = $request->input('coupon_expire_date');
+
+        for ($i = 1; $i <= $request->input('coupon_quantity'); $i++) {
+            // Generate random coupon code
+            $randomCode = substr(str_shuffle('ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'), 0, 4);
+
+            // Create a new coupon entry in the database
+            $newCoupon = new Coupon();
+            $newCoupon->coupon_name = $couponName;
+            $newCoupon->coupon_time = $couponTime;
+            $newCoupon->coupon_condition = $couponCondition;
+            $newCoupon->coupon_number = $couponNumber;
+            $newCoupon->coupon_code = $randomCode . substr($couponExpireDate, 3, 2) . substr($couponExpireDate, 0, 2);
+            $newCoupon->coupon_status = $couponStatus;
+            $newCoupon->coupon_expire_date = $couponExpireDate;
+            $newCoupon->save();
+        }
+
+        return Redirect::to('list-coupon')->with('success', 'Đã tạo mã giảm giá hàng loạt thành công!');
     }
 }

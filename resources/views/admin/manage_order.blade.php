@@ -42,7 +42,9 @@
                                     </label>
                                 </th>
                                 <th>order id</th>
+                                <th>quận</th>
                                 <th>tên người đặt</th>
+                                <th>shipper</th>
                                 <th>tổng giá tiền</th>
                                 <th>tình trạng</th>
                                 <th>ngày đặt</th>
@@ -57,7 +59,9 @@
                                                 name="post[]"><i></i></label>
                                     </td>
                                     <td>{{ $order->order_id }}</td>
+                                    <td>{{ $order->district_name }}</td>
                                     <td>{{ $order->customer_name }}</td>
+                                    <td>{{ $order->admin_name }}</td>
                                     <td>{{ number_format($order->order_total, 0, ',', '.') }}đ</td>
                                     <td>
                                         @if ($order->order_status == 1)

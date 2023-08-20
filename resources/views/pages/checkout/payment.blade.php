@@ -29,6 +29,12 @@
                                             <strong>Success!</strong> {{ session('success') }}
                                         </div>
                                     @endif
+                                    @if (session('error'))
+                                        <div class="alert alert-danger alert-dismissible">
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                                            <strong>Lỗi!</strong> {{ session('error') }}
+                                        </div>
+                                    @endif
                                     <p>hiện tại có {{ Cart::count() }} sản phẩm trong giỏ hàng</p>
                                     <form action="{{ route('cart.update') }}" method="POST">
                                         @csrf
@@ -127,11 +133,12 @@
                                                                 $totalFormatted = str_replace(',', '', Cart::total()); // Loại bỏ dấu phân cách hàng nghìn
                                                                 $total = floatval($totalFormatted); // Chuyển đổi chuỗi thành số
                                                             @endphp
-                    
+
                                                             @if (Session::get('coupon'))
                                                                 @foreach (Session::get('coupon') as $key => $cou)
                                                                     @if ($cou['coupon_condition'] == 1)
-                                                                        <span class="badge bg-primary">{{ $cou['coupon_code'] }}</span>
+                                                                        <span
+                                                                            class="badge bg-primary">{{ $cou['coupon_code'] }}</span>
                                                                         -{{ $cou['coupon_number'] }}%
                                                                         <p>
                                                                             @php
@@ -140,7 +147,8 @@
                                                                             @endphp
                                                                         </p>
                                                                     @elseif ($cou['coupon_condition'] == 2)
-                                                                        <span class="badge bg-success">{{ $cou['coupon_code'] }}</span>
+                                                                        <span
+                                                                            class="badge bg-success">{{ $cou['coupon_code'] }}</span>
                                                                         -{{ number_format($cou['coupon_number'], 0, ',', '.') }}đ
                                                                         <p>
                                                                             @php
@@ -151,7 +159,7 @@
                                                                     @endif
                                                                 @endforeach
                                                             @else
-                                                            0
+                                                                0
                                                             @endif
                                                         </td>
                                                     </tr>
@@ -182,7 +190,8 @@
                 @csrf
                 <div class="payment-options my-2">
                     <span class="">
-                        <label><input name="payment_option" value="1" type="checkbox" disabled> trả bằng thẻ ATM</label>
+                        <label><input name="payment_option" value="1" type="checkbox" disabled> trả bằng thẻ
+                            ATM</label>
                     </span>
                     <span class="mx-3">
                         <label><input name="payment_option" value="2" type="checkbox"> nhận tiền mặt</label>

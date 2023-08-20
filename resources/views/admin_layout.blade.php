@@ -111,8 +111,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                 <span>Dashboard</span>
                             </a>
                         </li>
-                        {{-- <li class="sub-menu {{ $adminRole != 1 && $adminRole != 2 ? 'hidden' : '' }}"> --}}
-                        <li class="sub-menu {{ $adminRole != 1 ? 'hidden' : '' }}">
+                        <li class="sub-menu {{ $adminRole != 1 && $adminRole != 2 ? 'hidden' : '' }}">
+                        {{-- <li class="sub-menu {{ $adminRole != 1 ? 'hidden' : '' }}"> --}}
                             <a href="javascript:;">
                                 <i class="fa fa-book"></i>
                                 <span>Đơn Hàng</span>

@@ -89,7 +89,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     <span class=""
                         style="color: white; text-align: center; font-size: 17px; width: 100%; font-weight: bold; background-color:black">{{ $message }}</span>
                 @enderror
-                <input type="password" class="ggg" name="re_admin_password" placeholder="Enter password"
+                <input type="password" class="ggg" name="re_admin_password" placeholder="Enter password again   "
                     required="">
                 @error('re_admin_password')
                     <span class=""
@@ -100,10 +100,28 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     <span class=""
                         style="color: white; text-align: center; font-size: 17px; width: 100%; font-weight: bold; background-color:black">{{ $message }}</span>
                 @enderror
-                <select name="role_value" class="form-control" required>
-                    <option value="1">Admin</option>
-                    <option value="2">Shipper</option>
-                </select>
+                <input type="text" class="ggg" name="address" placeholder="điền SĐT" required="">
+                @error('address')
+                    <span class=""
+                        style="color: white; text-align: center; font-size: 17px; width: 100%; font-weight: bold; background-color:black">{{ $message }}</span>
+                @enderror
+                <div class="mb-3">
+                    <label for="role_value" class="form-label">Role</label>
+                    <select name="role_value" id="role_value" class="form-select" required>
+                        <option value="1">Admin</option>
+                        <option value="2">Shipper</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="district_id" class="form-label">District</label>
+                    <select name="district_id" id="district_id" class="form-select" required>
+                        <option value="" selected disabled>Select District</option>
+                        @foreach ($districts as $district)
+                            <option value="{{ $district->district_id }}">{{ $district->district_name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                
                 <div class="clearfix"></div>
                 <input type="submit" value="Create Account" name="register">
             </form>
