@@ -29,7 +29,8 @@
                                 <th>coupon condition</th>
                                 <th>coupon number</th>
                                 <th>ngày hết hạn</th>
-                                <th>coupon status</th>
+                                <th>tình trạng</th>
+                                {{-- <th>coupon status</th> --}}
                                 <th style="width:30px;"></th>
                             </tr>
                         </thead>
@@ -59,7 +60,21 @@
                                         @endif
                                     </td>
                                     <td>{{ $coupon_item->coupon_expire_date }}</td>
+
+                                    @php
+                                        $currentDate = \Carbon\Carbon::now()->format('Y-m-d');
+                                    @endphp
+
                                     <td>
+                                        @if ($coupon_item->coupon_time == 0 && $coupon_item->coupon_expire_date >= $currentDate)
+                                            <span class="badge bg-danger">hết hạn</span>
+                                        @else
+                                            <span class="badge bg-success" style="color:white">còn hạn</span>
+                                        @endif
+                                    </td>
+
+
+                                    {{-- <td>
                                         <span class="text-ellipsis">
                                             <?php 
                                             if ($coupon_item->coupon_status == 0){
@@ -81,12 +96,14 @@
                                             }
                                             ?>
                                         </span>
-                                    </td>
+                                    </td> --}}
                                     <td>
-                                        <a href="{{URL::to('/edit-coupon/'.$coupon_item->coupon_id)}}" class="active styling-edit" ui-toggle-class="">
+                                        <a href="{{ URL::to('/edit-coupon/' . $coupon_item->coupon_id) }}"
+                                            class="active styling-edit" ui-toggle-class="">
                                             <i class="fa fa-pencil-square-o text-success text-active"></i>
                                         </a>
-                                        <a onclick="return confirm('are you sure to delete?')" href="{{URL::to('/delete-coupon/'.$coupon_item->coupon_id)}}"
+                                        <a onclick="return confirm('are you sure to delete?')"
+                                            href="{{ URL::to('/delete-coupon/' . $coupon_item->coupon_id) }}"
                                             class="active styling-delete" ui-toggle-class="">
                                             <i class="fa fa-trash text-danger text"></i>
                                         </a>
