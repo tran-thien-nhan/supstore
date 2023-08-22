@@ -89,11 +89,13 @@ class CheckoutController extends Controller
         $blog_category = DB::table('tbl_category_blog')->get();
         $cate_product = DB::table('tbl_category_product')->orderBy('category_id', 'desc')->get();
         $brand_product = DB::table('tbl_brand')->orderBy('brand_id', 'desc')->get();
+
         return view('pages.checkout.show_checkout')
             ->with('category', $cate_product)
             ->with('brand', $brand_product)
             ->with('blog_category', $blog_category);
     }
+
 
     public function save_checkout_customer(Request $request)
     {
@@ -274,6 +276,11 @@ class CheckoutController extends Controller
                 DB::table('tbl_product')
                     ->where('product_id', $product_id)
                     ->update(['product_quantity' => $new_product_quantity]);
+            }
+
+            $coupon = Session::get('coupon');
+            if ($coupon == true) {
+                Session::forget('coupon');
             }
         }
 
