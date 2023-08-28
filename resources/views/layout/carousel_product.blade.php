@@ -130,31 +130,13 @@
     <!-- The slideshow/carousel -->
     <div class="carousel-inner">
         <div class="carousel-item active">
-            <img src="https://axeandsledge.com/cdn/shop/collections/pre-workout_1400x.progressive.jpg?v=1686767843" alt="Los Angeles" class="d-block w-100">
+            <img src="https://cdn.shopify.com/s/files/1/0580/5450/8730/files/BCAA_website_banner_1_10eb187d-850e-474a-bd3b-2003fa14f3f1.jpg?v=1661592937" alt="Los Angeles" class="d-block w-100">
         </div>
         <div class="carousel-item">
-            <img src="https://axeandsledge.com/cdn/shop/collections/intraworkout_1400x.progressive.jpg?v=1686767885" alt="Chicago" class="d-block w-100">
+            <img src="https://apexsupplements.b-cdn.net/wp-content/uploads/2022/12/CategoryBanner-BCAA1-jpg.webp" alt="Chicago" class="d-block w-100">
         </div>
         <div class="carousel-item">
-            <img src="https://axeandsledge.com/cdn/shop/collections/protein_1400x.progressive.jpg?v=1686767902" alt="New York" class="d-block w-100">
-        </div>
-        <div class="carousel-item">
-            <img src="https://axeandsledge.com/cdn/shop/collections/fatloss_1400x.progressive.jpg?v=1686767919" alt="New York" class="d-block w-100">
-        </div>
-        <div class="carousel-item">
-            <img src="https://axeandsledge.com/cdn/shop/collections/musclebuilding_1400x.progressive.jpg?v=1686767937" alt="New York" class="d-block w-100">
-        </div>
-        <div class="carousel-item">
-            <img src="https://axeandsledge.com/cdn/shop/collections/Reds_Banner2_1400x.progressive.jpg?v=1686767953" alt="New York" class="d-block w-100">
-        </div>
-        <div class="carousel-item">
-            <img src="https://axeandsledge.com/cdn/shop/collections/wellness_1400x.progressive.jpg?v=1686767977" alt="New York" class="d-block w-100">
-        </div>
-        <div class="carousel-item">
-            <img src="https://axeandsledge.com/cdn/shop/collections/basicseries4_1400x.progressive.jpg?v=1686768010" alt="New York" class="d-block w-100">
-        </div>
-        <div class="carousel-item">
-            <img src="https://axeandsledge.com/cdn/shop/collections/sleepaid_1400x.progressive.jpg?v=1686767991" alt="New York" class="d-block w-100">
+            <img src="https://cdn.shopify.com/s/files/1/0580/5450/8730/files/BCAA_website_banner_3_f240fa40-ae0a-4117-9738-0f273e788c6a.jpg?v=1661592967" alt="New York" class="d-block w-100">
         </div>
     </div>
 

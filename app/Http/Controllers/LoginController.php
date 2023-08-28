@@ -152,11 +152,17 @@ class LoginController extends Controller
 
             // Tạo thông tin mới cho bảng tbl_admin
             $newAdminUser = new Admin();
-            $newAdminUser->admin_id = null; // Bạn cần đặt giá trị phù hợp cho admin_id.
+            //$newAdminUser->admin_id = null; // Bạn cần đặt giá trị phù hợp cho admin_id.
+            $newAdminUser->role_id = 0; // Bạn cần đặt giá trị phù hợp cho admin_id.
+            $newAdminUser->role_value = 2; // Bạn cần cung cấp số điện thoại cho admin.
+            $newAdminUser->district_id = 1; // Bạn cần đặt giá trị phù hợp cho admin_id.
             $newAdminUser->admin_name = $user->getName();
             $newAdminUser->admin_email = $user->getEmail();
             $newAdminUser->admin_password = ''; // Bạn cần cung cấp mật khẩu cho admin hoặc sử dụng mã hóa phù hợp.
             $newAdminUser->admin_phone = ''; // Bạn cần cung cấp số điện thoại cho admin.
+            $newAdminUser->admin_code = ''; // Bạn cần cung cấp số điện thoại cho admin.
+            $newAdminUser->address = ''; // Bạn cần cung cấp số điện thoại cho admin.
+            $newAdminUser->salary = 0; // Bạn cần cung cấp số điện thoại cho admin.
             $newAdminUser->created_at = now();
             $newAdminUser->updated_at = now();
             $newAdminUser->save();
@@ -206,7 +212,10 @@ class LoginController extends Controller
                 'admin_name' => $users->getName(),
                 'admin_email' => $users->getEmail(),
                 'admin_password' => '',
-                'admin_phone' => ''
+                'admin_phone' => '',
+                'address' => '',
+                'salary' => 0,
+                'admin_code' => ''
             ]);
         }
 

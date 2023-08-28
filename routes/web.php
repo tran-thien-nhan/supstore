@@ -16,6 +16,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\SendMailController;
 use App\Http\Controllers\RevenueChartController;
+use App\Http\Controllers\EmployeeController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -199,3 +200,9 @@ Route::get('/delete-comment/{id}', [CommentController::class, 'deleteComment'])-
 
 // chart
 Route::get('/dashboard', [RevenueChartController::class, 'index'])->name('revenue.chart');
+
+//employees
+Route::get('/employees', [EmployeeController::class, 'index'])->name('employees.index');
+Route::get('/edit-employee/{admin_id}', [EmployeeController::class, 'editEmployee']);
+Route::post('/update-employee/{admin_id}', [EmployeeController::class, 'updateEmployee']);
+Route::get('/delete-employee/{admin_id}', [EmployeeController::class, 'deleteEmployee']);

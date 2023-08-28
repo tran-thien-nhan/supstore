@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Role extends Model
 {
     protected $fillable = [
-        'role_name', 'role_value'
+        'role_name', 'role_value', 'salary'
     ];
 
     protected $primaryKey = 'role_id';

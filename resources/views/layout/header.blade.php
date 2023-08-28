@@ -19,8 +19,8 @@
     <nav class="navbar navbar-expand-sm navbar-white bg-white sticky-top">
         <div class="container-fluid">
             <a class="navbar-brand" href="{{ URL::to('/trang-chu') }}">
-                <img class="logo" src="https://axeandsledge.com/cdn/shop/files/axe-logo_410x.png?v=1614293969"
-                    alt="Logo">
+                <img class="logo" src="{{asset('public/uploads/product/logo.jpg')}}"
+                    alt="Logo" style="width: 10rem; height: 10rem">
             </a>
 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -82,12 +82,6 @@
                                 </a>
                             @endforeach
                         </div>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link text-dark btn btn-white" href="tools.php" id="navbarDropdown4">
-                            TOOLS
-                        </a>
                     </li>
                     <li class="nav-item products">
                         <a class="nav-link text-dark btn btn-white" href="{{ URL::to('/thuong-hieu-san-pham') }}">

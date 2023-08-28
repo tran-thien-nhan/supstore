@@ -125,8 +125,8 @@
     <!-- The slideshow/carousel -->
     <div class="carousel-inner">
         <div class="carousel-item active">
-            <img src="https://axeandsledge.com/cdn/shop/files/DSC03630_1400x.jpg?v=1685018177" alt="Los Angeles" class="d-block w-100">
-            <div class="carousel-caption">
+            <img src="https://www.samedaysupplements.com/pub/media/easyslide/supplement-deals-desktop-banner.webp" alt="Los Angeles" class="d-block w-100">
+            {{-- <div class="carousel-caption">
                 <div class="caption-content align-left animated fadeInDown">
                     <h1 class="headline" role="heading" aria-level="2" data-uw-rm-heading="level">
                         Deadlifts &amp; Gummy Bears 🧸</h1>
@@ -139,11 +139,11 @@
                         </a>
                     </div>
                 </div>
-            </div>
+            </div> --}}
         </div>
         <div class="carousel-item">
-            <img src="https://axeandsledge.com/cdn/shop/files/DSC00050_1400x.jpg?v=1675803025" alt="Chicago" class="d-block w-100">
-            <div class="carousel-caption">
+            <img src="https://cdn.shopify.com/s/files/1/0532/3210/7691/files/AXEANDSLEDGEBANNER.jpg?v=1651904461" alt="Chicago" class="d-block w-100">
+            {{-- <div class="carousel-caption">
                 <div class="caption-content align-left animated fadeInDown">
                     <h1 class="headline">
                         <p>Thermogenic Powder</p>
@@ -154,11 +154,11 @@
                         <a href="https://axeandsledge.com/blogs/news/212-thermo-product-breakdown" class="global-button global-button--banner-highlighted-desktop global-button--text-highlighted-mobile second_button" aria-label="Shop Now Learn More" uw-rm-vague-link-id="https://axeandsledge.com/blogs/news/212-thermo-product-breakdown$learn more" data-uw-rm-vglnk="">Learn More</a>
                     </div>
                 </div>
-            </div>
+            </div> --}}
         </div>
         <div class="carousel-item">
-            <img src="https://axeandsledge.com/cdn/shop/files/DSC09217-1_1400x.png?v=1685018338" alt="New York" class="d-block w-100">
-            <div class="carousel-caption">
+            <img src="https://fitnessinformant.com/wp-content/uploads/2022/05/FITNESS-INFORMANT-X-REDCON1-_-ORANGE-03.png" alt="New York" class="d-block w-100">
+            {{-- <div class="carousel-caption">
                 <div class="caption-content align-left animated fadeInDown">
                     <h1 class="headline">
                         Ignition Switch</h1>
@@ -169,11 +169,11 @@
                         <a href="/products/ignition-switch-stim-pre-workout" class="global-button global-button--banner-desktop global-button--text-mobile first_button">Shop Now</a>
                     </div>
                 </div>
-            </div>
+            </div> --}}
         </div>
         <div class="carousel-item">
-            <img src="https://axeandsledge.com/cdn/shop/files/DSC06482_1_1400x.jpg?v=1669920022" alt="New York" class="d-block w-100">
-            <div class="carousel-caption">
+            <img src="https://cdn.shopify.com/s/files/1/0032/5550/0911/articles/Top_Prework_out_2021.jpg?v=1628992994&width=1920" alt="New York" class="d-block w-100">
+            {{-- <div class="carousel-caption">
                 <div class="caption-content align-left animated fadeInDown">
                     <h1 class="headline">
                         Hydraulic ICEE</h1>
@@ -184,11 +184,11 @@
                         <a href="/products/hydraulic-workout-pump" class="global-button global-button--banner-highlighted-desktop global-button--text-highlighted-mobile first_button">Shop Hydraulic</a>
                     </div>
                 </div>
-            </div>
+            </div> --}}
         </div>
         
         <div class="carousel-item">
-            <img src="https://axeandsledge.com/cdn/shop/files/Untitled-15-03_1400x.jpg?v=1688138676" alt="New York" class="d-block w-100">
+            <img src="https://cdn.shopify.com/s/files/1/0018/3808/8244/files/Stack_2048x2048.jpg?v=1650377151" alt="New York" class="d-block w-100">
             <div class="carousel-caption">
                 
             </div>

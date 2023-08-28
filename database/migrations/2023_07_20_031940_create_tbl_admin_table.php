@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('tbl_admin', function (Blueprint $table) {
             $table->id('admin_id');
+            $table->string('admin_code');
             $table->string('admin_email',100);
             $table->string('admin_password');
             $table->string('admin_name');
@@ -20,6 +21,7 @@ return new class extends Migration
             $table->integer('status');
             $table->text('address');
             $table->integer('district_id');
+            $table->float('salary');
             $table->timestamps();
         });
     }

@@ -109,6 +109,8 @@ class AdminController extends Controller
         $admin->role_value = $request->role_value;
         $admin->district_id = $request->district_id;
         $admin->address = $request->address;
+        $admin->salary = 0;
+        $admin->admin_code = '';
         $admin->save();
 
         return Redirect::to('/admin')->with('message', 'Account created successfully. You can now log in.');

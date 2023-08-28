@@ -59,4 +59,8 @@ class Admin extends Model implements Authenticatable
     {
         return $this->belongsTo(Role::class, 'role_id');
     }
+    public function district()
+    {
+        return $this->belongsTo(District::class, 'district_id');
+    }
 }
