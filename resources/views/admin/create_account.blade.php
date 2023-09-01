@@ -100,7 +100,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     <span class=""
                         style="color: white; text-align: center; font-size: 17px; width: 100%; font-weight: bold; background-color:black">{{ $message }}</span>
                 @enderror
-                <input type="text" class="ggg" name="address" placeholder="điền SĐT" required="">
+                <input type="text" class="ggg" name="address" placeholder="điền địa chỉ" required="">
                 @error('address')
                     <span class=""
                         style="color: white; text-align: center; font-size: 17px; width: 100%; font-weight: bold; background-color:black">{{ $message }}</span>

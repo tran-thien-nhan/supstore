@@ -13,12 +13,12 @@
                             <div class="form-group">
                                 <label for="admin_name">Tên nhân viên</label>
                                 <input type="text" class="form-control" name="admin_name"
-                                    value="{{ $employee->admin_name }}">
+                                    value="{{ $employee->admin_name }}" readonly>
                             </div>
                             <div class="form-group">
                                 <label for="admin_email">Email</label>
                                 <input type="email" class="form-control" name="admin_email"
-                                    value="{{ $employee->admin_email }}">
+                                    value="{{ $employee->admin_email }}" readonly>
                             </div>
                             <div class="form-group">
                                 <label for="admin_phone">Số điện thoại</label>
