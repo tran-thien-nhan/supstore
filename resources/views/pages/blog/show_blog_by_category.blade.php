@@ -19,6 +19,7 @@
 @section('product_content')
     <!-- phần hiển thị -->
     <div class="container-fluid">
+        <br>
         @foreach ($blog_by_category as $key => $cate_blog)
             <div class="container mb-4">
                 <div class="row">

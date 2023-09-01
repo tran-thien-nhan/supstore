@@ -106,9 +106,6 @@
                             @endforeach
                         </div>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark btn btn-white" href="#">SUPPORT</a>
-                    </li>
                     @php
                         use App\Models\Customer;
                         $customer_id = Session::get('customer_id');
