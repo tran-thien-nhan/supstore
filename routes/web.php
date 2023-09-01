@@ -17,6 +17,7 @@ use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\SendMailController;
 use App\Http\Controllers\RevenueChartController;
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\NewsletterController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -206,3 +207,10 @@ Route::get('/employees', [EmployeeController::class, 'index'])->name('employees.
 Route::get('/edit-employee/{admin_id}', [EmployeeController::class, 'editEmployee']);
 Route::post('/update-employee/{admin_id}', [EmployeeController::class, 'updateEmployee']);
 Route::get('/delete-employee/{admin_id}', [EmployeeController::class, 'deleteEmployee']);
+
+//newsletter
+Route::post('/subscribe', [NewsletterController::class, 'subscribe'])->name('subscribe');
+Route::get('/list-subscribed-emails', [NewsletterController::class, 'listSubscribedEmails'])->name('listSubscribedEmails');
+Route::get('/compose-email', [NewsletterController::class, 'composeEmail'])->name('composeEmail');
+Route::post('/send-bulk-email', [NewsletterController::class, 'sendBulkEmail'])->name('sendBulkEmail');
+

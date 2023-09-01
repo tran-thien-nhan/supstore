@@ -32,7 +32,7 @@
 
     @include('layout.split_img')
 
-    <h3 style="text-align:center; margin-top: 1rem; margin-bottom: 1rem">NEWS AND TRAINING</h3>
+    <h3 style="text-align:center; margin-top: 1rem; margin-bottom: 1rem">BASICS AND VITAMINS</h3>
     <div class="horizontal-line"></div>
     <br>
     <div class="d-flex">
@@ -67,7 +67,7 @@
             </div>
         @endforeach
     </div>
-    <h3 style="text-align:center; margin-top: 1rem; margin-bottom: 1rem">STACK & GROW</h3>
+    <h3 style="text-align:center; margin-top: 1rem; margin-bottom: 1rem"></h3>
     <div class="row row-cols-1 row-cols-md-2 row-cols-sm-2 row-cols-lg-4">
         @foreach ($all_product_stack as $key => $product_stack)
             <div class="col mb-4">
