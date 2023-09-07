@@ -4,7 +4,7 @@
         <div class="table-agile-info">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    Liệt kê mã giảm giá
+                    COUPON LIST
                 </div>
                 @if (session('success'))
                     <div class="alert alert-success">
@@ -12,7 +12,7 @@
                     </div>
                 @endif
                 <div class="row w3-res-tb">
-                    <a href="{{ route('create-batch-coupon') }}" class="btn btn-success">Tạo mã giảm giá hàng loạt</a>
+                    <a href="{{ route('create-batch-coupon') }}" class="btn btn-success">Create Batch Of Coupons</a>
                 </div>
                 <div class="table-responsive">
                     <table class="table table-striped b-t b-light">
@@ -23,13 +23,13 @@
                                         <input type="checkbox"><i></i>
                                     </label>
                                 </th>
-                                <th>tên mã giảm giá</th>
+                                <th>Coupon name</th>
                                 <th>coupon code</th>
-                                <th>coupon times</th>
+                                <th>coupon quantity</th>
                                 <th>coupon condition</th>
                                 <th>coupon number</th>
-                                <th>ngày hết hạn</th>
-                                <th>tình trạng</th>
+                                <th>Expired date</th>
+                                <th>Condition</th>
                                 {{-- <th>coupon status</th> --}}
                                 <th style="width:30px;"></th>
                             </tr>
@@ -45,18 +45,18 @@
                                     <td>{{ $coupon_item->coupon_time }}</td>
                                     <td>
                                         @if ($coupon_item->coupon_condition == 1)
-                                            giảm theo phần trăm
+                                            discount by percentage
                                         @else
-                                            giảm theo số tiền
+                                            discount by amount
                                         @endif
                                     </td>
                                     <td>
                                         @if ($coupon_item->coupon_number >= 1000)
-                                            giảm {{ number_format($coupon_item->coupon_number, 0, ',', '.') }}đ
+                                            discount {{ number_format($coupon_item->coupon_number, 0, ',', '.') }}đ
                                         @elseif ($coupon_item->coupon_number >= 1 && $coupon_item->coupon_number <= 100)
-                                            giảm {{ $coupon_item->coupon_number }}%
+                                            discount {{ $coupon_item->coupon_number }}%
                                         @else
-                                            giảm {{ $coupon_item->coupon_number }}
+                                            discount {{ $coupon_item->coupon_number }}
                                         @endif
                                     </td>
                                     <td>{{ $coupon_item->coupon_expire_date }}</td>
@@ -66,10 +66,10 @@
                                     @endphp
 
                                     <td>
-                                        @if ($coupon_item->coupon_time == 0 && $coupon_item->coupon_expire_date >= $currentDate)
-                                            <span class="badge bg-danger">hết hạn</span>
+                                        @if ($coupon_item->coupon_time != 0 && $coupon_item->coupon_expire_date > $currentDate)
+                                            <span class="badge bg-success" style="color:white">still valid</span>
                                         @else
-                                            <span class="badge bg-success" style="color:white">còn hạn</span>
+                                            <span class="badge bg-danger" style="color:white">expired</span>
                                         @endif
                                     </td>
 
@@ -118,7 +118,7 @@
                     <div class="row">
 
                         <div class="col-sm-5 text-center">
-                            <small class="text-muted inline m-t-sm m-b-sm">showing 20-30 of 50 items</small>
+                            {{-- <small class="text-muted inline m-t-sm m-b-sm">showing 20-30 of 50 items</small> --}}
                         </div>
                         <div class="col-sm-7 text-right text-center-xs">
                             {{ $coupon->links() }}

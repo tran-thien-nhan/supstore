@@ -63,7 +63,7 @@ class AdminController extends Controller
                 return Redirect::to('/manage-order');
             }
         } else {
-            Session::put('message', 'Mật khẩu hoặc tài khoản chưa đúng, vui lòng nhập lại');
+            Session::put('message', 'password or account is not true, please input again');
             return Redirect::to('/admin');
         }
     }
@@ -85,14 +85,14 @@ class AdminController extends Controller
             'role_value' => 'required|in:1,2',
             'address' => 'required',
         ], [
-            'required' => 'bắt buộc nhập',
-            'min' => 'phải chứa ít nhất :min ký tự',
-            'max' => 'không được vượt quá :max ký tự',
-            'email' => 'phải đúng định dạng email',
-            'same' => 'không giống password đã nhập ở trên',
-            'numeric' => ':attribute phải là số',
-            'digits' => ':attribute phải có đúng :digits chữ số',
-            'unique' => 'email đã tồn tại, vui lòng nhập email khác'
+            'required' => 'requried',
+            'min' => 'must have at least :min characters',
+            'max' => 'must have at least :max characters',
+            'email' => 'must match email form',
+            'same' => 'does not match with above password',
+            'numeric' => 'must be number',
+            'digits' => 'must have :digits characters',
+            'unique' => 'email already exist, please input another email'
         ]);
 
         $role = Role::where('role_value', $request->role_value)->first();

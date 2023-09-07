@@ -4,7 +4,7 @@
         <div class="table-agile-info">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    Liệt Kê Các Comments
+                    Comment List
                 </div>
                 @if (session('success'))
                     <div class="alert alert-success">
@@ -24,8 +24,8 @@
                                 <th>product name</th>
                                 <th>customer id</th>
                                 <th>customer name</th>
-                                <th>nội dung bình luận</th>
-                                <th>Trạng thái</th>
+                                <th>Comment content</th>
+                                <th>status</th>
                                 <th style="width:30px;"></th>
                             </tr>
                         </thead>
@@ -67,7 +67,7 @@
                 <footer class="panel-footer">
                     <div class="row">
                         <div class="col-sm-5 text-center">
-                            <small class="text-muted inline m-t-sm m-b-sm">showing 20-30 of 50 items</small>
+                            {{-- <small class="text-muted inline m-t-sm m-b-sm">showing 20-30 of 50 items</small> --}}
                         </div>
                         <div class="col-sm-7 text-right text-center-xs">
                             {{ $comments->links() }}

@@ -7,7 +7,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <!DOCTYPE html>
 
 <head>
-    <title>trang quản lý admin web</title>
+    <title>ADMIN WEB</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="keywords"
@@ -106,14 +106,15 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         style="color: white; text-align: center; font-size: 17px; width: 100%; font-weight: bold; background-color:black">{{ $message }}</span>
                 @enderror
                 <div class="mb-3">
-                    <label for="role_value" class="form-label">Role</label>
+                    <label for="role_value" class="form-label" style="color:white">Role</label><br>
                     <select name="role_value" id="role_value" class="form-select" required>
-                        <option value="1">Admin</option>
+                        <option value="1">Nhân Viên</option>
                         <option value="2">Shipper</option>
                     </select>
                 </div>
+                <br>
                 <div class="mb-3">
-                    <label for="district_id" class="form-label">District</label>
+                    <label for="district_id" class="form-label" style="color:white">District</label><br>
                     <select name="district_id" id="district_id" class="form-select" required>
                         <option value="" selected disabled>Select District</option>
                         @foreach ($districts as $district)

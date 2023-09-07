@@ -4,7 +4,7 @@
         <div class="table-agile-info">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    thông tin khách hàng
+                    CUSTOMER INFOMATION
                 </div>
                 @if (session('success'))
                     <div class="alert alert-success">
@@ -15,9 +15,9 @@
                     <table class="table table-striped b-t b-light">
                         <thead>
                             <tr>
-                                <th>tên người đặt</th>
-                                <th>số điện thoại</th>
-                                <th>địa chỉ</th>
+                                <th>customer name</th>
+                                <th>phone</th>
+                                <th>address</th>
                                 <th style="width:30px;"></th>
                             </tr>
                         </thead>
@@ -38,7 +38,7 @@
         <div class="table-agile-info">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    thông tin vận chuyển
+                    SHIPPING INFOMATION
                 </div>
                 @if (session('success'))
                     <div class="alert alert-success">
@@ -49,16 +49,14 @@
                     <table class="table table-striped b-t b-light">
                         <thead>
                             <tr>
-                                <th>tên người vận chuyển</th>
-                                <th>địa chỉ</th>
-                                <th>số điện thoại</th>
+                                <th>address on bill</th>
+                                <th>phone on bill</th>
                                 <th style="width:30px;"></th>
                             </tr>
                         </thead>
                         <tbody>
 
                             <tr>
-                                <td>{{ $order_by_id->shipping_name }}</td>
                                 <td>{{ $order_by_id->shipping_address }}</td>
                                 <td>{{ $order_by_id->shipping_phone }}</td>
                             </tr>
@@ -74,7 +72,7 @@
         <div class="table-agile-info">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    liệt kê chi tiết đơn hàng
+                    ORDER DETAIL LIST
                 </div>
                 @if (session('success'))
                     <div class="alert alert-success alert-dismissible">
@@ -87,11 +85,11 @@
                     <table class="table table-striped b-t b-light">
                         <thead>
                             <tr>
-                                <th>tên sản phẩm</th>
-                                <th>số lượng</th>
-                                <th>giá</th>
-                                <th>tổng tiền</th>
-                                <th>chi tiết đơn hàng</th>
+                                <th>item</th>
+                                <th>quantity</th>
+                                <th>cost</th>
+                                <th>total</th>
+                                <th>detail</th>
                                 <th style="width:30px;"></th>
                             </tr>
                         </thead>
@@ -116,19 +114,19 @@
                         <tfoot>
                             <tr>
                                 <th colspan="3"></th>
-                                <th>tổng tiền:</th>
+                                <th>total:</th>
                                 <th>{{ number_format($totalOrderAmount, 0, ',', '.') }}đ</th>
                                 <th></th>
                             </tr>
                             <tr>
                                 <th colspan="3"></th>
-                                <th>giảm giá:</th>
+                                <th>discount:</th>
                                 <th>-{{ number_format($totalOrderAmount - $item->order_total, 0, ',', '.') }}đ</th>
                                 <th></th>
                             </tr>
                             <tr>
                                 <th colspan="3"></th>
-                                <th>tổng tiền phải trả:</th>
+                                <th>total must pay:</th>
                                 <th><span style="color:red">{{ number_format($item->order_total, 0, ',', '.') }}đ</span>
                                 </th>
                                 <th></th>

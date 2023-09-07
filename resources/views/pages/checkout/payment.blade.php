@@ -32,10 +32,10 @@
                                     @if (session('error'))
                                         <div class="alert alert-danger alert-dismissible">
                                             <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                                            <strong>Lỗi!</strong> {{ session('error') }}
+                                            <strong>Error!</strong> {{ session('error') }}
                                         </div>
                                     @endif
-                                    <p>hiện tại có {{ Cart::count() }} sản phẩm trong giỏ hàng</p>
+                                    <p>Numbers of item in cart: {{ Cart::count() }} </p>
                                     <form action="{{ route('cart.update') }}" method="POST">
                                         @csrf
                                         @if (Cart::count() > 0)
@@ -110,7 +110,7 @@
                                                                 <input type="hidden" name="rowId"
                                                                     value="<?php $row->id; ?>">
                                                                 <a type="submit" class="cart_quantity_delete"
-                                                                    onclick="return confirm('Bạn có chắc chắn muốn xóa sản phẩm này khỏi giỏ hàng?')"
+                                                                    onclick="return confirm('Are you sure you want to delete this item?')"
                                                                     href="{{ route('cart.remove', $row->rowId) }}"><i
                                                                         class="fa fa-times"></i></a>
                                                             </form>
@@ -127,7 +127,7 @@
                                                     </tr>
                                                     <tr>
                                                         <td colspan="2">&nbsp;</td>
-                                                        <td>mã giảm</td>
+                                                        <td>Coupon</td>
                                                         <td>
                                                             @php
                                                                 $totalFormatted = str_replace(',', '', Cart::total()); // Loại bỏ dấu phân cách hàng nghìn
@@ -170,7 +170,7 @@
                                                     </tr>
                                                     <tr>
                                                         <td colspan="2">&nbsp;</td>
-                                                        <td>tiền sau khi giảm</td>
+                                                        <td>Amount After Discount</td>
                                                         <td id="total_amount">
                                                             {{ number_format($total, 0, ',', '.') }}đ
                                                         </td>
@@ -185,20 +185,19 @@
                     </div>
                 </div>
             </div>
-            <h4>chọn hình thức thanh toán:</h4>
             <form action="{{ URL::to('/order-place') }}" method="post">
                 @csrf
-                <div class="payment-options my-2">
-                    <span class="">
-                        <label><input name="payment_option" value="1" type="checkbox" disabled> trả bằng thẻ
-                            ATM</label>
+                <div class="payment-options my-1">
+                    <span class="mx-3">
+                        <label><input name="payment_option" value="1" type="radio"> By ATM</label>
                     </span>
                     <span class="mx-3">
-                        <label><input name="payment_option" value="2" type="checkbox"> nhận tiền mặt</label>
+                        <label><input name="payment_option" value="2" type="radio"> By Cash</label>
                     </span>
-                    <span class="mx-3">
-                        <label><input name="payment_option" value="3" type="checkbox" disabled> thẻ ghi nợ</label>
-                    </span>
+                    <br>
+                    @error('payment_option')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
                 </div>
                 <input type="submit" name="send_order_place" class="btn btn-outline-dark" value="đặt hàng">
             </form>

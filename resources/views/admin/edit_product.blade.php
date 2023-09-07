@@ -5,7 +5,7 @@
         <div class="col-lg-12">
             <section class="panel">
                 <header class="panel-heading">
-                    update sản phẩm
+                    update Product
                 </header>
                 <?php
                 // $message = Session::get('message');
@@ -22,54 +22,78 @@
                 <div class="panel-body">
                     <div class="position-center">
                         @foreach ($edit_product as $key => $pro)
-                            <form role="form" action="{{ URL::to('/update-product/'.$pro->product_id) }}" method="POST"
+                            <form role="form" action="{{ URL::to('/update-product/' . $pro->product_id) }}" method="POST"
                                 enctype="multipart/form-data">
                                 @csrf
                                 <div class="form-group">
-                                    <label for="product_name">tên sản phẩm</label>
+                                    <label for="product_name">Product Name</label>
                                     <input type="text" name="product_name" class="form-control" id="product_name"
                                         value="{{ $pro->product_name }}">
+                                    @error('product_name')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
-                                    <label for="product_quantity">số lượng sản phẩm (quantity)</label>
+                                    <label for="product_quantity">Product Quantity</label>
                                     <input type="number" name="product_quantity" class="form-control" id="product_quantity"
-                                    value="{{ $pro->product_quantity}}">
+                                        value="{{ $pro->product_quantity }}">
+                                    @error('product_quantity')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
                                     <label for="product_flavour">flavour</label>
                                     <input type="text" name="product_flavour" class="form-control" id="product_flavour"
                                         value="{{ $pro->product_flavour }}">
+                                    @error('product_flavour')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
-                                    <label for="product_price">giá sản phẩm (price)</label>
+                                    <label for="product_price">Product Price</label>
                                     <input type="text" name="product_price" class="form-control" id="product_price"
                                         value="{{ $pro->product_price }}">
+                                    @error('product_price')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
-                                    <label for="product_discount">% discount của sản phẩm (discount)</label>
+                                    <label for="product_discount">% discount of product</label>
                                     <input type="text" name="product_discount" class="form-control" id="product_discount"
                                         value="{{ $pro->product_discount }}">
+                                    @error('product_discount')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
-                                    <label for="product_image">Hình ảnh sản phẩm</label>
+                                    <label for="product_image">Product Image</label>
                                     <input type="file" name="product_image" class="form-control" id="product_image"
                                         placeholder="Hình ảnh sản phẩm">
-                                    <img src="{{ URL::to('public/uploads/product/' . $pro->product_image) }}" width="100"
-                                        height="100" alt="">
+                                    <img src="{{ URL::to('public/uploads/product/' . $pro->product_image) }}"
+                                        width="100" height="100" alt="">
+                                    @error('product_image')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="product_desc">mô tả sản phẩm</label>
+                                    <label for="product_desc">Product Description</label>
                                     <textarea class="form-control" name="product_desc" id="product_desc" placeholder="mô tả sản phẩm" style="resize:none"
                                         rows="8">{{ $pro->product_desc }}</textarea>
+                                    @error('product_desc')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
-                                    <label for="product_content">nội dung sản phẩm</label>
+                                    <label for="product_content">Product Content</label>
                                     <textarea class="form-control" name="product_content" id="product_content" placeholder="nội dung sản phẩm"
                                         style="resize:none" rows="8">{{ $pro->product_content }}</textarea>
+                                    @error('product_content')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
-                                    <label for="product_cate">danh mục sản phẩm</label>
+                                    <label for="product_cate">Product Category</label>
                                     <select name="product_cate" class="form-control input-sm m-bot15">
                                         @foreach ($cate_product as $key => $cate)
                                             @if ($cate->category_id == $pro->category_id)
@@ -83,7 +107,7 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="product_brand">thương hiệu sản phẩm</label>
+                                    <label for="product_brand">product Brand</label>
                                     <select name="product_brand" class="form-control input-sm m-bot15">
                                         @foreach ($brand_product as $key => $brand)
                                             @if ($brand->brand_id == $pro->brand_id)
@@ -96,14 +120,15 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="product_status">hiển thị</label>
+                                    <label for="product_status">Visibility</label>
                                     <select name="product_status" class="form-control input-sm m-bot15">
-                                        <option value="0" @if ($pro->product_status == 0) selected @endif>ẩn</option>
-                                        <option value="1" @if ($pro->product_status == 1) selected @endif>hiển thị</option>
+                                        <option value="0" @if ($pro->product_status == 0) selected @endif>Show</option>
+                                        <option value="1" @if ($pro->product_status == 1) selected @endif>Hide
+                                        </option>
                                     </select>
                                 </div>
-                                
-                                <button type="submit" name="add_product" class="btn btn-info">update sản phẩm</button>
+
+                                <button type="submit" name="add_product" class="btn btn-info">update product</button>
                             </form>
                         @endforeach
                     </div>

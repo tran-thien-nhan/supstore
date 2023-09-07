@@ -31,40 +31,53 @@
                                 method="POST">
                                 @csrf
                                 <div class="form-group">
-                                    <label for="coupon_name">tên mã giảm giá</label>
+                                    <label for="coupon_name">Coupon Name</label>
                                     <input type="text" name="coupon_name" class="form-control" id="coupon_name"
                                         placeholder="tên mã giảm giá" value="{{ $cou->coupon_name }}">
+                                    @error('coupon_name')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
-                                    <label for="exampleInputPassword1">mã giảm giá</label>
+                                    <label for="exampleInputPassword1">Coupon Code</label>
                                     <input type="text" class="form-control" name="coupon_code" id="coupon_code"
                                         placeholder="mã giảm giá" value="{{ $cou->coupon_code }}">
+                                    @error('coupon_code')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
-                                    <label for="exampleInputPassword1">số lượng mã giảm giá</label>
+                                    <label for="exampleInputPassword1">Coupon Quantity</label>
                                     <input type="text" class="form-control" name="coupon_time" id="coupon_time"
                                         placeholder="SL mã giảm giá" value="{{ $cou->coupon_time }}">
+                                    @error('coupon_time')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
-                                    <label for="exampleInputPassword1">ngày hết hạn mã giảm giá</label>
+                                    <label for="exampleInputPassword1">Coupon Expired Date</label>
                                     <input type="date" class="form-control" name="coupon_expire_date"
                                         id="coupon_expire_date" value="{{ $cou->coupon_expire_date }}">
+                                    @error('coupon_expire_date')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
-                                    <label for="exampleInputPassword1">tính năng mã giảm giá</label>
+                                    <label for="exampleInputPassword1">Coupon Feature</label>
                                     <select name="coupon_condition" class="form-control input-sm m-bot15">
-                                        <option value="1" {{ $cou->coupon_condition == 1 ? 'selected' : '' }}>giảm theo
-                                            phần trăm</option>
-                                        <option value="2" {{ $cou->coupon_condition == 2 ? 'selected' : '' }}>giảm theo
-                                            số tiền</option>
+                                        <option value="1" {{ $cou->coupon_condition == 1 ? 'selected' : '' }}>Discount By Percentage</option>
+                                        <option value="2" {{ $cou->coupon_condition == 2 ? 'selected' : '' }}>Discount By Amount</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="exampleInputPassword1">nhập số %/ số tiền giảm</label>
+                                    <label for="exampleInputPassword1">Enter % / Amount to discount</label>
                                     <input type="text" class="form-control" name="coupon_number" id="coupon_number"
                                         value="{{ $cou->coupon_number }}">
+                                    @error('coupon_number')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
-                                <button type="submit" name="add_coupon" class="btn btn-info">update mã giảm giá</button>
+                                <button type="submit" name="add_coupon" class="btn btn-info">update Coupon</button>
                             </form>
                         @endforeach
                     </div>

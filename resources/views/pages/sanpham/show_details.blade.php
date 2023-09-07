@@ -134,7 +134,7 @@
                                     class="badge bg-success">-{{ $detail_product_by_id->product_discount }}%</span></h5>
                         </div>
                         <div class="my-2">
-                            <h6><em>(tiết kiệm
+                            <h6><em>(save
                                     {{ number_format($detail_product_by_id->product_price - $detail_product_by_id->product_price * (1 - $detail_product_by_id->product_discount / 100), 0, ',', '.') }}đ)</em>
                             </h6>
                         </div>
@@ -154,21 +154,21 @@
                                 </ul>
                             </div>
                             <div class="my-2 d-flex">
-                                <h6 for="brand" class="mx-2 my-1">tình trạng: </h6>
+                                <h6 for="brand" class="mx-2 my-1">condition: </h6>
                                 @php
                                     if ($detail_product_by_id->product_quantity <= 25) {
-                                        echo '<h5><span class="badge bg-secondary">hết hàng</span></h5>';
+                                        echo '<h5><span class="badge bg-secondary">out of stock</span></h5>';
                                     } else {
-                                        echo '<h5><span class="badge bg-danger">còn hàng</span></h5>';
+                                        echo '<h5><span class="badge bg-danger">sale off</span></h5>';
                                     }
                                 @endphp
                             </div>
                             <div class="my-2 d-flex">
-                                <h6 for="brand" class="mx-2 my-1">thương hiệu: </h6>
+                                <h6 for="brand" class="mx-2 my-1">brand: </h6>
                                 <h5><span class="badge bg-dark">{{ $detail_product_by_id->brand_name }}</span></h5>
                             </div>
                             <div class="my-2 d-flex">
-                                <h6 for="brand" class="mx-2 my-1">hương vị: </h6>
+                                <h6 for="brand" class="mx-2 my-1">flavour: </h6>
                                 <h5><span class="badge bg-dark">{{ $detail_product_by_id->product_flavour }}</span>
                                 </h5>
                             </div>
@@ -176,7 +176,7 @@
                                 <h6 for="brand" class="mx-2 my-1">product point: </h6>
                                 <h5><span
                                         class="badge bg-dark">+{{ number_format($detail_product_by_id->product_point, 1) }}
-                                        điểm</span>
+                                        point</span>
                                 </h5>
                             </div>
                             <div class="my-2">
@@ -185,7 +185,7 @@
                                     <a target="_blank"
                                         href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(URL::current()) }}&amp;src=sdkpreparse"
                                         class="fb-xfbml-parse-ignore text-white" style="text-decoration: none;">
-                                        <i class="fa-brands fa-facebook"></i> Chia sẻ
+                                        <i class="fa-brands fa-facebook"></i> share
                                     </a>
                                 </div>
                             </div>
@@ -238,7 +238,7 @@
         {{-- <div class="fb-comments" data-href="{{ URL::current() }}" data-width="100%" data-numposts="20">
         </div> --}}
         <span type="button" class="button-cm mt-10 write-rate"
-            style="background: #005696; font-size: 17px; text-align: left; padding: 10px; border: none; color: white">Phần Bình Luận ({{$comments_count}})</span>
+            style="background: #005696; font-size: 17px; text-align: left; padding: 10px; border: none; color: white">Comment Section ({{$comments_count}})</span>
         @foreach ($product->comments as $comment)
             @if ($comment->approved)
                 <div class="box-product-mini index mb-4" id="comment-{{ $comment->comment_id }}">
@@ -291,7 +291,7 @@
                 </form>
             </div>
         @else
-            <em class="text-primary">Vui Lòng Đăng Nhập Để Nhập Bình Luận.</em>
+            <em class="text-primary">Please Sign In To Commnent.</em>
             <a href="{{ url('/login-checkout') }}" class="btn btn-success my-2">Login</a>
         @endif
 

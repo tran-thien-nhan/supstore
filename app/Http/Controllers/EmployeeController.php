@@ -57,7 +57,7 @@ class EmployeeController extends Controller
 
         $employee->save();
 
-        return redirect('/employees')->with('success', 'Thông tin nhân viên đã được cập nhật');
+        return redirect('/employees')->with('success', 'update successfully');
     }
 
     public function deleteEmployee($admin_id)
@@ -65,6 +65,6 @@ class EmployeeController extends Controller
         $employee = Admin::findOrFail($admin_id);
         $employee->delete();
 
-        return redirect('/employees')->with('success', 'Nhân viên đã được xóa');
+        return redirect('/employees')->with('success', 'delete successfully');
     }
 }

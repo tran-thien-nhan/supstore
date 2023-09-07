@@ -4,7 +4,7 @@
         <div class="table-agile-info">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    Liệt kê danh mục bài viết bài viết
+                    Blog Category List
                 </div>
                 @if (session('success'))
                     <div class="alert alert-success">
@@ -12,7 +12,7 @@
                     </div>
                 @endif
                 <div class="row w3-res-tb">
-                    <div class="col-sm-5 m-b-xs">
+                    {{-- <div class="col-sm-5 m-b-xs">
                         <select class="input-sm form-control w-sm inline v-middle">
                             <option value="0">Bulk action</option>
                             <option value="1">Delete selected</option>
@@ -30,7 +30,7 @@
                                 <button class="btn btn-sm btn-default" type="button">Go!</button>
                             </span>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
                 <div class="table-responsive">
                     <table class="table table-striped b-t b-light">
@@ -41,9 +41,9 @@
                                         <input type="checkbox"><i></i>
                                     </label>
                                 </th>
-                                <th>tên danh mục bài viết</th>
-                                <th>hiển thị</th>
-                                <th>mô tả danh mục bài viết</th>
+                                <th>Blog Category Name</th>
+                                <th>Visibility</th>
+                                <th>Blog Category Description</th>
                                 <th style="width:30px;"></th>
                             </tr>
                         </thead>
@@ -99,7 +99,7 @@
                     <div class="row">
 
                         <div class="col-sm-5 text-center">
-                            <small class="text-muted inline m-t-sm m-b-sm">showing 20-30 of 50 items</small>
+                            {{-- <small class="text-muted inline m-t-sm m-b-sm">showing 20-30 of 50 items</small> --}}
                         </div>
                         <div class="col-sm-7 text-right text-center-xs">
                             {{ $all_blog_category->links() }}

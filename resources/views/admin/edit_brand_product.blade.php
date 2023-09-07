@@ -4,7 +4,7 @@
         <div class="col-lg-12">
             <section class="panel">
                 <header class="panel-heading">
-                    cập nhật thương hiệu của sản phẩm
+                    Update Brand Product
                 </header>
                 <?php
                 // $message = Session::get('message');
@@ -21,20 +21,26 @@
                 <div class="panel-body">
                     @foreach ($edit_brand_product as $key => $edit_value)
                         <div class="position-center">
-                            <form role="form" action="{{ URL::to('/update-brand-product/'.$edit_value->brand_id) }}" method="POST">
+                            <form role="form" action="{{ URL::to('/update-brand-product/' . $edit_value->brand_id) }}"
+                                method="POST">
                                 @csrf
                                 <div class="form-group">
-                                    <label for="brand_product_name">tên thương hiệu</label>
-                                    <input type="text" value="{{$edit_value->brand_name}}" name="brand_product_name" class="form-control"
-                                        id="brand_product_name" placeholder="tên thương hiệu">
+                                    <label for="brand_product_name">Brand Name</label>
+                                    <input type="text" value="{{ $edit_value->brand_name }}" name="brand_product_name"
+                                        class="form-control" id="brand_product_name" placeholder="tên thương hiệu">
+                                    @error('brand_product_name')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
-                                    <label for="brand_product_desc">mô tả thương hiệu</label>
+                                    <label for="brand_product_desc">Brand Description</label>
                                     <textarea class="form-control" name="brand_product_desc" id="brand_product_desc" placeholder="mô tả thương hiệu"
-                                        style="resize:none" rows="8">{{$edit_value->brand_desc}}</textarea>
+                                        style="resize:none" rows="8">{{ $edit_value->brand_desc }}</textarea>
+                                    @error('brand_product_desc')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
-                                <button type="submit" name="update_brand_product" class="btn btn-info">update danh
-                                    mục</button>
+                                <button type="submit" name="update_brand_product" class="btn btn-info">update Brand</button>
                             </form>
                         </div>
                     @endforeach

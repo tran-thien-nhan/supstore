@@ -4,7 +4,7 @@
         <div class="table-agile-info">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    Liệt kê bài viết
+                    BLOG LIST
                 </div>
                 @if (session('success'))
                     <div class="alert alert-success">
@@ -13,15 +13,7 @@
                 @endif
                 <div class="row w3-res-tb">
                     <div class="col" style="margin-left:1rem; margin-bottom:1rem">
-                        <form method="GET" action="{{ route('filterData') }}">
-                            <label for="start_date">Ngày bắt đầu:</label>
-                            <input type="date" name="start_date" id="start_date">
 
-                            <label for="end_date">Ngày kết thúc:</label>
-                            <input type="date" name="end_date" id="end_date">
-
-                            <button type="submit">Lọc</button>
-                        </form>
                     </div>
                     <div class="col-sm-3 m-b-xs dropdown">
                         <div class="category-group">
@@ -32,23 +24,35 @@
                             <ul class="dropdown-menu" aria-labelledby="categoryDropdown">
                                 <li value="all"><a class="dropdown-item" href="{{ URL::to('/all-blog') }}">ALL</a>
                                 </li>
-                                @foreach ($all_category_blog as $key => $cate_blog)
-                                    <li value="{{ $cate_blog->blog_category_name }}"><a class="dropdown-item"
+                                {{-- @foreach ($all_category_blog as $key => $cate_blog)
+                                    <li value="{{ $cate_blog->blog_category_name }}">
+                                        <a class="dropdown-item"
                                             href="{{ URL::to('/all-blog/category-blog/' . $cate_blog->blog_category_id ) }}">{{ $cate_blog->blog_category_name }}</a>
                                     </li>
+                                @endforeach --}}
+                                @foreach ($all_category_blog as $key => $cate_blog)
+                                    <li value="{{ $cate_blog->blog_category_name }}">
+                                        <a class="dropdown-item"
+                                            href="{{ URL::to('/all-blog/category-blog/' . $cate_blog->blog_category_id) }}?category_id={{ $cate_blog->blog_category_id }}"
+                                            @if (request('category_id') == $cate_blog->blog_category_id) style="font-weight: bold" @endif>
+                                            {{ $cate_blog->blog_category_name }}
+                                        </a>
+                                    </li>
                                 @endforeach
+
+
                             </ul>
                         </div>
                     </div>
                     <div class="col-sm-4">
                     </div>
                     <div class="col-sm-3">
-                        <div class="input-group">
+                        {{-- <div class="input-group">
                             <input type="text" class="input-sm form-control" placeholder="Search">
                             <span class="input-group-btn">
                                 <button class="btn btn-sm btn-default" type="button">Go!</button>
                             </span>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
                 <div class="table-responsive">
@@ -60,11 +64,11 @@
                                         <input type="checkbox"><i></i>
                                     </label>
                                 </th>
-                                <th>tên bài viết</th>
-                                <th>hình ảnh bài viết</th>
-                                <th>danh mục bài viết</th>
-                                <th>hiển thị</th>
-                                <th>ngày tạo</th>
+                                <th>Blog Title</th>
+                                <th>Blog Thumbnail</th>
+                                <th>Blog Category</th>
+                                <th>Visibility</th>
+                                <th>Created Date</th>
                                 {{-- <th>mô tả </th> --}}
                                 <th style="width:30px;"></th>
                             </tr>
@@ -106,8 +110,8 @@
                                     </td>
                                     <td>{{ $blog->updated_at }}</td>
                                     <td>
-                                        <a href="{{ URL::to('/edit-blog/' . $blog->blog_id) }}"
-                                            class="active styling-edit" ui-toggle-class="">
+                                        <a href="{{ URL::to('/edit-blog/' . $blog->blog_id) }}" class="active styling-edit"
+                                            ui-toggle-class="">
                                             <i class="fa fa-pencil-square-o text-success text-active"></i>
                                         </a>
                                         <a onclick="return confirm('are you sure to delete?')"
@@ -126,7 +130,7 @@
                     <div class="row">
 
                         <div class="col-sm-5 text-center">
-                            <small class="text-muted inline m-t-sm m-b-sm">showing 20-30 of 50 items</small>
+                            {{-- <small class="text-muted inline m-t-sm m-b-sm">showing 20-30 of 50 items</small> --}}
                         </div>
                         <div class="col-sm-7 text-right text-center-xs">
                             {{ $all_blog->links() }}

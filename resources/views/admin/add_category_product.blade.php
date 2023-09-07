@@ -10,15 +10,8 @@
         <div class="col-lg-12">
             <section class="panel">
                 <header class="panel-heading">
-                    thêm danh mục sản phẩm
+                    Add Product Category
                 </header>
-                <?php
-                // $message = Session::get('message');
-                // if ($message) {
-                //     echo '<span style="color: red; text-align: center; font-size: 17px; width: 100%; font-weight: bold">' . $message . '</span>';
-                //     Session::put('message', null);
-                // }
-                ?>
                 @if (session('success'))
                     <div class="alert alert-success alert-dismissible">
                         <strong>Success!</strong> {{ session('success') }}
@@ -29,30 +22,39 @@
                         <form role="form" id="categoryForm" action="{{ URL::to('/save-category-product') }}" method="POST">
                             @csrf
                             <div class="form-group">
-                                <label for="category_product_name">tên danh mục</label>
+                                <label for="category_product_name">Category Name</label>
                                 <input type="text" name="category_product_name" class="form-control"
                                     id="category_product_name" placeholder="tên danh mục">
+                                @error('category_product_name')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
                             <div class="form-group">
-                                <label for="exampleInputPassword1">mô tả danh mục</label>
+                                <label for="exampleInputPassword1">Category Description</label>
                                 <textarea class="form-control" name="category_product_desc" id="category_product_desc" placeholder="mô tả danh mục"
                                     style="resize:none" rows="8"></textarea>
+                                @error('category_product_desc')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
                             <div class="form-group">
-                                <label for="exampleInputPassword1">từ khóa danh mục</label>
-                                <textarea class="form-control" name="category_product_keywords" id="category_product_keywords" placeholder="từ khóa mô tả danh mục"
-                                    style="resize:none" rows="8"></textarea>
+                                <label for="exampleInputPassword1">Category Keyworkds</label>
+                                <textarea class="form-control" name="category_product_keywords" id="category_product_keywords"
+                                    placeholder="từ khóa mô tả danh mục" style="resize:none" rows="8"></textarea>
+                                @error('category_product_keywords')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
                             <div class="form-group">
-                                <label for="category_product_status">hiển thị</label>
+                                <label for="category_product_status">Visibility</label>
                                 <select name="category_product_status" class="form-control input-sm m-bot15">
-                                    <option value="0" {{ old('category_product_status') == 0 ? 'selected' : '' }}>ẩn
+                                    <option value="0" {{ old('category_product_status') == 0 ? 'selected' : '' }}>Hide
                                     </option>
-                                    <option value="1" {{ old('category_product_status') == 1 ? 'selected' : '' }}>hiển
-                                        thị</option>
+                                    <option value="1" {{ old('category_product_status') == 1 ? 'selected' : '' }}>Show
+                                    </option>
                                 </select>
                             </div>
-                            <button type="submit" name="add_category_product" class="btn btn-info">thêm danh mục</button>
+                            <button type="submit" name="add_category_product" class="btn btn-info">Add Product Category</button>
                         </form>
                     </div>
 

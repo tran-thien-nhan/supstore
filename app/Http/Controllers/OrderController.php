@@ -83,7 +83,7 @@ class OrderController extends Controller
                 ]);
         }
 
-        return redirect()->back()->with('success', 'Cập nhật trạng thái và shipper thành công.');
+        return redirect()->back()->with('success', 'update order status successfully.');
     }
 
 

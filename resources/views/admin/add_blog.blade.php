@@ -11,15 +11,8 @@
         <div class="col-lg-12">
             <section class="panel">
                 <header class="panel-heading">
-                    thêm bài viết
+                    Add Blog
                 </header>
-                <?php
-                // $message = Session::get('message');
-                // if ($message) {
-                //     echo '<span style="color: red; text-align: center; font-size: 17px; width: 100%; font-weight: bold">' . $message . '</span>';
-                //     Session::put('message', null);
-                // }
-                ?>
                 @if (session('success'))
                     <div class="alert alert-success">
                         <strong>Success!</strong> {{ session('success') }}
@@ -31,17 +24,23 @@
                             enctype="multipart/form-data">
                             @csrf
                             <div class="form-group">
-                                <label for="blog_name">tên bài viết</label>
+                                <label for="blog_name">Blog Title</label>
                                 <input type="text" name="blog_title" class="form-control" id="blog_title"
-                                    placeholder="tên bài viết">
+                                    placeholder="blog title">
+                                @error('blog_title')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
                             <div class="form-group">
-                                <label for="blog_thumbnail">hình ảnh bài viết</label>
+                                <label for="blog_thumbnail">Blog Image</label>
                                 <input type="file" name="blog_thumbnail" class="form-control" id="blog_thumbnail"
-                                    placeholder="hình ảnh bài viết">
+                                    placeholder="blog thumbnail">
+                                @error('blog_thumbnail')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
                             <div class="form-group">
-                                <label for="blog_cate">danh mục bài viết</label>
+                                <label for="blog_cate">Blog Category</label>
                                 <select name="blog_cate" class="form-control input-sm m-bot15">
                                     @foreach ($cate_blog as $key => $cate)
                                         <option value="{{ $cate->blog_category_id }}"
@@ -51,24 +50,30 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="pre_blog_content">mô tả bài viết</label>
-                                <textarea class="form-control" name="pre_blog_content" id="pre_blog_content" placeholder="mô tả bài viết" style="resize:none"
-                                    rows="8"></textarea>
-                            </div>
-                            <div class="form-group">
-                                <label for="blog_content">nội dung bài viết</label>
-                                <textarea class="form-control" name="blog_content" id="blog_content" placeholder="nội dung bài viết"
+                                <label for="pre_blog_content">Blog Describe</label>
+                                <textarea class="form-control" name="pre_blog_content" id="pre_blog_content" placeholder="blog describe"
                                     style="resize:none" rows="8"></textarea>
+                                @error('pre_blog_content')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
                             <div class="form-group">
-                                <label for="blog_status">hiển thị</label>
+                                <label for="blog_content">Blog Content</label>
+                                <textarea class="form-control" name="blog_content" id="blog_content" placeholder="blog content" style="resize:none"
+                                    rows="8"></textarea>
+                                @error('blog_content')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label for="blog_status">Visibility</label>
                                 <select name="blog_status" class="form-control input-sm m-bot15">
-                                    <option value="0" {{ old('blog_status') == 0 ? 'selected' : '' }}>ẩn</option>
-                                    <option value="1" {{ old('blog_status') == 1 ? 'selected' : '' }}>hiển thị
+                                    <option value="0" {{ old('blog_status') == 0 ? 'selected' : '' }}>Hide</option>
+                                    <option value="1" {{ old('blog_status') == 1 ? 'selected' : '' }}>Show
                                     </option>
                                 </select>
                             </div>
-                            <button type="submit" name="add_blog" class="btn btn-info">thêm bài viết</button>
+                            <button type="submit" name="add_blog" class="btn btn-info">Add Blog</button>
                         </form>
                     </div>
 

@@ -18,18 +18,18 @@
                 @if (session('success'))
                     <div class="alert alert-success alert-dismissible">
                         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                        <strong>Thành công!</strong> {{ session('success') }}
+                        <strong>Success!</strong> {{ session('success') }}
                     </div>
                 @endif
 
                 @if (session('error'))
                     <div class="alert alert-danger alert-dismissible">
                         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                        <strong>Lỗi!</strong> {{ session('error') }}
+                        <strong>Error!</strong> {{ session('error') }}
                     </div>
                 @endif
 
-                <p>hiện tại có {{ Cart::count() }} sản phẩm trong giỏ hàng</p>
+                <p>Number of item in cart: {{ Cart::count() }}</p>
                 <form action="{{ route('cart.update') }}" method="POST">
                     @csrf
                     @if (Cart::count() > 0)
@@ -97,7 +97,7 @@
                                             @csrf
                                             <input type="hidden" name="rowId" value="<?php $row->id; ?>">
                                             <a type="submit" class="cart_quantity_delete"
-                                                onclick="return confirm('Bạn có chắc chắn muốn xóa sản phẩm này khỏi giỏ hàng?')"
+                                                onclick="return confirm('Are you sure you want to delete this item?')"
                                                 href="{{ route('cart.remove', $row->rowId) }}"><i
                                                     class="fa fa-times"></i></a>
                                         </form>
@@ -114,7 +114,7 @@
                                 </tr>
                                 <tr>
                                     <td colspan="2">&nbsp;</td>
-                                    <td>mã giảm</td>
+                                    <td>Coupon</td>
                                     <td>
                                         @php
                                             $totalFormatted = str_replace(',', '', Cart::total()); // Loại bỏ dấu phân cách hàng nghìn
@@ -150,14 +150,14 @@
                                 </tr>
                                 <tr>
                                     <td colspan="2">&nbsp;</td>
-                                    <td>Total ban đầu</td>
+                                    <td>Initial total</td>
                                     <td id="total_amount">
                                         {{ Cart::total() }}đ
                                     </td>
                                 </tr>
                                 <tr>
                                     <td colspan="2">&nbsp;</td>
-                                    <td>tiền sau khi giảm</td>
+                                    <td>Amount after descount</td>
                                     <td id="total_amount">
                                         {{ number_format($total, 0, ',', '.') }}đ
                                     </td>
@@ -193,8 +193,8 @@
                     @if (Session::get('cart'))
                         <tr>
                             <td>
-                                <input type="text" name="coupon" id="coupon" placeholder="Nhập mã giảm giá">
-                                <input type="submit" value="Áp dụng" class="check_coupon">
+                                <input type="text" name="coupon" id="coupon" placeholder="Enter coupon">
+                                <input type="submit" value="Apply" class="check_coupon">
                             </td>
                         </tr>
                     @endif

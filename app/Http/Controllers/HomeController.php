@@ -167,7 +167,7 @@ class HomeController extends Controller
         if (!$customer) {
             return redirect()
                 ->route('change_password')
-                ->with('error', 'Không tìm thấy thông tin khách hàng.');
+                ->with('error', 'customer not found.');
         }
 
         // Update customer's password using md5()
@@ -177,7 +177,7 @@ class HomeController extends Controller
 
         return redirect()
             ->route('change_password')
-            ->with('success', 'Mật khẩu đã được cập nhật thành công.');
+            ->with('success', 'password updated successfully.');
     }
 
 

@@ -11,7 +11,7 @@
         <div class="col-lg-12">
             <section class="panel">
                 <header class="panel-heading">
-                    Thêm thương hiệu sản phẩm
+                    Add Brand Product
                 </header>
 
                 @if (session('success'))
@@ -25,25 +25,31 @@
                         <form role="form" id="brandForm" action="{{ URL::to('/save-brand-product') }}" method="POST">
                             @csrf
                             <div class="form-group">
-                                <label for="brand_product_name">Tên thương hiệu</label>
+                                <label for="brand_product_name">Brand Product name</label>
                                 <input type="text" name="brand_product_name" class="form-control" id="brand_product_name"
-                                    placeholder="Tên thương hiệu">
+                                    placeholder="brand product name">
+                                @error('brand_product_name')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
                             <div class="form-group">
-                                <label for="exampleInputPassword1">Mô tả thương hiệu</label>
+                                <label for="exampleInputPassword1">Brand Product Describe</label>
                                 <textarea class="form-control" name="brand_product_desc" id="brand_product_desc" placeholder="Mô tả thương hiệu"
                                     style="resize:none" rows="8"></textarea>
+                                @error('brand_product_desc')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
                             <div class="form-group">
-                                <label for="brand_product_status">Hiển thị</label>
+                                <label for="brand_product_status">Visibility</label>
                                 <select name="brand_product_status" class="form-control input-sm m-bot15">
-                                    <option value="0" {{ old('brand_product_status') == 0 ? 'selected' : '' }}>Ẩn
+                                    <option value="0" {{ old('brand_product_status') == 0 ? 'selected' : '' }}>Hide
                                     </option>
-                                    <option value="1" {{ old('brand_product_status') == 1 ? 'selected' : '' }}>Hiển thị
+                                    <option value="1" {{ old('brand_product_status') == 1 ? 'selected' : '' }}>Show
                                     </option>
                                 </select>
                             </div>
-                            <button type="submit" name="add_brand_product" class="btn btn-info">Thêm thương hiệu</button>
+                            <button type="submit" name="add_brand_product" class="btn btn-info">Add Brand Product</button>
                         </form>
                     </div>
                 </div>

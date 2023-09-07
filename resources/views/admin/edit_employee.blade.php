@@ -4,14 +4,14 @@
         <div class="col-lg-12">
             <section class="panel">
                 <header class="panel-heading">
-                    Cập nhật thông tin nhân viên
+                    UPDATE EMPLOYEE INFO
                 </header>
                 <div class="panel-body">
                     <div class="position-center">
                         <form role="form" method="POST" action="{{ URL::to('/update-employee/' . $employee->admin_id) }}">
                             @csrf
                             <div class="form-group">
-                                <label for="admin_name">Tên nhân viên</label>
+                                <label for="admin_name">Employee Name</label>
                                 <input type="text" class="form-control" name="admin_name"
                                     value="{{ $employee->admin_name }}" readonly>
                             </div>
@@ -21,18 +21,24 @@
                                     value="{{ $employee->admin_email }}" readonly>
                             </div>
                             <div class="form-group">
-                                <label for="admin_phone">Số điện thoại</label>
+                                <label for="admin_phone">Phone</label>
                                 <input type="text" class="form-control" name="admin_phone"
                                     value="{{ $employee->admin_phone }}">
+                                @error('admin_phone')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
                             <div class="form-group">
-                                <label for="address">Địa chỉ</label>
+                                <label for="address">Address</label>
                                 <input type="text" class="form-control" name="address" value="{{ $employee->address }}">
+                                @error('address')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
                             <div class="form-group">
-                                <label for="district_id">Quận</label>
+                                <label for="district_id">District</label>
                                 <select class="form-control" name="district_id">
-                                    <option value="">-- Chọn quận --</option>
+                                    <option value="">-- Choose District --</option>
                                     @foreach ($districts as $district)
                                         <option value="{{ $district->district_id }}"
                                             {{ $district->district_id == $employee->district_id ? 'selected' : '' }}>
@@ -42,21 +48,21 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="role_id">Vai trò</label>
+                                <label for="role_id">Role</label>
                                 <select class="form-control" name="role_id">
-                                    <option value="">-- Chọn vai trò --</option>
+                                    <option value="">-- Choose role --</option>
                                     @foreach ($roles as $role)
-                                        <option value="{{ $role->role_id }}"
-                                            {{ $role->role_id == $employee->role_id ? 'selected' : '' }}>
+                                        <option value="{{ $role->role_value }}"
+                                            {{ $role->role_value == $employee->role_value ? 'selected' : '' }}>
                                             {{ $role->role_name }}
                                         </option>
                                     @endforeach
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="salary">Lương</label>
+                                <label for="salary">Salary</label>
                                 <select class="form-control" name="salary">
-                                    <option value="">-- Chọn lương --</option>
+                                    <option value="">-- Choose Salary --</option>
                                     @foreach ($roles as $role)
                                         <option value="{{ $role->salary }}"
                                             {{ $role->role_id == $employee->role_id ? 'selected' : '' }}>
@@ -66,7 +72,7 @@
                                 </select>
                             </div>
 
-                            <button type="submit" class="btn btn-primary">Cập nhật</button>
+                            <button type="submit" class="btn btn-primary">Update</button>
                         </form>
                     </div>
                 </div>

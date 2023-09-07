@@ -41,11 +41,11 @@
                                     </div>
                                     <div class="form-group my-3">
                                         <input type="submit" name="send_order" class="form-control btn btn-outline-dark"
-                                            value="Gửi">
+                                            value="Send">
                                     </div>
                                     <div class="form-group my-3">
                                         <a href="{{ URL::to('/show-cart') }}" name="rewatch_cart"
-                                            class="form-control btn btn-outline-dark" value="">xem lại giỏ hàng</a>
+                                            class="form-control btn btn-outline-dark" value="">Watch My Cart</a>
                                     </div>
                                 </form>
                             </div>

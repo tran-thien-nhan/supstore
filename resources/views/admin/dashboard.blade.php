@@ -8,12 +8,12 @@
                     <div class="col-lg-8">
                         <div class="info-container">
                             @if ($mostPurchasedProduct)
-                                <p>Tổng Doanh Số Giao Hàng
-                                    Thành Công Trong Tháng {{ $currentMonth }}: <span class="badge bg-success text-white"
+                                <p>Total Order Revenue
+                                    Shipped Successfully In Month {{ $currentMonth }}: <span class="badge bg-success text-white"
                                         style="font-size: 1rem; color: white">{{ number_format($totalRevenueCurrentMonth) }}</span>
                                 </p>
                             @else
-                                <p>Chưa có thông tin về sản phẩm</p>
+                                <p>Not Yet</p>
                             @endif
                         </div>
                     </div>

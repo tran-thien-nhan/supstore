@@ -69,9 +69,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 <!--search & user info start-->
 
                 <ul class="nav pull-right top-menu">
-                    <li>
-                        <input type="text" class="form-control search" placeholder=" Search">
-                    </li>
                     <!-- user login dropdown start-->
                     <li class="dropdown">
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
@@ -113,96 +110,96 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         {{-- <li class="sub-menu {{ $adminRole != 1 ? 'hidden' : '' }}"> --}}
                             <a href="javascript:;">
                                 <i class="fa fa-book"></i>
-                                <span>Đơn Hàng</span>
+                                <span>Order</span>
                             </a>
                             <ul class="sub">
-                                <li><a href="{{ URL::to('/manage-order') }}">Quản Lý Đơn Hàng</a></li>
+                                <li><a href="{{ URL::to('/manage-order') }}">Manage Order</a></li>
                             </ul>
                         </li>
                         <li class="sub-menu {{ $adminRole != 1 ? 'hidden' : '' }}">
                             <a href="javascript:;">
                                 <i class="fa fa-book"></i>
-                                <span>Quản Lý Mã Gỉảm Gía</span>
+                                <span>Manage Coupons</span>
                             </a>
                             <ul class="sub">
-                                <li><a href="{{ URL::to('/insert-coupon') }}">Thêm Mã Gỉảm Gía</a></li>
-                                <li><a href="{{ URL::to('/list-coupon') }}">Danh Sách Mã Gỉảm Gía</a></li>
+                                <li><a href="{{ URL::to('/insert-coupon') }}">Add Coupon</a></li>
+                                <li><a href="{{ URL::to('/list-coupon') }}">Coupons List</a></li>
                             </ul>
                         </li>
                         <li class="sub-menu {{ $adminRole != 1 ? 'hidden' : '' }}">
                             <a href="javascript:;">
                                 <i class="fa fa-book"></i>
-                                <span>Danh Mục Sản Phẩm</span>
+                                <span>Product Category</span>
                             </a>
                             <ul class="sub">
-                                <li><a href="{{ URL::to('/add-category-product') }}">Thêm Danh Mục Sản Phẩm</a>
+                                <li><a href="{{ URL::to('/add-category-product') }}">Add Product Category</a>
                                 </li>
-                                <li><a href="{{ URL::to('/all-category-product') }}">Liệt Kê Danh Mục Sản Phẩm</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="sub-menu {{ $adminRole != 1 ? 'hidden' : '' }}">
-                            <a href="javascript:;">
-                                <i class="fa fa-book"></i>
-                                <span>Thương Hiệu Sản Phẩm</span>
-                            </a>
-                            <ul class="sub">
-                                <li><a href="{{ URL::to('/add-brand-product') }}">Thêm Thương Hiệu Sản Phẩm</a>
-                                </li>
-                                <li><a href="{{ URL::to('/all-brand-product') }}">Liệt Kê Thương Hiệu Sản Phẩm</a>
+                                <li><a href="{{ URL::to('/all-category-product') }}">Product Category List</a>
                                 </li>
                             </ul>
                         </li>
                         <li class="sub-menu {{ $adminRole != 1 ? 'hidden' : '' }}">
                             <a href="javascript:;">
                                 <i class="fa fa-book"></i>
-                                <span>Sản Phẩm</span>
+                                <span>Product Brand</span>
                             </a>
                             <ul class="sub">
-                                <li><a href="{{ URL::to('/add-product') }}">Thêm Sản Phẩm</a></li>
-                                <li><a href="{{ URL::to('/all-product') }}">Liệt Kê Sản Phẩm</a></li>
-                            </ul>
-                        </li>
-                        <li class="sub-menu {{ $adminRole != 1 ? 'hidden' : '' }}">
-                            <a href="javascript:;">
-                                <i class="fa fa-book"></i>
-                                <span>Danh Mục Bài Viết</span>
-                            </a>
-                            <ul class="sub">
-                                <li><a href="{{ URL::to('/add-blog-category') }}">Thêm Danh Mục Bài Viết</a></li>
-                                <li><a href="{{ URL::to('/all-blog-category') }}">Liệt Kê Danh Mục Bài Viết</a>
+                                <li><a href="{{ URL::to('/add-brand-product') }}">Add Product Brand</a>
+                                </li>
+                                <li><a href="{{ URL::to('/all-brand-product') }}">Product Brand List</a>
                                 </li>
                             </ul>
                         </li>
                         <li class="sub-menu {{ $adminRole != 1 ? 'hidden' : '' }}">
                             <a href="javascript:;">
                                 <i class="fa fa-book"></i>
-                                <span>Bài Viết</span>
+                                <span>Product</span>
                             </a>
                             <ul class="sub">
-                                <li><a href="{{ URL::to('/add-blog') }}">Thêm Bài Viết</a></li>
-                                <li><a href="{{ URL::to('/all-blog') }}">Liệt Kê Bài Viết</a></li>
+                                <li><a href="{{ URL::to('/add-product') }}">Add Product</a></li>
+                                <li><a href="{{ URL::to('/all-product') }}">Product List</a></li>
                             </ul>
                         </li>
                         <li class="sub-menu {{ $adminRole != 1 ? 'hidden' : '' }}">
                             <a href="javascript:;">
                                 <i class="fa fa-book"></i>
-                                <span>Danh Sách Comments</span>
+                                <span>Blog Category</span>
                             </a>
                             <ul class="sub">
-                                <li><a href="{{ URL::to('/admin/comments') }}">Quản Lý Comment</a></li>
+                                <li><a href="{{ URL::to('/add-blog-category') }}">Add Blog Category</a></li>
+                                <li><a href="{{ URL::to('/all-blog-category') }}">Blog Category List</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="sub-menu {{ $adminRole != 1 ? 'hidden' : '' }}">
+                            <a href="javascript:;">
+                                <i class="fa fa-book"></i>
+                                <span>Blog</span>
+                            </a>
+                            <ul class="sub">
+                                <li><a href="{{ URL::to('/add-blog') }}">Add Blog</a></li>
+                                <li><a href="{{ URL::to('/all-blog') }}">Blog List</a></li>
+                            </ul>
+                        </li>
+                        <li class="sub-menu {{ $adminRole != 1 ? 'hidden' : '' }}">
+                            <a href="javascript:;">
+                                <i class="fa fa-book"></i>
+                                <span>Manage Comments</span>
+                            </a>
+                            <ul class="sub">
+                                <li><a href="{{ URL::to('/admin/comments') }}">Comment List</a></li>
                             </ul>
                         </li>
                         <li class="sub-menu {{ $adminRole != 1 ? 'hidden' : '' }}">
                             <a class="" href="{{ URL::to('/employees') }}">
                                 <i class="fa fa-users"></i>
-                                <span>danh sách nhân viên (employees)</span>
+                                <span>Manage Employees</span>
                             </a>
                         </li>
                         <li class="sub-menu {{ $adminRole != 1 ? 'hidden' : '' }}">
                             <a class="" href="{{ route('listSubscribedEmails') }}">
                                 <i class="fa fa-users"></i>
-                                <span>Danh sách email đăng ký</span>
+                                <span>Email Subcribed list</span>
                             </a>
                         </li>
                     </ul>

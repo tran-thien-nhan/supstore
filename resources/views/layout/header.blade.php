@@ -84,7 +84,7 @@
                         </div>
                     </li>
                     <li class="nav-item products">
-                        <a class="nav-link text-dark btn btn-white" href="{{ URL::to('/thuong-hieu-san-pham') }}">
+                        <a class="nav-link text-dark btn btn-white" href="{{ URL::to('/danh-muc-bai-viet') }}">
                             BLOGS
                         </a>
                     </li>
@@ -159,7 +159,7 @@
                                     ACCOUNT <i class="fa-solid fa-user"></i>
                                 </a>
                                 <a class="dropdown-item" href="{{ URL::to('/cart-history') }}">
-                                    LỊCH SỬ ĐƠN HÀNG
+                                    ORDER HISTORY
                                 </a>
                                 <a class="dropdown-item" href="{{ URL::to('/logout-checkout') }}">
                                     SIGN OUT

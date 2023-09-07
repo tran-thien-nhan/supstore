@@ -5,20 +5,20 @@
         <div class="col-md-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    Soạn Email
+                    Compose Email
                 </div>
                 <div class="panel-body">
                     <form action="{{ route('sendBulkEmail') }}" method="POST">
                         @csrf
                         <div class="form-group">
-                            <label for="email_title">Tiêu đề Email:</label>
+                            <label for="email_title">Email Title:</label>
                             <input type="text" id="email_title" name="email_title" class="form-control">
                         </div>
                         <div class="form-group">
-                            <label for="email_content">Nội dung Email:</label>
+                            <label for="email_content">Email Content:</label>
                             <textarea id="email_content" name="email_content" class="form-control"></textarea>
                         </div>
-                        <button type="submit" class="btn btn-primary">Gửi Email Hàng Loạt</button>
+                        <button type="submit" class="btn btn-primary">Send Email In Bulk</button>
                     </form>
                 </div>
             </div>

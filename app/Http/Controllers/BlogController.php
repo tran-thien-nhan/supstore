@@ -29,14 +29,14 @@ class BlogController extends Controller
     {
         $this->Authenlogin();
         DB::table('tbl_blog')->where('blog_id', $blog_id)->update(['blog_status' => 1]);
-        return Redirect::to('all-blog')->with('success', 'không kích hoạt bài viết thành công');
+        return Redirect::to('all-blog')->with('success', 'unactivate blog successfully');
     }
 
     public function active_blog($blog_id)
     {
         $this->Authenlogin();
         DB::table('tbl_blog')->where('blog_id', $blog_id)->update(['blog_status' => 0]);
-        return Redirect::to('all-blog')->with('success', 'kích hoạt bài viết thành công');
+        return Redirect::to('all-blog')->with('success', 'activate blog successfully');
     }
 
     public function all_blog_category()
@@ -288,5 +288,28 @@ class BlogController extends Controller
             ->with('url_canonical', $url_canonical)
             ->with('blog_category', $blog_category)
             ->with('meta_keywords', $meta_keywords);
+    }
+
+    public function showBlogsByCategory($category_id)
+    {
+        // Kiểm tra nếu category_id là "all" thì không lọc theo category
+        if ($category_id === 'all') {
+            $all_blog = DB::table('tbl_blog')
+                ->join('tbl_category_blog', 'tbl_blog.blog_category_id', '=', 'tbl_category_blog.blog_category_id')
+                ->select('tbl_blog.*', 'tbl_category_blog.blog_category_name')
+                ->paginate(10);
+
+            $all_category_blog = DB::table('tbl_category_blog')->get();
+        } else {
+            $all_blog = DB::table('tbl_blog')
+                ->join('tbl_category_blog', 'tbl_blog.blog_category_id', '=', 'tbl_category_blog.blog_category_id')
+                ->select('tbl_blog.*', 'tbl_category_blog.blog_category_name')
+                ->where('tbl_blog.blog_category_id', $category_id)
+                ->paginate(10);
+
+            $all_category_blog = DB::table('tbl_category_blog')->get();
+        }
+
+        return view('admin.all_blog', compact('all_blog', 'all_category_blog'));
     }
 }

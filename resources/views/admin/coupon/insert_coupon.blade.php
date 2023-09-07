@@ -10,7 +10,7 @@
         <div class="col-lg-12">
             <section class="panel">
                 <header class="panel-heading">
-                    thêm mã giảm giá
+                    ADD COUPON
                 </header>
                 @if (session('success'))
                     <div class="alert alert-success alert-dismissible">
@@ -22,47 +22,62 @@
                         <form role="form" id="couponForm" action="{{ URL::to('/insert-coupon-code') }}" method="POST">
                             @csrf
                             <div class="form-group">
-                                <label for="coupon_name">tên mã giảm giá</label>
+                                <label for="coupon_name">Coupon Name</label>
                                 <input type="text" name="coupon_name" class="form-control" id="coupon_name"
-                                    placeholder="tên mã giảm giá">
+                                    placeholder="Coupon Name">
+                                @error('coupon_name')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
                             <div class="form-group">
-                                <label for="exampleInputPassword1">mã giảm giá</label>
+                                <label for="exampleInputPassword1">Coupon Code</label>
                                 <input type="text" class="form-control" name="coupon_code" id="coupon_code"
-                                    placeholder="mã giảm giá">
+                                    placeholder="Coupon Code">
+                                @error('coupon_code')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
                             <div class="form-group">
-                                <label for="exampleInputPassword1">số lượng mã giảm giá</label>
+                                <label for="exampleInputPassword1">Coupon Quantity</label>
                                 <input type="text" class="form-control" name="coupon_time" id="coupon_time"
-                                    placeholder="SL mã giảm giá">
+                                    placeholder="Coupon Quantity">
+                                @error('coupon_time')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
                             <div class="form-group">
-                                <label for="exampleInputPassword1">ngày hết hạn mã giảm giá</label>
+                                <label for="exampleInputPassword1">Coupon Expired Date</label>
                                 <input type="date" class="form-control" name="coupon_expire_date"
                                     id="coupon_expire_date">
+                                @error('coupon_expire_date')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
                             <div class="form-group">
-                                <label for="exampleInputPassword1">tính năng mã giảm giá</label>
+                                <label for="exampleInputPassword1">Coupon Feature</label>
                                 <select name="coupon_condition" class="form-control input-sm m-bot15">
-                                    <option value="1" {{ old('coupon_condition') == 1 ? 'selected' : '' }}>giảm theo
-                                        phần trăm</option>
-                                    <option value="2" {{ old('coupon_condition') == 2 ? 'selected' : '' }}>giảm theo số
-                                        tiền</option>
+                                    <option value="1" {{ old('coupon_condition') == 1 ? 'selected' : '' }}>Discount By
+                                        Percentage</option>
+                                    <option value="2" {{ old('coupon_condition') == 2 ? 'selected' : '' }}>Discount By
+                                        Amount</option>
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="exampleInputPassword1">nhập số %/ số tiền giảm</label>
+                                <label for="exampleInputPassword1">Enter % / Amount to discount</label>
                                 <input type="text" class="form-control" name="coupon_number" id="coupon_number">
+                                @error('coupon_number')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
                             <div class="form-group">
-                                <label for="coupon_status">hiển thị</label>
+                                <label for="coupon_status">Visibility</label>
                                 <select name="coupon_status" class="form-control input-sm m-bot15">
-                                    <option value="0" {{ old('coupon_status') == 0 ? 'selected' : '' }}>ẩn</option>
-                                    <option value="1" {{ old('coupon_status') == 1 ? 'selected' : '' }}>hiển thị
+                                    <option value="0" {{ old('coupon_status') == 0 ? 'selected' : '' }}>Hide</option>
+                                    <option value="1" {{ old('coupon_status') == 1 ? 'selected' : '' }}>Show
                                     </option>
                                 </select>
                             </div>
-                            <button type="submit" name="add_coupon" class="btn btn-info">thêm mã giảm giá</button>
+                            <button type="submit" name="add_coupon" class="btn btn-info">Add Coupon</button>
                         </form>
                     </div>
 

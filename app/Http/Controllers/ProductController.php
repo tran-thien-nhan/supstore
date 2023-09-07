@@ -113,7 +113,7 @@ class ProductController extends Controller
         $this->Authenlogin();
         DB::table('tbl_product')->where('product_id', $product_id)->update(['product_status' => 1]);
         //Session::put('message','thêm thương hiệu sản phẩm thành công');
-        return Redirect::to('all-product')->with('success', 'không kích hoạt sản phẩm thành công');
+        return Redirect::to('all-product')->with('success', 'unactivate product successfully');
     }
 
     public function active_product($product_id)
@@ -121,7 +121,7 @@ class ProductController extends Controller
         $this->Authenlogin();
         DB::table('tbl_product')->where('product_id', $product_id)->update(['product_status' => 0]);
         //Session::put('message','thêm thương hiệu sản phẩm thành công');
-        return Redirect::to('all-product')->with('success', 'kích hoạt sản phẩm thành công');
+        return Redirect::to('all-product')->with('success', 'activate product successfully');
     }
 
     public function edit_product($product_id)

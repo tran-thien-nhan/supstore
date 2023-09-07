@@ -56,7 +56,7 @@ class BrandProduct extends Controller
         $this->Authenlogin();
         DB::table('tbl_brand')->where('brand_id', $brand_product_id)->update(['brand_status' => 1]);
         //Session::put('message','thêm thương hiệu sản phẩm thành công');
-        return Redirect::to('all-brand-product')->with('success', 'không kích hoạt thương hiệu sản phẩm thành công');
+        return Redirect::to('all-brand-product')->with('success', 'unactivate brand successfully');
     }
 
     public function active_brand_product($brand_product_id)
@@ -64,7 +64,7 @@ class BrandProduct extends Controller
         $this->Authenlogin();
         DB::table('tbl_brand')->where('brand_id', $brand_product_id)->update(['brand_status' => 0]);
         //Session::put('message','thêm thương hiệu sản phẩm thành công');
-        return Redirect::to('all-brand-product')->with('success', 'kích hoạt thương hiệu sản phẩm thành công');
+        return Redirect::to('all-brand-product')->with('success', 'activate brand successfully');
     }
 
     public function edit_brand_product($brand_product_id){

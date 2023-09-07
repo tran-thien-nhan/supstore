@@ -11,7 +11,7 @@
         <div class="col-lg-12">
             <section class="panel">
                 <header class="panel-heading">
-                    thêm bài viết
+                    Update Blog
                 </header>
                 <?php
                 // $message = Session::get('message');
@@ -28,23 +28,29 @@
                 <div class="panel-body">
                     <div class="position-center">
                         @foreach ($edit_blog as $key => $blog)
-                            <form role="form" id="blogForm" action="{{ URL::to('/update-blog/'.$blog->blog_id) }}" method="POST"
-                                enctype="multipart/form-data">
+                            <form role="form" id="blogForm" action="{{ URL::to('/update-blog/' . $blog->blog_id) }}"
+                                method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class="form-group">
-                                    <label for="blog_name">tên bài viết</label>
+                                    <label for="blog_name">Blog Title</label>
                                     <input type="text" name="blog_title" class="form-control" id="blog_title"
                                         placeholder="tên bài viết" value="{{ $blog->blog_title }}">
+                                    @error('blog_title')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
-                                    <label for="blog_thumbnail">hình ảnh bài viết</label>
+                                    <label for="blog_thumbnail">Blog Thumbnail</label>
                                     <input type="file" name="blog_thumbnail" class="form-control" id="blog_thumbnail"
                                         placeholder="hình ảnh bài viết">
-                                    <img src="{{ URL::to('public/uploads/blog/' . $blog->blog_thumbnail) }}"
-                                        width="100" height="100" alt="">
+                                    <img src="{{ URL::to('public/uploads/blog/' . $blog->blog_thumbnail) }}" width="100"
+                                        height="100" alt="">
+                                    @error('blog_thumbnail')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
-                                    <label for="blog_cate">danh mục bài viết</label>
+                                    <label for="blog_cate">Blog Category</label>
                                     <select name="blog_cate" class="form-control input-sm m-bot15">
                                         @foreach ($cate_blog as $key => $cate)
                                             @if ($cate->blog_category_id == $blog->blog_category_id)
@@ -59,24 +65,31 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="pre_blog_content">mô tả bài viết</label>
+                                    <label for="pre_blog_content">Blog Description</label>
                                     <textarea class="form-control" name="pre_blog_content" id="pre_blog_content" placeholder="mô tả bài viết"
-                                        style="resize:none" rows="8">{{$blog->pre_blog_content}}</textarea>
+                                        style="resize:none" rows="8">{{ $blog->pre_blog_content }}</textarea>
+                                    @error('pre_blog_content')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
-                                    <label for="blog_content">nội dung bài viết</label>
+                                    <label for="blog_content">Blog Content</label>
                                     <textarea class="form-control" name="blog_content" id="blog_content" placeholder="nội dung bài viết" style="resize:none"
-                                        rows="8">{{$blog->blog_content}}</textarea>
+                                        rows="8">{{ $blog->blog_content }}</textarea>
+                                    @error('blog_content')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
-                                    <label for="blog_status">hiển thị</label>
+                                    <label for="blog_status">Visibility</label>
                                     <select name="blog_status" class="form-control input-sm m-bot15">
-                                        <option value="0" {{ old('blog_status') == 0 ? 'selected' : '' }}>ẩn</option>
-                                        <option value="1" {{ old('blog_status') == 1 ? 'selected' : '' }}>hiển thị
+                                        <option value="0" {{ old('blog_status') == 0 ? 'selected' : '' }}>Hide
+                                        </option>
+                                        <option value="1" {{ old('blog_status') == 1 ? 'selected' : '' }}>Show
                                         </option>
                                     </select>
                                 </div>
-                                <button type="submit" name="add_blog" class="btn btn-info">update bài viết</button>
+                                <button type="submit" name="add_blog" class="btn btn-info">Update Blog</button>
                             </form>
                         @endforeach
                     </div>

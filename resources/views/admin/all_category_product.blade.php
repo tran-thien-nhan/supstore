@@ -4,14 +4,14 @@
         <div class="table-agile-info">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    Liệt kê danh mục sản phẩm
+                    CATEGORY PRODUCT LIST
                 </div>
                 @if (session('success'))
                     <div class="alert alert-success">
                         <strong>Success!</strong> {{ session('success') }}
                     </div>
                 @endif
-                <div class="row w3-res-tb">
+                {{-- <div class="row w3-res-tb">
                     <div class="col-sm-5 m-b-xs">
                         <select class="input-sm form-control w-sm inline v-middle">
                             <option value="0">Bulk action</option>
@@ -31,7 +31,7 @@
                             </span>
                         </div>
                     </div>
-                </div>
+                </div> --}}
                 <div class="table-responsive">
                     <table class="table table-striped b-t b-light">
                         <thead>
@@ -41,10 +41,10 @@
                                         <input type="checkbox"><i></i>
                                     </label>
                                 </th>
-                                <th>tên danh mục</th>
-                                <th>hiển thị</th>
-                                <th>mô tả danh mục</th>
-                                <th>từ khóa danh mục</th>
+                                <th>Category Name</th>
+                                <th>Visibility</th>
+                                <th>Category Description</th>
+                                <th>Category Keywords</th>
                                 <th style="width:30px;"></th>
                             </tr>
                         </thead>

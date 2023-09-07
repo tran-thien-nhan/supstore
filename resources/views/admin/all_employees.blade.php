@@ -4,7 +4,7 @@
         <div class="table-agile-info">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    Danh sách nhân viên
+                    EMPLOYEES LIST
                 </div>
                 @if (session('success'))
                     <div class="alert alert-success">
@@ -15,14 +15,14 @@
                     <table class="table table-striped b-t b-light">
                         <thead>
                             <tr>
-                                <th>Mã NV</th>
-                                <th>Tên nhân viên</th>
-                                <th>Vai trò</th>
+                                <th>Employee Code</th>
+                                <th>Employee Name</th>
+                                <th>role</th>
                                 <th>Email</th>
-                                <th>Số điện thoại</th>
-                                <th>Địa chỉ</th>
-                                <th>quận</th>
-                                <th>Lương</th>
+                                <th>Phone</th>
+                                <th>Address</th>
+                                <th>District</th>
+                                <th>Salary</th>
                                 <th>action</th>
                             </tr>
                         </thead>
@@ -49,7 +49,7 @@
                                             @if ($employee->district)
                                                 {{ $employee->district->district_name }}
                                             @else
-                                                Không xác định
+                                                Unknown
                                             @endif
                                         @endif
                                     </td>

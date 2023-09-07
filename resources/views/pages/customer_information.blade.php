@@ -107,5 +107,5 @@
             </div>
         </div>
     </div>
-    <a href="{{ route('change_password') }}">thiết lập mật khẩu</a>
+    <a href="{{ route('change_password') }}">Change Password</a>
 @endsection

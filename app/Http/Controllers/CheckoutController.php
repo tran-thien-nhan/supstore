@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests;
 use App\Models\Coupon;
+use App\Models\Payment;
 use App\Models\Product;
 use App\Models\Customer;
 use Illuminate\Http\Request;
@@ -53,14 +54,14 @@ class CheckoutController extends Controller
             'customer_phone' => 'required|numeric|digits:10',
             'customer_address' => 'required|string',
         ], [
-            'required' => 'bắt buộc nhập',
-            'min' => 'phải chứa ít nhất :min ký tự',
-            'max' => 'không được vượt quá :max ký tự',
-            'email' => 'phải đúng định dạng email',
-            'same' => 'không giống password đã nhập ở trên',
-            'numeric' => ':attribute phải là số',
-            'digits' => ':attribute phải có đúng :digits chữ số',
-            'unique' => 'email đã tồn tại, vui lòng nhập email khác'
+            'required' => 'required',
+            'min' => 'must have at least :min characters',
+            'max' => 'must have at least :max characters',
+            'email' => 'must match valid email form',
+            'same' => 'not match with above password',
+            'numeric' => 'must be number',
+            'digits' => 'must have :digits characters',
+            'unique' => 'email already exist, please input another email'
         ]);
 
         if ($validator->fails()) {
@@ -119,6 +120,7 @@ class CheckoutController extends Controller
             ->get();
         $cate_product = DB::table('tbl_category_product')->orderBy('category_id', 'desc')->get();
         $brand_product = DB::table('tbl_brand')->orderBy('brand_id', 'desc')->get();
+
         return view('pages.checkout.payment')
             ->with('category', $cate_product)
             ->with('brand', $brand_product)
@@ -133,6 +135,16 @@ class CheckoutController extends Controller
 
     public function login_customer(Request $request)
     {
+        $request->validate([
+            'email_account' => 'required|email',
+            'password_account' => 'required|min:5|max:50',
+        ], [
+            'required' => 'required',
+            'email' => 'invalid form.',
+            'min' => 'must have at least :min characters.',
+            'max' => 'must have at least :max characters',
+        ]);
+
         $email = $request->email_account;
         $password = md5($request->password_account);
         $result = DB::table('tbl_customer')
@@ -151,9 +163,22 @@ class CheckoutController extends Controller
 
     public function login_customer_phone(Request $request)
     {
-        $customer_phone = $request->customer_phone;
+        $request->validate([
+            'customer_phone_2' => 'required|numeric|digits:10',
+            'password_account_2' => 'required|min:5|max:50',
+        ], [
+            'required' => 'required',
+            'numeric' => 'must be number.',
+            'digits' => 'must be :digits characters or numbers.',
+            'min' => 'must have at least :min characters.',
+            'max' => 'must have at least :max characters',
+        ]);
+
+        $customer_phone = $request->customer_phone_2;
+        $password = md5($request->password_account_2);
         $result = DB::table('tbl_customer')
             ->where('customer_phone', $customer_phone)
+            ->where('customer_password', $password)
             ->first();
 
         if ($result) {
@@ -173,9 +198,16 @@ class CheckoutController extends Controller
         $brand_product = DB::table('tbl_brand')->orderBy('brand_id', 'desc')->get();
 
         // Get payment method
+        $request->validate([
+            'payment_option' => 'required|in:1,2', // Kiểm tra tùy chọn thanh toán
+        ], [
+            'required' => 'Please choose one payment option.',
+            'in' => 'Please choose one payment option in valid.',
+        ]);
+
         $data = array();
         $data['payment_method'] = $request->payment_option;
-        $data['payment_status'] = 'đang chờ xử lý';
+        $data['payment_status'] = 'in process';
         $payment_id = DB::table('tbl_payment')->insertGetId($data);
 
         // Insert order table: tbl_order
@@ -318,7 +350,12 @@ class CheckoutController extends Controller
 
 
         if ($data['payment_method'] == 1) {
-            echo 'thanh toán bằng thẻ ATM';
+            Cart::destroy();
+            return view('pages.checkout.handcash')
+                ->with('category', $cate_product)
+                ->with('brand', $brand_product)
+                ->with('list_product_by_id', $list_product_by_id)
+                ->with('blog_category', $blog_category);
         } elseif ($data['payment_method'] == 2) {
             Cart::destroy();
             return view('pages.checkout.handcash')
@@ -327,7 +364,7 @@ class CheckoutController extends Controller
                 ->with('list_product_by_id', $list_product_by_id)
                 ->with('blog_category', $blog_category);
         } else {
-            echo 'thanh toán bằng thẻ ghi nợ';
+            echo 'error';
         }
     }
 
@@ -355,6 +392,16 @@ class CheckoutController extends Controller
             $all_order = $all_order_query
                 ->where('tbl_order.admin_id', $admin_id)
                 ->paginate(5);
+        }
+
+        foreach ($all_order as $order) {
+            $payment = Payment::find($order->payment_id);
+
+            if ($payment) {
+                $order->payment_method = $payment->payment_method;
+            } else {
+                $order->payment_method = 'Unknown';
+            }
         }
 
         // Đếm số lượng đơn đặt hàng

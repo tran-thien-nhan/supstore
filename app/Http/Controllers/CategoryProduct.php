@@ -70,7 +70,7 @@ class CategoryProduct extends Controller
         //Session::put('message','thêm danh mục sản phẩm thành công');
 
         return Redirect::to('all-category-product')
-            ->with('success', 'không kích hoạt danh mục sản phẩm thành công');
+            ->with('success', 'unactivate category successfully');
     }
 
     public function active_category_product($category_product_id)
@@ -82,7 +82,7 @@ class CategoryProduct extends Controller
         //Session::put('message','thêm danh mục sản phẩm thành công');
 
         return Redirect::to('all-category-product')
-            ->with('success', 'kích hoạt danh mục sản phẩm thành công');
+            ->with('success', 'activate category successfully');
     }
 
     public function edit_category_product($category_product_id)

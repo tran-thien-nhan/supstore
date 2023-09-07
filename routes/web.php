@@ -164,6 +164,7 @@ Route::post('/store-batch-coupon', [CouponController::class, 'storeBatchCoupon']
 //blog
 Route::get('/add-blog', [BlogController::class, 'add_blog']);
 Route::get('/all-blog', [BlogController::class, 'all_blog']);
+Route::get('/all-blog/category-blog/{category_id}', [BlogController::class, 'showBlogsByCategory']);
 Route::get('/all-blog-category', [BlogController::class, 'all_blog_category']);
 Route::post('/save-blog', [BlogController::class, 'save_blog']);
 

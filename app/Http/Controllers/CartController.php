@@ -122,10 +122,10 @@ class CartController extends Controller
                     Session::put('coupon', [$coupon_data]);
                     Session::save();
 
-                    return redirect()->back()->with('success', 'Thêm mã giảm giá thành công.');
+                    return redirect()->back()->with('success', 'Add coupon successfully !');
                 }
             }
         }
-        return redirect()->back()->with('error', 'không thể thêm mã giảm giá.');
+        return redirect()->back()->with('error', 'Cannot add this coupon.');
     }
 }

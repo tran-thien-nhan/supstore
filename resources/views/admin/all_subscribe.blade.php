@@ -4,7 +4,7 @@
         <div class="table-agile-info">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    Danh sách email đăng ký
+                    EMAIL SUBSCRIBED LIST
                 </div>
                 @if (session('success'))
                     <div class="alert alert-success">
@@ -12,7 +12,7 @@
                     </div>
                 @endif
                 <div class="panel-body">
-                    <a href="{{ route('composeEmail') }}" class="btn btn-primary">Soạn Email</a>
+                    <a href="{{ route('composeEmail') }}" class="btn btn-primary">Compose Email</a>
                 </div>
                 <div class="table-responsive">
                     <table class="table table-striped b-t b-light">
@@ -20,7 +20,7 @@
                             <tr>
                                 <th>ID</th>
                                 <th>Email</th>
-                                <th>Ngày đăng ký</th>
+                                <th>Subscribed Date</th>
                             </tr>
                         </thead>
                         <tbody>

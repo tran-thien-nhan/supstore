@@ -15,16 +15,16 @@
                                 <div class="mb-3">
                                     <input type="text" class="form-control" name="email_account" id="email_account"
                                         placeholder="Email Address" />
+                                    @error('email_account')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
                                 <div class="mb-3">
                                     <input type="password" class="form-control" name="password_account"
                                         id="password_account" placeholder="password" />
-                                </div>
-                                <div class="mb-3">
-                                    <div class="form-check">
-                                        <input type="checkbox" class="form-check-input" id="keepSignedIn" />
-                                        <label class="form-check-label" for="keepSignedIn">Keep me signed in</label>
-                                    </div>
+                                    @error('password_account')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
                                 <button type="submit" class="form-control btn btn-outline-dark">Login</button>
                             </form>
@@ -33,8 +33,18 @@
                             <form action="{{ URL::to('/login-customer-phone') }}" method="POST">
                                 @csrf
                                 <div class="mb-3">
-                                    <input type="text" class="form-control" name="customer_phone" id="customer_phone"
+                                    <input type="text" class="form-control" name="customer_phone_2" id="customer_phone_2"
                                         placeholder="phone number" />
+                                    @error('customer_phone_2')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                                <div class="mb-3">
+                                    <input type="password" class="form-control" name="password_account_2"
+                                        id="password_account_2" placeholder="password" />
+                                    @error('password_account_2')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
                                 <button type="submit" class="form-control btn btn-outline-dark">Login</button>
                             </form>
@@ -79,8 +89,8 @@
                                     @enderror
                                 </div>
                                 <div class="mb-3">
-                                    <input type="text" class="form-control" name="customer_address"
-                                        id="customer_address" placeholder="enter address" />
+                                    <input type="text" class="form-control" name="customer_address" id="customer_address"
+                                        placeholder="enter address" />
                                     @error('customer_address')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
@@ -95,7 +105,8 @@
                                     <select class="form-control" name="district_id" required>
                                         <option value="" selected disabled>Select District</option>
                                         @foreach ($districts as $district)
-                                            <option value="{{ $district->district_id }}">{{ $district->district_name }}</option>
+                                            <option value="{{ $district->district_id }}">{{ $district->district_name }}
+                                            </option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -104,16 +115,6 @@
                         </div>
                     </div>
 
-                    {{-- <div class="col-sm-4">
-                        <div class="signup-form bg-white p-4 rounded">
-                            <div style="display: flex; flex-direction: column; align-items: flex-start;">
-                                <a href="{{ URL::to('auth/google') }}" type="submit" value=""
-                                    class="btn btn-danger"><i class="fa-brands fa-google"></i> Sign up with Google</a>
-                                <button type="submit" value="" class="btn btn-primary my-1"><i
-                                        class="fa-brands fa-facebook"></i> Sign up with Facebook</button>
-                            </div>
-                        </div>
-                    </div> --}}
                 </div>
             </div>
         </div>

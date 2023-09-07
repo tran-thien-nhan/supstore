@@ -4,7 +4,7 @@
         <div class="table-agile-info">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    Liệt kê sản phẩm
+                    PRODUCT LIST
                 </div>
                 @if (session('success'))
                     <div class="alert alert-success">
@@ -12,17 +12,6 @@
                     </div>
                 @endif
                 <div class="row w3-res-tb">
-                    <div class="d-flex" style="margin-left:1rem; margin-bottom:1rem">
-                        <form method="GET" action="{{ route('filterData') }}">
-                            <label for="start_date">Ngày bắt đầu:</label>
-                            <input type="date" name="start_date" id="start_date">
-
-                            <label for="end_date">Ngày kết thúc:</label>
-                            <input type="date" name="end_date" id="end_date">
-
-                            <button type="submit">Lọc</button>
-                        </form>
-                    </div>
                     <div class="col-sm-3 m-b-xs dropdown">
                         <div class="category-group">
                             <button class="btn btn-secondary dropdown-toggle" type="button" id="categoryDropdown"

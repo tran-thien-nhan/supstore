@@ -67,10 +67,10 @@ class CouponController extends Controller
             $coupon->save();
 
             // Chuyển hướng về trang insert-coupon và gửi thông báo thành công
-            return Redirect::to('list-coupon')->with('success', 'Tạo mã giảm giá mới thành công');
+            return Redirect::to('list-coupon')->with('success', 'Create Coupon Successfully!');
         } else {
             // Nếu thiếu dữ liệu trong request, chuyển hướng về trang insert-coupon với thông báo lỗi
-            return Redirect::to('insert-coupon')->with('error', 'Vui lòng nhập đầy đủ thông tin để tạo mã giảm giá');
+            return Redirect::to('insert-coupon')->with('error', 'Please fullfil information to create coupon');
         }
     }
 
@@ -78,7 +78,7 @@ class CouponController extends Controller
     {
         $coupon = Coupon::find($coupon_id);
         $coupon->delete();
-        return Redirect::to('list-coupon')->with('success', 'xóa mã giảm giá thành công');
+        return Redirect::to('list-coupon')->with('success', 'delete coupon successfully !');
     }
 
     public function unset_coupon()
@@ -86,7 +86,7 @@ class CouponController extends Controller
         $coupon = Session::get('coupon');
         if ($coupon == true) {
             Session::forget('coupon');
-            return Redirect::to('/show-cart')->with('success', 'xóa mã giảm giá thành công.');
+            return Redirect::to('/show-cart')->with('success', 'delete coupon successfully !');
         }
     }
 
@@ -132,14 +132,14 @@ class CouponController extends Controller
     {
         $this->Authenlogin();
         DB::table('tbl_coupon')->where('coupon_id', $coupon_id)->update(['coupon_status' => 1]);
-        return Redirect::to('list-coupon')->with('success', 'không kích hoạt coupon thành công');
+        return Redirect::to('list-coupon')->with('success', 'unactivate coupon successfully !');
     }
 
     public function active_coupon($coupon_id)
     {
         $this->Authenlogin();
         DB::table('tbl_coupon')->where('coupon_id', $coupon_id)->update(['coupon_status' => 0]);
-        return Redirect::to('list-coupon')->with('success', 'kích hoạt coupon thành công');
+        return Redirect::to('list-coupon')->with('success', 'activate coupon successfully !');
     }
 
     public function createBatchCoupon()
@@ -172,6 +172,6 @@ class CouponController extends Controller
             $newCoupon->save();
         }
 
-        return Redirect::to('list-coupon')->with('success', 'Đã tạo mã giảm giá hàng loạt thành công!');
+        return Redirect::to('list-coupon')->with('success', 'Created coupons in bulk successfully !!');
     }
 }

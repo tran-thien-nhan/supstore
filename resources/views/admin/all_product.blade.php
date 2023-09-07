@@ -4,7 +4,7 @@
         <div class="table-agile-info">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    Liệt kê sản phẩm
+                    PRODUCT LIST
                 </div>
                 @if (session('success'))
                     <div class="alert alert-success">
@@ -12,17 +12,6 @@
                     </div>
                 @endif
                 <div class="row w3-res-tb">
-                    <div class="col" style="margin-left:1rem; margin-bottom:1rem">
-                        <form method="GET" action="{{ route('filterData') }}">
-                            <label for="start_date">Ngày bắt đầu:</label>
-                            <input type="date" name="start_date" id="start_date">
-
-                            <label for="end_date">Ngày kết thúc:</label>
-                            <input type="date" name="end_date" id="end_date">
-
-                            <button type="submit">Lọc</button>
-                        </form>
-                    </div>
                     <div class="col-sm-3 m-b-xs dropdown">
                         <div class="category-group">
                             <button class="btn btn-secondary dropdown-toggle" type="button" id="categoryDropdown"
@@ -60,14 +49,14 @@
                     </div>
                     <div class="col-sm-4">
                     </div>
-                    <div class="col-sm-3">
+                    {{-- <div class="col-sm-3">
                         <div class="input-group">
                             <input type="text" class="input-sm form-control" placeholder="Search">
                             <span class="input-group-btn">
                                 <button class="btn btn-sm btn-default" type="button">Go!</button>
                             </span>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
                 <div class="table-responsive">
                     <table class="table table-striped b-t b-light">
@@ -78,16 +67,16 @@
                                         <input type="checkbox"><i></i>
                                     </label>
                                 </th>
-                                <th>tên sản phẩm</th>
-                                <th>só lượng</th>
+                                <th>Product Name</th>
+                                <th>Product Quantity</th>
                                 <th>price</th>
                                 <th>discount</th>
-                                <th>hình sản phẩm</th>
+                                <th>Image</th>
                                 <th>flavour</th>
-                                <th>danh mục</th>
-                                <th>thương hiệu</th>
-                                <th>điểm SP</th>
-                                <th>hiển thị</th>
+                                <th>Category</th>
+                                <th>Brand</th>
+                                <th>Product Point</th>
+                                <th>Visibility</th>
                                 {{-- <th>mô tả </th> --}}
                                 <th style="width:30px;"></th>
                             </tr>
@@ -155,7 +144,7 @@
                     <div class="row">
 
                         <div class="col-sm-5 text-center">
-                            <small class="text-muted inline m-t-sm m-b-sm">showing 20-30 of 50 items</small>
+                            {{-- <small class="text-muted inline m-t-sm m-b-sm">showing 20-30 of 50 items</small> --}}
                         </div>
                         <div class="col-sm-7 text-right text-center-xs">
                             {{ $all_product->links() }}

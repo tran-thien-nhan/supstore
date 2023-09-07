@@ -69,9 +69,9 @@
 
             <div id="product_content">
                 @if ($customer)
-                    <h2 class="success-message">Cảm ơn bạn đã đặt hàng ở chỗ chúng tôi. Chúng tôi sẽ liên hệ với bạn sớm nhất. Vui lòng kiểm tra email: {{ $customer->customer_email }}</h2>
+                    <h2 class="success-message">Thank for ordering at out webstie. We will call you soon. Please check your email: {{ $customer->customer_email }}</h2>
                 @else
-                    <h2 class="error-message">Không tìm thấy thông tin email khách hàng. Vui lòng thử lại sau.</h2>
+                    <h2 class="error-message">Cannot see customer information, please try again.</h2>
                 @endif
             </div>
         </div>

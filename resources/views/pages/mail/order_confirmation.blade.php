@@ -14,20 +14,18 @@
     </style>
 </head>
 <body>
-    <h2>Xin chào {{ $customer_name }}</h2>
-    <p>Cảm ơn bạn đã đặt hàng. Đơn hàng của bạn đã được xác nhận.</p>
-    <p>Mã đơn hàng: {{ $order_id }}</p>
-    <p>vui lòng thanh toán bằng tiền mặt</p>
+    <h2>Hello {{ $customer_name }}</h2>
+    <p>Thank you for ordering. Your Order have been confirmed.</p>
     <div class="table-responsive">
         <!-- Sử dụng các lớp Bootstrap để tạo bảng -->
         <table class="table table-striped table-bordered">
             <thead>
                 <tr>
-                    <th>tên sản phẩm</th>
-                    <th>số lượng</th>
-                    <th>giá</th>
-                    <th>tổng tiền</th>
-                    <th>chi tiết đơn hàng</th>
+                    <th>Item</th>
+                    <th>Quantity</th>
+                    <th>Cost</th>
+                    <th>Total</th>
+                    <th>Detail</th>
                     <th style="width:30px;"></th>
                 </tr>
             </thead>
@@ -53,19 +51,19 @@
             <tfoot>
                 <tr>
                     <th colspan="3"></th>
-                    <th>tổng tiền:</th>
+                    <th>Total:</th>
                     <th>{{ number_format($totalOrderAmount, 0, ',', '.') }}đ</th>
                     <th></th>
                 </tr>
                 <tr>
                     <th colspan="3"></th>
-                    <th>giảm giá:</th>
+                    <th>Discount:</th>
                     <th>-{{ number_format($totalOrderAmount - $item->order_total, 0, ',', '.') }}đ</th>
                     <th></th>
                 </tr>
                 <tr>
                     <th colspan="3"></th>
-                    <th>tổng tiền phải trả:</th>
+                    <th>Total must be paid:</th>
                     <th><span style="color:black">{{ number_format($item->order_total, 0, ',', '.') }}đ</span></th>
                     <th></th>
                 </tr>

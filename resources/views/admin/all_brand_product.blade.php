@@ -4,14 +4,14 @@
         <div class="table-agile-info">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    Liệt kê thương hiệu sản phẩm
+                    Product Brand List
                 </div>
                 @if (session('success'))
                     <div class="alert alert-success">
                         <strong>Success!</strong> {{ session('success') }}
                     </div>
                 @endif
-                <div class="row w3-res-tb">
+                {{-- <div class="row w3-res-tb">
                     <div class="col-sm-5 m-b-xs">
                         <select class="input-sm form-control w-sm inline v-middle">
                             <option value="0">Bulk action</option>
@@ -31,7 +31,7 @@
                             </span>
                         </div>
                     </div>
-                </div>
+                </div> --}}
                 <div class="table-responsive">
                     <table class="table table-striped b-t b-light">
                         <thead>
@@ -41,9 +41,9 @@
                                         <input type="checkbox"><i></i>
                                     </label>
                                 </th>
-                                <th>tên thương hiệu</th>
-                                <th>hiển thị</th>
-                                <th>mô tả thương hiệu</th>
+                                <th>Brand Name</th>
+                                <th>Visibility</th>
+                                <th>Brand Description</th>
                                 <th style="width:30px;"></th>
                             </tr>
                         </thead>
@@ -100,7 +100,7 @@
                     <div class="row">
 
                         <div class="col-sm-5 text-center">
-                            <small class="text-muted inline m-t-sm m-b-sm">showing 20-30 of 50 items</small>
+                            {{-- <small class="text-muted inline m-t-sm m-b-sm">showing 20-30 of 50 items</small> --}}
                         </div>
                         <div class="col-sm-7 text-right text-center-xs">
                             {{ $all_brand_product->links() }}

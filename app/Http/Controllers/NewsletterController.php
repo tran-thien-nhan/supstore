@@ -45,6 +45,6 @@ class NewsletterController extends Controller
             Mail::to($subscribe->email_subscribe)->send(new BulkEmail($emailContent, $emailTitle));
         }
 
-        return redirect()->back()->with('success', 'Đã gửi email hàng loạt thành công!');
+        return redirect()->back()->with('success', 'send email in bulk successfully!');
     }
 }

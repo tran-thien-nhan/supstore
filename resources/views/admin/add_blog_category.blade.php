@@ -10,15 +10,8 @@
         <div class="col-lg-12">
             <section class="panel">
                 <header class="panel-heading">
-                    thêm danh mục bài viết
+                    Add Blog Category
                 </header>
-                <?php
-                // $message = Session::get('message');
-                // if ($message) {
-                //     echo '<span style="color: red; text-align: center; font-size: 17px; width: 100%; font-weight: bold">' . $message . '</span>';
-                //     Session::put('message', null);
-                // }
-                ?>
                 @if (session('success'))
                     <div class="alert alert-success alert-dismissible">
                         <strong>Success!</strong> {{ session('success') }}
@@ -29,30 +22,39 @@
                         <form role="form" id="categoryForm" action="{{ URL::to('/save-category-blog') }}" method="POST">
                             @csrf
                             <div class="form-group">
-                                <label for="blog_category_name">tên danh mục bài viết</label>
-                                <input type="text" name="blog_category_name" class="form-control"
-                                    id="blog_category_name" placeholder="tên danh mục bài viết">
+                                <label for="blog_category_name">Blog Category Name</label>
+                                <input type="text" name="blog_category_name" class="form-control" id="blog_category_name"
+                                    placeholder="blog category name">
+                                @error('blog_category_name')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
                             <div class="form-group">
-                                <label for="exampleInputPassword1">mô tả danh mục bài viết</label>
-                                <textarea class="form-control" name="blog_category_desc" id="blog_category_desc" placeholder="mô tả danh mục bài viết"
+                                <label for="exampleInputPassword1">Blog Category Description</label>
+                                <textarea class="form-control" name="blog_category_desc" id="blog_category_desc" placeholder="blog category desc"
                                     style="resize:none" rows="8"></textarea>
+                                @error('blog_category_desc')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
                             <div class="form-group">
-                                <label for="exampleInputPassword1">từ khóa danh mục blog</label>
-                                <textarea class="form-control" name="category_blog_keywords" id="category_blog_keywords" placeholder="từ khóa mô tả danh mục blog"
-                                    style="resize:none" rows="8"></textarea>
+                                <label for="exampleInputPassword1">Blog Category Keyword</label>
+                                <textarea class="form-control" name="category_blog_keywords" id="category_blog_keywords"
+                                    placeholder="category blog keywords" style="resize:none" rows="8"></textarea>
+                                @error('category_blog_keywords')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
                             <div class="form-group">
-                                <label for="blog_category_status">hiển thị</label>
+                                <label for="blog_category_status">Visibility</label>
                                 <select name="blog_category_status" class="form-control input-sm m-bot15">
-                                    <option value="0" {{ old('blog_category_status') == 0 ? 'selected' : '' }}>ẩn
+                                    <option value="0" {{ old('blog_category_status') == 0 ? 'selected' : '' }}>Hide
                                     </option>
-                                    <option value="1" {{ old('blog_category_status') == 1 ? 'selected' : '' }}>hiển
-                                        thị</option>
+                                    <option value="1" {{ old('blog_category_status') == 1 ? 'selected' : '' }}>Show
+                                    </option>
                                 </select>
                             </div>
-                            <button type="submit" name="add_blog_category" class="btn btn-info">thêm danh mục bài viết</button>
+                            <button type="submit" name="add_blog_category" class="btn btn-info">Add Blog Category</button>
                         </form>
                     </div>
 

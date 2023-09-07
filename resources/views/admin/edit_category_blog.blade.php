@@ -10,7 +10,7 @@
         <div class="col-lg-12">
             <section class="panel">
                 <header class="panel-heading">
-                    thêm danh mục bài viết
+                    Add Blog Category
                 </header>
                 <?php
                 // $message = Session::get('message');
@@ -27,21 +27,29 @@
                 <div class="panel-body">
                     <div class="position-center">
                         @foreach ($edit_category_blog as $key => $edit_value)
-                            <form role="form" id="categoryForm" action="{{ URL::to('/update-category-blog/'.$edit_value->blog_category_id) }}"
+                            <form role="form" id="categoryForm"
+                                action="{{ URL::to('/update-category-blog/' . $edit_value->blog_category_id) }}"
                                 method="POST">
                                 @csrf
                                 <div class="form-group">
-                                    <label for="blog_category_name">tên danh mục bài viết</label>
+                                    <label for="blog_category_name">Blog Category Name</label>
                                     <input type="text" name="blog_category_name" class="form-control"
-                                        id="blog_category_name" placeholder="tên danh mục bài viết" value="{{$edit_value->blog_category_name}}">
+                                        id="blog_category_name" placeholder="tên danh mục bài viết"
+                                        value="{{ $edit_value->blog_category_name }}">
+                                    @error('blog_category_name')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
-                                    <label for="exampleInputPassword1">mô tả danh mục bài viết</label>
+                                    <label for="exampleInputPassword1">Blog Category Description</label>
                                     <textarea class="form-control" name="blog_category_desc" id="blog_category_desc" placeholder="mô tả danh mục bài viết"
-                                        style="resize:none" rows="8">{{$edit_value->blog_category_desc}}</textarea>
+                                        style="resize:none" rows="8">{{ $edit_value->blog_category_desc }}</textarea>
+                                    @error('blog_category_desc')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
-                                <button type="submit" name="add_blog_category" class="btn btn-info">update danh mục bài
-                                    viết</button>
+                                <button type="submit" name="add_blog_category" class="btn btn-info">Update Blog
+                                    Category</button>
                             </form>
                         @endforeach
                     </div>

@@ -7,7 +7,7 @@
         <div class="col-lg-12">
             <section class="panel">
                 <header class="panel-heading">
-                    <h3>Lịch sử các đơn hàng</h3>
+                    <h3>CART HISTORY</h3>
                 </header>
                 <div class="panel-body">
                     @foreach ($cart_history as $hist)
@@ -15,10 +15,10 @@
                         <table class="table table-striped table-hover table-bordered"> <!-- Thêm lớp table-bordered -->
                             <thead class="table-primary">
                                 <tr>
-                                    <th>Mã đơn hàng</th>
-                                    <th>Tổng giá tiền phải trả</th>
-                                    <th>Tình trạng</th>
-                                    <th>Ngày đặt hàng</th>
+                                    <th>Order id</th>
+                                    <th>Total Must Pay</th>
+                                    <th>Condition</th>
+                                    <th>Order date</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -30,17 +30,22 @@
                                     </td>
                                     <td>
                                         @if ($hist->order_status == 1)
-                                            <span class="badge bg-dark">Đang xử lý đơn hàng</span>
+                                            <span class="badge bg-dark">order
+                                                in process</span>
                                         @elseif($hist->order_status == 2)
-                                            <span class="badge bg-info">Đang giao hàng</span>
+                                            <span class="badge bg-info">in
+                                                shipping</span>
                                         @elseif($hist->order_status == 3)
-                                            <span class="badge bg-success">Giao hàng thành công</span>
+                                            <span class="badge bg-success">ship
+                                                successfully</span>
                                         @elseif($hist->order_status == 4)
-                                            <span class="badge bg-warning text-dark">Trả lại hàng</span>
+                                            <span class="badge bg-warning text-dark">order
+                                                refunded</span>
                                         @elseif($hist->order_status == 5)
-                                            <span class="badge bg-danger">Hủy hàng</span>
+                                            <span class="badge bg-danger">order
+                                                cancelled</span>
                                         @else
-                                            <span class="badge bg-secondary">Đơn hàng không tồn tại</span>
+                                            <span class="badge bg-secondary">not exist</span>
                                         @endif
                                     </td>
                                     <td>{{ $hist->created_at }}</td>
@@ -50,10 +55,10 @@
                         <table class="table table-bordered table-hover"> <!-- Thêm lớp table-bordered -->
                             <thead class="table-primary">
                                 <tr>
-                                    <th>Sản phẩm</th>
-                                    <th>Số lượng</th>
-                                    <th>Giá tiền</th>
-                                    <th>Chi tiết SP</th>
+                                    <th>Item</th>
+                                    <th>Quantity</th>
+                                    <th>Cost</th>
+                                    <th>Detail</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -73,6 +78,6 @@
                 </div>
             </section>
         </div>
-        {{$cart_history->links()}}
+        {{ $cart_history->links() }}
     </div>
 @endsection
