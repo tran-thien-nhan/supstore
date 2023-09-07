@@ -45,7 +45,7 @@ class Admin extends Model implements Authenticatable
 
     // Nếu bạn cần hỗ trợ các phương thức khác của giao diện Authenticatable, bạn có thể triển khai chúng ở đây.
     protected $fillable = [
-        'admin_email', 'admin_password',  'admin_name', 'admin_phone', 'role_value', 'role_id'
+        'admin_code', 'admin_email', 'admin_password',  'admin_name', 'admin_phone', 'role_value', 'role_id', 'address', 'salary'
     ];
 
     protected $primaryKey = 'admin_id';

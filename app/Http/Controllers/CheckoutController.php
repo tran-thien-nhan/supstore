@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
 use App\Http\Requests;
 use App\Models\Coupon;
 use App\Models\Payment;
 use App\Models\Product;
+use App\Models\Category;
 use App\Models\Customer;
+use App\Models\District;
 use Illuminate\Http\Request;
 use App\Mail\OrderConfirmation;
 use Illuminate\Support\Facades\Mail;
@@ -369,7 +372,78 @@ class CheckoutController extends Controller
     }
 
 
-    public function manage_order()
+    // public function manage_order()
+    // {
+    //     $this->Authenlogin();
+
+    //     $admin_id = Session::get('admin_id'); // Lấy admin_id từ session
+    //     $admin_role_value = Session::get('admin_role_value'); // Lấy role_value từ session
+
+    //     // Lấy tất cả các đơn đặt hàng và thêm phân trang
+    //     $all_order_query = DB::table('tbl_order')
+    //         ->join('tbl_customer', 'tbl_customer.customer_id', '=', 'tbl_order.customer_id')
+    //         ->join('tbl_district', 'tbl_district.district_id', '=', 'tbl_order.district_id')
+    //         ->join('tbl_admin', 'tbl_admin.admin_id', '=', 'tbl_order.admin_id')
+    //         ->select('tbl_order.*', 'tbl_customer.customer_name', 'tbl_district.district_name', 'tbl_admin.admin_name')
+    //         ->orderBy('tbl_order.order_id', 'desc');
+
+    //     if ($admin_role_value == 1) {
+    //         // Hiển thị tất cả đơn hàng nếu là admin
+    //         $all_order = $all_order_query->paginate(5);
+    //     } else {
+    //         // Lọc đơn hàng dựa trên admin_id nếu là shipper
+    //         $all_order = $all_order_query
+    //             ->where('tbl_order.admin_id', $admin_id)
+    //             ->paginate(5);
+    //     }
+
+    //     foreach ($all_order as $order) {
+    //         $payment = Payment::find($order->payment_id);
+
+    //         if ($payment) {
+    //             $order->payment_method = $payment->payment_method;
+    //         } else {
+    //             $order->payment_method = 'Unknown';
+    //         }
+    //     }
+
+    //     // Đếm số lượng đơn đặt hàng
+    //     $count_order = DB::table('tbl_order')->count();
+
+    //     // Đếm số lượng đơn đặt hàng theo trạng thái
+    //     $count_orderst_1 = DB::table('tbl_order')
+    //         ->where('order_status', 1)
+    //         ->count();
+
+    //     $count_orderst_2 = DB::table('tbl_order')
+    //         ->where('order_status', 2)
+    //         ->count();
+
+    //     $count_orderst_3 = DB::table('tbl_order')
+    //         ->where('order_status', 3)
+    //         ->count();
+
+    //     $count_orderst_4 = DB::table('tbl_order')
+    //         ->where('order_status', 4)
+    //         ->count();
+
+    //     $count_orderst_5 = DB::table('tbl_order')
+    //         ->where('order_status', 5)
+    //         ->count();
+
+    //     // Truyền dữ liệu vào view và sử dụng mảng để gom chung các biến
+    //     return view('admin.manage_order', [
+    //         'all_order' => $all_order,
+    //         'count_order' => $count_order,
+    //         'count_orderst_1' => $count_orderst_1,
+    //         'count_orderst_2' => $count_orderst_2,
+    //         'count_orderst_3' => $count_orderst_3,
+    //         'count_orderst_4' => $count_orderst_4,
+    //         'count_orderst_5' => $count_orderst_5
+    //     ]);
+    // }
+
+    public function manage_order(Request $request)
     {
         $this->Authenlogin();
 
@@ -393,6 +467,50 @@ class CheckoutController extends Controller
                 ->where('tbl_order.admin_id', $admin_id)
                 ->paginate(5);
         }
+
+        // Lọc đơn hàng theo trạng thái nếu có tham số 'status' trong request
+        if ($request->has('status')) {
+            $status = $request->input('status');
+            $all_order = $all_order_query->where('tbl_order.order_status', $status)->paginate(5);
+        }
+
+        // Tìm kiếm theo order_id nếu có tham số 'order_id' trong request
+        if ($request->has('order_id')) {
+            $order_id = $request->input('order_id');
+            $all_order = $all_order_query->where('tbl_order.order_id', 'LIKE', "%$order_id%")->paginate(5);
+        }
+
+        // Tạo một câu truy vấn cơ sở
+        $query = $all_order_query;
+
+        if ($request->has('status')) {
+            $status = $request->input('status');
+            $query->where('tbl_order.order_status', $status);
+        }
+
+        if ($request->has('order_id')) {
+            $order_id = $request->input('order_id');
+            $query->where('tbl_order.order_id', 'LIKE', "%$order_id%");
+        }
+
+        // Tìm kiếm theo quận
+        if ($request->has('district_id')) {
+            $district_id = $request->input('district_id');
+            $query->where('tbl_order.district_id', $district_id);
+        }
+
+        // Tìm kiếm theo tên khách hàng, số điện thoại hoặc địa chỉ
+        if ($request->has('search_customer')) {
+            $search_customer = $request->input('search_customer');
+            $query->where(function ($q) use ($search_customer) {
+                $q->where('tbl_customer.customer_name', 'LIKE', "%$search_customer%")
+                    ->orWhere('tbl_customer.customer_phone', 'LIKE', "%$search_customer%")
+                    ->orWhere('tbl_customer.customer_address', 'LIKE', "%$search_customer%");
+            });
+        }
+
+        // Thực hiện truy vấn và lấy dữ liệu phân trang
+        $all_order = $query->paginate(5);
 
         foreach ($all_order as $order) {
             $payment = Payment::find($order->payment_id);
@@ -428,6 +546,9 @@ class CheckoutController extends Controller
             ->where('order_status', 5)
             ->count();
 
+        // Lấy danh sách quận
+        $districts = District::all();
+
         // Truyền dữ liệu vào view và sử dụng mảng để gom chung các biến
         return view('admin.manage_order', [
             'all_order' => $all_order,
@@ -436,9 +557,11 @@ class CheckoutController extends Controller
             'count_orderst_2' => $count_orderst_2,
             'count_orderst_3' => $count_orderst_3,
             'count_orderst_4' => $count_orderst_4,
-            'count_orderst_5' => $count_orderst_5
+            'count_orderst_5' => $count_orderst_5,
+            'districts' => $districts,
         ]);
     }
+
 
 
     public function view_order($order_id)

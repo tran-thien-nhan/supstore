@@ -124,6 +124,25 @@ class ProductController extends Controller
         return Redirect::to('all-product')->with('success', 'activate product successfully');
     }
 
+    public function search_product(Request $request)
+    {
+        $all_category_product = DB::table('tbl_category_product')->get();
+        $all_brand_product = DB::table('tbl_brand')->get();
+
+        $search = $request->input('search');
+
+        $all_product = DB::table('tbl_product')
+            ->join('tbl_category_product', 'tbl_product.category_id', '=', 'tbl_category_product.category_id')
+            ->join('tbl_brand', 'tbl_product.brand_id', '=', 'tbl_brand.brand_id')
+            ->where('tbl_product.product_id', 'LIKE', "%$search%")
+            ->orWhere('tbl_product.product_name', 'LIKE', "%$search%")
+            ->select('tbl_product.*', 'tbl_category_product.category_name', 'tbl_brand.brand_name')
+            ->paginate(10);
+
+        return view('admin.all_product', compact('all_category_product', 'all_brand_product', 'all_product'));
+    }
+
+
     public function edit_product($product_id)
     {
         $this->Authenlogin();

@@ -49,14 +49,17 @@
                     </div>
                     <div class="col-sm-4">
                     </div>
-                    {{-- <div class="col-sm-3">
-                        <div class="input-group">
-                            <input type="text" class="input-sm form-control" placeholder="Search">
-                            <span class="input-group-btn">
-                                <button class="btn btn-sm btn-default" type="button">Go!</button>
-                            </span>
-                        </div>
-                    </div> --}}
+                    <div class="col-sm-3">
+                        <form action="{{ route('admin.product.all_product') }}" method="GET">
+                            <div class="input-group">
+                                <input type="text" class="input-sm form-control" name="search" placeholder="Search by Product ID or Name">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-sm btn-default" type="submit">Search</button>
+                                </span>
+                            </div>
+                        </form>
+                    </div>
+                    
                 </div>
                 <div class="table-responsive">
                     <table class="table table-striped b-t b-light">
@@ -67,6 +70,7 @@
                                         <input type="checkbox"><i></i>
                                     </label>
                                 </th>
+                                <th>product id</th>
                                 <th>Product Name</th>
                                 <th>Product Quantity</th>
                                 <th>price</th>
@@ -87,6 +91,7 @@
                                     <td><label class="i-checks m-b-none"><input type="checkbox"
                                                 name="post[]"><i></i></label>
                                     </td>
+                                    <td>PD-{{ $pro->product_id }}</td>
                                     <td>{{ $pro->product_name }}</td>
                                     <td>{{ $pro->product_quantity }}</td>
                                     <td>{{ number_format($pro->product_price, 0, ',', '.') }}đ</td>

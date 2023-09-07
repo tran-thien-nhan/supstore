@@ -103,6 +103,8 @@ Route::get('/all-product/category-product/{category_id}', [ProductController::cl
 Route::get('/all-product/brand-product/{brand_id}', [ProductController::class, 'all_product_by_brand']);
 
 Route::get('/all-product/filter-by-date', [ProductController::class, 'filter_by_date'])->name('filterData');
+Route::get('/search_product', [ProductController::class, 'search_product'])->name('admin.product.all_product');
+
 
 //cart
 Route::post('/save-cart/{product_id}', [CartController::class, 'save_cart'])->name('cart.save_cart');
@@ -124,7 +126,8 @@ Route::get('/logout-checkout', [CheckoutController::class, 'logout_checkout']);
 
 //order
 //Route::get('/manage-order', [OrderController::class, 'manage_order']);
-Route::get('/manage-order', [CheckoutController::class, 'manage_order']);
+Route::get('/manage-order', [CheckoutController::class, 'manage_order'])->name('manage_order');
+Route::post('/manage-order/filter', [CheckoutController::class, 'filterOrders'])->name('filter_orders');
 Route::get('/view-order/{order_id}', [CheckoutController::class, 'view_order']);
 Route::get('/delete-order/{order_id}', [CheckoutController::class, 'delete_order']);
 Route::get('/assign-shipper/{order_id}', [OrderController::class, 'showAssignShipperForm']);
@@ -208,6 +211,9 @@ Route::get('/employees', [EmployeeController::class, 'index'])->name('employees.
 Route::get('/edit-employee/{admin_id}', [EmployeeController::class, 'editEmployee']);
 Route::post('/update-employee/{admin_id}', [EmployeeController::class, 'updateEmployee']);
 Route::get('/delete-employee/{admin_id}', [EmployeeController::class, 'deleteEmployee']);
+Route::get('/filter-employees', [EmployeeController::class, 'filterEmployees'])->name('filter-employees');
+Route::get('/search-employees', [EmployeeController::class, 'searchEmployees'])->name('search-employees');
+Route::get('/filter-employees-by-district', [EmployeeController::class, 'filterEmployeesByDistrict'])->name('filter-employees-by-district');
 
 //newsletter
 Route::post('/subscribe', [NewsletterController::class, 'subscribe'])->name('subscribe');

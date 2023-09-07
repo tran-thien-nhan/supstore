@@ -6,14 +6,15 @@ use App\Models\Role;
 use App\Models\Admin;
 use App\Models\District;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class EmployeeController extends Controller
 {
     public function index()
     {
         $employees = Admin::whereIn('role_value', [1, 2])->paginate(5);
-
-        return view('admin.all_employees', compact('employees'));
+        $districts = District::all();
+        return view('admin.all_employees', compact('employees', 'districts'));
     }
 
     public function editEmployee($admin_id)
@@ -37,7 +38,7 @@ class EmployeeController extends Controller
             'address' => 'nullable',
             'salary' => 'required|numeric',
             'district_id' => 'required|exists:tbl_district,district_id',
-            'role_id' => 'required|exists:tbl_role,role_id',
+            'role_value' => 'required|in:1,2', // Đảm bảo rằng role_value chỉ có thể là 1 hoặc 2
         ]);
 
         // Cập nhật thông tin nhân viên từ dữ liệu trong $request
@@ -47,7 +48,7 @@ class EmployeeController extends Controller
         $employee->address = $request->input('address');
         $employee->salary = $request->input('salary');
         $employee->district_id = $request->input('district_id');
-        $employee->role_id = $request->input('role_id');
+        $employee->role_value = $request->input('role_value'); // Cập nhật trường role_value
 
         // Cập nhật mã nhân viên
         $roleValue = $employee->role_value;
@@ -60,11 +61,33 @@ class EmployeeController extends Controller
         return redirect('/employees')->with('success', 'update successfully');
     }
 
-    public function deleteEmployee($admin_id)
-    {
-        $employee = Admin::findOrFail($admin_id);
-        $employee->delete();
 
-        return redirect('/employees')->with('success', 'delete successfully');
+    public function filterEmployees(Request $request)
+    {
+        $employeeType = $request->input('employee_type');
+
+        // Query dựa trên loại nhân viên được chọn
+        if ($employeeType == 'all') {
+            $employees = Admin::paginate(10); // Sử dụng tên model và phương thức paginate của Laravel
+        } else {
+            $employees = Admin::where('role_value', $employeeType)->paginate(10);
+        }
+
+        return view('admin.all_employees', compact('employees'));
+    }
+
+    public function searchEmployees(Request $request)
+    {
+        $searchQuery = $request->input('search');
+
+        $employees = Admin::where('admin_id', 'LIKE', "%$searchQuery%")
+            ->orWhere('admin_name', 'LIKE', "%$searchQuery%")
+            ->orWhere('admin_phone', 'LIKE', "%$searchQuery%") // Thêm điều kiện tìm kiếm theo số điện thoại
+            ->orWhereHas('district', function ($query) use ($searchQuery) {
+                $query->where('district_name', 'LIKE', "%$searchQuery%");
+            })
+            ->paginate(10);
+
+        return view('admin.all_employees', compact('employees'));
     }
 }

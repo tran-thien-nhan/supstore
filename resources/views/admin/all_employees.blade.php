@@ -11,6 +11,24 @@
                         <strong>Success!</strong> {{ session('success') }}
                     </div>
                 @endif
+                <br>
+                <form action="{{ route('filter-employees') }}" method="GET" id="filter-form" style="margin-left: 1rem">
+                    <label for="employee_type">Select Employee Type:</label>
+                    <select name="employee_type" id="employee_type" onchange="submitForm()">
+                        <option value="0">--select--</option>
+                        <option value="all">All</option>
+                        <option value="1">Employee</option>
+                        <option value="2">Shipper</option>
+                    </select>
+                </form>
+                <br>
+                <div class="form-group" style="margin-left: 1rem">
+                    <form action="{{ route('search-employees') }}" method="GET">
+                        <input type="text" name="search" placeholder="Search by ID or Name">
+                        <button class="btn btn-success" type="submit">Search</button>
+                    </form>
+                </div>
+                
                 <div class="table-responsive">
                     <table class="table table-striped b-t b-light">
                         <thead>
@@ -33,7 +51,7 @@
                                     <td>{{ $employee->admin_name }}</td>
                                     <td>
                                         @if ($employee->role_value == 1)
-                                            Nhân viên
+                                            Employee
                                         @elseif ($employee->role_value == 2)
                                             Shipper
                                         @else
@@ -53,6 +71,7 @@
                                             @endif
                                         @endif
                                     </td>
+
                                     <td>{{ $employee->district->district_name }}</td>
                                     <td>{{ number_format($employee->salary, 0, ',', '.') }}</td>
                                     <td>
@@ -75,4 +94,9 @@
             </div>
         </div>
     </div>
+    <script>
+        function submitForm() {
+            document.getElementById('filter-form').submit();
+        }
+    </script>    
 @endsection

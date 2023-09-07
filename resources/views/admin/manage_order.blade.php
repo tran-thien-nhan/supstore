@@ -18,20 +18,67 @@
                     </div>
                 @endif
                 <br>
-                <div style="margin-left: 1rem; margin-bottom:1rem">
-                    total: {{ $count_order }} items
-                </div>
+
                 <div style="margin-left: 1rem">
-                    <span class="badge bg-dark" style=margin-right:1rem">{{ $count_orderst_1 }} order in process</span>
-                    <span class="badge bg-info" style="margin-right:1rem; color: white">{{ $count_orderst_2 }} in
-                        shipping</span>
-                    <span class="badge bg-success" style="margin-right:1rem; color: white">{{ $count_orderst_3 }} ship
-                        successfully</span>
-                    <span class="badge bg-warning" style="margin-right:1rem; color: white">{{ $count_orderst_4 }} order
-                        refunded</span>
-                    <span class="badge bg-danger" style="margin-right:1rem; color: white">{{ $count_orderst_5 }}
-                        order cancelled</span>
+                    <a href="{{ route('manage_order', ['status' => 1]) }}" class="badge bg-dark"
+                        style="margin-right:1rem">{{ $count_orderst_1 }} order in process</a>
+                    <a href="{{ route('manage_order', ['status' => 2]) }}" class="badge bg-info"
+                        style="margin-right:1rem; color: white">{{ $count_orderst_2 }} in shipping</a>
+                    <a href="{{ route('manage_order', ['status' => 3]) }}" class="badge bg-success"
+                        style="margin-right:1rem; color: white">{{ $count_orderst_3 }} ship successfully</a>
+                    <a href="{{ route('manage_order', ['status' => 4]) }}" class="badge bg-warning"
+                        style="margin-right:1rem; color: white">{{ $count_orderst_4 }} order refunded</a>
+                    <a href="{{ route('manage_order', ['status' => 5]) }}" class="badge bg-danger"
+                        style="margin-right:1rem; color: white">{{ $count_orderst_5 }} order cancelled</a>
                 </div>
+                <br>
+
+                <div class="row" style="margin-left: 1rem">
+                    <div class="col-md-2">
+                        <form action="{{ route('manage_order') }}" method="GET">
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="order_id" placeholder="Search by Order ID">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-primary" type="submit">
+                                        <i class="bi bi-search"></i> <i class="fa fa-search" aria-hidden="true"></i> Order ID
+                                    </button>
+                                </span>
+                            </div>
+                        </form>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <form action="{{ route('manage_order') }}" method="GET">
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="search_customer" placeholder="Search by Customer Name, Phone, or Address">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-primary" type="submit">
+                                        <i class="bi bi-search"></i> <i class="fa fa-search" aria-hidden="true"></i> generally
+                                    </button>
+                                </span>
+                            </div>
+                        </form>
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <form action="{{ route('manage_order') }}" method="GET">
+                            <div class="input-group">
+                                <select name="district_id" class="form-control">
+                                    <option value="">-- Select District --</option>
+                                    @foreach ($districts as $district)
+                                        <option value="{{ $district->district_id }}">{{ $district->district_name }}</option>
+                                    @endforeach
+                                </select>
+                                <span class="input-group-btn">
+                                    <button class="btn btn-primary" type="submit">
+                                        <i class="bi bi-search"></i> <i class="fa fa-search" aria-hidden="true"></i> by District
+                                    </button>
+                                </span>
+                            </div>
+                        </form>
+                    </div>
+                </div>             
+                
                 <div class="table-responsive">
                     <table class="table table-striped b-t b-light">
                         <thead>

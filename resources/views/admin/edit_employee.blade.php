@@ -49,7 +49,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="role_id">Role</label>
-                                <select class="form-control" name="role_id">
+                                <select class="form-control" name="role_value">
                                     <option value="">-- Choose role --</option>
                                     @foreach ($roles as $role)
                                         <option value="{{ $role->role_value }}"
@@ -59,6 +59,7 @@
                                     @endforeach
                                 </select>
                             </div>
+
                             <div class="form-group">
                                 <label for="salary">Salary</label>
                                 <select class="form-control" name="salary">
