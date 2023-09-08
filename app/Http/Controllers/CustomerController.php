@@ -43,7 +43,7 @@ class CustomerController extends Controller
             $customers->whereBetween('customer_point', [$minPoint, $maxPoint]);
         }
 
-        $customers = $customers->get();
+        $customers = $customers->paginate(10);
 
         return view('admin.all_customers', compact('customers', 'districts'));
     }
@@ -93,7 +93,7 @@ class CustomerController extends Controller
             $query->where('district_id', $districtId);
         }
 
-        $customers = $query->get();
+        $customers = $query->paginate(10);
 
         $districts = District::all(); // Lấy danh sách quận để hiển thị trong dropdown
 
@@ -114,7 +114,7 @@ class CustomerController extends Controller
                 ->orWhere('customer_phone', 'like', '%' . $search . '%')
                 ->orWhere('customer_address', 'like', '%' . $search . '%')
                 ->orWhere('customer_id', 'like', '%' . $search . '%');
-        })->get();
+        })->paginate(20);
 
         // Lấy danh sách quận để hiển thị trong dropdown
         $districts = District::all();

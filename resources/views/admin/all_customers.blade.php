@@ -122,7 +122,7 @@
                         </tbody>
                     </table>
                 </div>
-                {{-- {{ $customers->links() }} --}}
+                {{ $customers->links() }}
             </div>
         </div>
     </div>
