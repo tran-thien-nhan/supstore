@@ -35,8 +35,6 @@
     <!-- carousel -->
     @include('layout.carousel')
     <!-- end carousel -->
-    <h3 style="text-align:center; margin-top: 1rem; margin-bottom: 1rem">FOR THE HARDEST WORKERS IN THE TEAM</h3>
-    <div class="horizontal-line"></div>
     {{-- Phần hiển thị danh sách coupon --}}
     <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-inner">
@@ -88,7 +86,9 @@
         </a>
     </div>
 
-
+    <h3 style="text-align:center; margin-top: 1rem; margin-bottom: 1rem">FOR THE HARDEST WORKERS IN THE TEAM</h3>
+    <div class="horizontal-line"></div>
+    
     <div class="row row-cols-1 row-cols-md-2 row-cols-sm-2 row-cols-lg-4">
         @foreach ($all_product as $key => $product)
             <div class="col mb-4">
