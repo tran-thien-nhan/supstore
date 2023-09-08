@@ -165,6 +165,7 @@ Route::get('/active-coupon/{coupon_id}', [CouponController::class, 'active_coupo
 Route::get('/create-batch-coupon', [CouponController::class, 'createBatchCoupon'])->name('create-batch-coupon');
 Route::post('/store-batch-coupon', [CouponController::class, 'storeBatchCoupon'])->name('store-batch-coupon');
 
+
 //blog
 Route::get('/add-blog', [BlogController::class, 'add_blog']);
 Route::get('/all-blog', [BlogController::class, 'all_blog']);

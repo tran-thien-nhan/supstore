@@ -11,6 +11,7 @@
     <meta name="description" content="{{ $meta_desc }}">
     <meta name="title" content="{{ $meta_title }}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
     <link rel="stylesheet" href="{{ asset('frontend/css/header.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/css/index.css') }}">
     <!-- Các thẻ Meta OG -->
