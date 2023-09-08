@@ -60,7 +60,7 @@
             </div>
             <div class="mb-3">
                 <div class="my-2">
-                    <div class="btn btn-primary" data-href="{{ URL::current() }}" data-layout="" data-size="">
+                    <div class="btn btn-primary" data-href="{{ URL::current() }}" data-layout="" data-size="" style="float: right; margin-bottom: 1rem">
                         <a target="_blank"
                             href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(URL::current()) }}&amp;src=sdkpreparse"
                             class="fb-xfbml-parse-ignore text-white" style="text-decoration: none;">
@@ -70,8 +70,8 @@
                 </div>
             </div>
         </div>
-        <div class="fb-comments" data-href="{{ URL::current() }}" data-width="100%" data-numposts="20"></div>
-        </div>
-        <hr>
+        {{-- <div class="fb-comments" data-href="{{ URL::current() }}" data-width="100%" data-numposts="20"></div>
+        </div> --}}
+        {{-- <hr> --}}
     </div>
 @endsection

@@ -1,92 +1,34 @@
 @extends('admin_layout')
 @section('admin_content')
-    <style>
-        label.error {
-            color: red;
-        }
-    </style>
-    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
     <script src="https://cdn.ckeditor.com/ckeditor5/38.1.1/super-build/ckeditor.js"></script>
     <div class="row">
-        <div class="col-lg-12">
-            <section class="panel">
-                <header class="panel-heading">
-                    Add Blog
-                </header>
-                @if (session('success'))
-                    <div class="alert alert-success">
-                        <strong>Success!</strong> {{ session('success') }}
-                    </div>
-                @endif
-                <div class="panel-body">
-                    <div class="position-center">
-                        <form role="form" id="blogForm" action="{{ URL::to('/save-blog') }}" method="POST"
-                            enctype="multipart/form-data">
-                            @csrf
-                            <div class="form-group">
-                                <label for="blog_name">Blog Title</label>
-                                <input type="text" name="blog_title" class="form-control" id="blog_title"
-                                    placeholder="blog title">
-                                @error('blog_title')
-                                    <span class="text-danger">{{ $message }}</span>
-                                @enderror
-                            </div>
-                            <div class="form-group">
-                                <label for="blog_thumbnail">Blog Image</label>
-                                <input type="file" name="blog_thumbnail" class="form-control" id="blog_thumbnail"
-                                    placeholder="blog thumbnail">
-                                @error('blog_thumbnail')
-                                    <span class="text-danger">{{ $message }}</span>
-                                @enderror
-                            </div>
-                            <div class="form-group">
-                                <label for="blog_cate">Blog Category</label>
-                                <select name="blog_cate" class="form-control input-sm m-bot15">
-                                    @foreach ($cate_blog as $key => $cate)
-                                        <option value="{{ $cate->blog_category_id }}"
-                                            {{ old('blog_category_id') == $cate->blog_category_id ? 'selected' : '' }}>
-                                            {{ $cate->blog_category_name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="pre_blog_content">Blog Describe</label>
-                                <textarea class="form-control" name="pre_blog_content" id="pre_blog_content" placeholder="blog describe"
-                                    style="resize:none" rows="8"></textarea>
-                                @error('pre_blog_content')
-                                    <span class="text-danger">{{ $message }}</span>
-                                @enderror
-                            </div>
-                            <div class="form-group">
-                                <label for="blog_content">Blog Content</label>
-                                <textarea class="form-control" name="blog_content" id="blog_content" placeholder="blog content" style="resize:none"
-                                    rows="8"></textarea>
-                                @error('blog_content')
-                                    <span class="text-danger">{{ $message }}</span>
-                                @enderror
-                            </div>
-                            <div class="form-group">
-                                <label for="blog_status">Visibility</label>
-                                <select name="blog_status" class="form-control input-sm m-bot15">
-                                    <option value="0" {{ old('blog_status') == 0 ? 'selected' : '' }}>Hide</option>
-                                    <option value="1" {{ old('blog_status') == 1 ? 'selected' : '' }}>Show
-                                    </option>
-                                </select>
-                            </div>
-                            <button type="submit" name="add_blog" class="btn btn-info">Add Blog</button>
-                        </form>
-                    </div>
-
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Compose Email
                 </div>
-            </section>
-
+                <div class="panel-body">
+                    <form action="{{ route('sendBulkEmailCustomer') }}" method="POST">
+                        @csrf
+                        <div class="form-group">
+                            <label for="email_title">Email Title:</label>
+                            <input type="text" id="email_title" name="email_title" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="email_content">Email Content:</label>
+                            <textarea id="email_content" name="email_content" class="form-control"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Send Email In Bulk</button>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
     <script src="https://cdn.ckeditor.com/ckeditor5/38.1.1/super-build/ckeditor.js"></script>
     <script>
         // This sample still does not showcase all CKEditor 5 features (!)
         // Visit https://ckeditor.com/docs/ckeditor5/latest/features/index.html to browse all the features.
-        CKEDITOR.ClassicEditor.create(document.getElementById("blog_content"), {
+        CKEDITOR.ClassicEditor.create(document.getElementById("email_content"), {
             // https://ckeditor.com/docs/ckeditor5/latest/features/toolbar/toolbar.html#extended-toolbar-configuration-format
             toolbar: {
                 items: [
@@ -267,83 +209,4 @@
             ]
         });
     </script>
-    {{-- <script>
-        $(document).ready(function() {
-            $("#blogForm").validate({
-                onfocusout: false,
-                onkeyup: false,
-                onclick: false,
-                rules: {
-                    "blog_name": {
-                        required: true,
-                        minlength: 10,
-                        maxlength: 100
-                    },
-                    "blog_quantity": {
-                        required: true,
-                        min: 0,
-                        max: 200
-                    },
-                    "blog_flavour": {
-                        required: true,
-                        minlength: 5
-                    },
-                    "blog_price": {
-                        required: true,
-                        min: 200000,
-                        max: 23000000
-                    },
-                    "blog_discount": {
-                        required: true,
-                        min: 0,
-                        max: 100
-                    },
-                    "blog_image": {
-                        required: true
-                    },
-                    "blog_desc": {
-                        required: true
-                    },
-                    "blog_content": {
-                        required: true
-                    },
-                },
-                messages: {
-                    "blog_name": {
-                        required: "Bắt buộc nhập tên bài viết",
-                        minlength: "Tên bài viết không được nhỏ hơn 10 ký tự",
-                        maxlength: "Tên bài viết không được vượt quá 100 ký tự"
-                    },
-                    "blog_quantity": {
-                        required: "Bắt buộc nhập số lượng bài viết",
-                        min: "Số lượng bài viết phải lớn hơn 0",
-                        max: "Số lượng bài viết không được vượt quá 200"
-                    },
-                    "blog_flavour": {
-                        required: "Bắt buộc nhập hương vị bài viết",
-                        minlength: "Nội dung hương vị bài viết ít nhất phải có 5 ký tự"
-                    },
-                    "blog_price": {
-                        required: "Bắt buộc nhập giá tiền bài viết",
-                        min: "Giá tiền bài viết phải ít nhất 200k VND",
-                        max: "Giá tiền bài viết không được vượt quá 23tr VND"
-                    },
-                    "blog_discount": {
-                        required: "Bắt buộc nhập % giảm giá cho bài viết",
-                        min: "% giảm giá ít nhất là 0%",
-                        max: "% giảm giá không được vượt quá 100%"
-                    },
-                    "blog_image": {
-                        required: "Bắt buộc nhập hình ảnh cho bài viết"
-                    },
-                    "blog_desc": {
-                        required: "Bắt buộc nhập mô tả cho bài viết"
-                    },
-                    "blog_content": {
-                        required: "Bắt buộc nhập nội dung cho bài viết"
-                    }
-                }
-            });
-        });
-    </script> --}}
 @endsection

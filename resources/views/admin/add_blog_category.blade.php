@@ -64,32 +64,32 @@
         </div>
     </div>
     <script>
-        $(document).ready(function() {
-            $("#categoryForm").validate({
-                onfocusout: false,
-                onkeyup: false,
-                onclick: false,
-                rules: {
-                    "blog_category_name": {
-                        required: true,
-                        maxlength: 50
-                    },
-                    "blog_category_desc": {
-                        required: true,
-                        minlength: 10
-                    }
-                },
-                messages: {
-                    "blog_category_name": {
-                        required: "Bắt buộc nhập tên danh mục bài viết",
-                        maxlength: "Tên danh mục bài viết không được vượt quá 50 ký tự"
-                    },
-                    "blog_category_desc": {
-                        required: "Bắt buộc nhập mô tả danh mục bài viết",
-                        minlength: "Mô tả danh mục bài viết ít nhất phải có 10 ký tự"
-                    }
-                }
-            });
-        });
+        // $(document).ready(function() {
+        //     $("#categoryForm").validate({
+        //         onfocusout: false,
+        //         onkeyup: false,
+        //         onclick: false,
+        //         rules: {
+        //             "blog_category_name": {
+        //                 required: true,
+        //                 maxlength: 50
+        //             },
+        //             "blog_category_desc": {
+        //                 required: true,
+        //                 minlength: 10
+        //             }
+        //         },
+        //         messages: {
+        //             "blog_category_name": {
+        //                 required: "Bắt buộc nhập tên danh mục bài viết",
+        //                 maxlength: "Tên danh mục bài viết không được vượt quá 50 ký tự"
+        //             },
+        //             "blog_category_desc": {
+        //                 required: "Bắt buộc nhập mô tả danh mục bài viết",
+        //                 minlength: "Mô tả danh mục bài viết ít nhất phải có 10 ký tự"
+        //             }
+        //         }
+        //     });
+        // });
     </script>
 @endsection

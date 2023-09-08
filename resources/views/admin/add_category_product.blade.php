@@ -63,7 +63,7 @@
 
         </div>
     </div>
-    <script>
+    {{-- <script>
         $(document).ready(function() {
             $("#categoryForm").validate({
                 onfocusout: false,
@@ -91,5 +91,5 @@
                 }
             });
         });
-    </script>
+    </script> --}}
 @endsection

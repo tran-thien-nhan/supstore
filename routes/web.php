@@ -14,10 +14,11 @@ use App\Http\Controllers\CouponController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CheckoutController;
-use App\Http\Controllers\SendMailController;
-use App\Http\Controllers\RevenueChartController;
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\SendMailController;
 use App\Http\Controllers\NewsletterController;
+use App\Http\Controllers\RevenueChartController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -220,4 +221,11 @@ Route::post('/subscribe', [NewsletterController::class, 'subscribe'])->name('sub
 Route::get('/list-subscribed-emails', [NewsletterController::class, 'listSubscribedEmails'])->name('listSubscribedEmails');
 Route::get('/compose-email', [NewsletterController::class, 'composeEmail'])->name('composeEmail');
 Route::post('/send-bulk-email', [NewsletterController::class, 'sendBulkEmail'])->name('sendBulkEmail');
+Route::get('/compose-email-customer', [NewsletterController::class, 'composeEmailCustomer'])->name('composeEmailCustomer');
+Route::post('/send-bulk-email-customer', [NewsletterController::class, 'sendBulkEmailCustomer'])->name('sendBulkEmailCustomer');
 
+//customers
+Route::get('/customers', [CustomerController::class, 'index'])->name('customers.index');
+Route::get('/filterCustomersByRank', [CustomerController::class, 'filterByRank'])->name('filterCustomersByRank');
+Route::get('/filterCustomersByDistrict', [CustomerController::class, 'filterCustomersByDistrict'])->name('filterCustomersByDistrict');
+Route::get('/searchCustomers', [CustomerController::class, 'searchCustomers'])->name('searchCustomers');

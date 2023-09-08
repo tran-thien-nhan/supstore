@@ -101,6 +101,18 @@ class CouponController extends Controller
     public function save_coupon(Request $request)
     {
         $this->Authenlogin();
+        $request->validate([
+            'coupon_name' => 'required',
+            'coupon_time' => 'required|numeric',
+            'coupon_condition' => 'required',
+            'coupon_number' => 'required|numeric',
+            'coupon_code' => 'required',
+            'coupon_expire_date' => 'required|date',
+        ], [
+            'required' => 'The :attribute field is required.',
+            'numeric' => 'The :attribute must be a number.',
+            'date' => 'The :attribute must be a valid date format.',
+        ]);
         $data = array();
         $data['coupon_name'] = $request->coupon_name;
         $data['coupon_time'] = $request->coupon_time;
@@ -116,6 +128,18 @@ class CouponController extends Controller
     public function update_coupon(Request $request, $coupon_id)
     {
         $this->Authenlogin();
+        $request->validate([
+            'coupon_name' => 'required',
+            'coupon_time' => 'required|numeric',
+            'coupon_condition' => 'required',
+            'coupon_number' => 'required|numeric',
+            'coupon_code' => 'required',
+            'coupon_expire_date' => 'required|date',
+        ], [
+            'required' => 'The :attribute field is required.',
+            'numeric' => 'The :attribute must be a number.',
+            'date' => 'The :attribute must be a valid date format.',
+        ]);
         $data = array();
         $data['coupon_name'] = $request->coupon_name;
         $data['coupon_time'] = $request->coupon_time;

@@ -74,11 +74,17 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             <form action="{{ URL::to('/admin-login') }}" method="post">
                 @csrf
                 <input type="email" class="ggg" name="admin_email" placeholder="điền email" required="">
+                @error('admin_email')
+                    <span class="text-danger">{{ $message }}</span>
+                @enderror
                 <input type="password" class="ggg" name="admin_password" placeholder="điền password" required="">
+                @error('admin_password')
+                    <span class="text-danger">{{ $message }}</span>
+                @enderror
                 <div class="clearfix"></div>
                 <input type="submit" value="Sign In" name="login">
             </form>
-            <p>Don't Have an Account ?<a href="{{URL::to('/create-account')}}">Create an account</a></p>
+            <p>Don't Have an Account ?<a href="{{ URL::to('/create-account') }}">Create an account</a></p>
             <hr>
             <div class="custom-button-container">
                 <a href="{{ URL::to('auth/google') }}" class="custom-button">Sign up with Google</a>

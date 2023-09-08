@@ -44,5 +44,9 @@ class Customer extends Model
 
     protected $table = 'tbl_customer'; // Đặt tên bảng cần truy vấn
     protected $primaryKey = 'customer_id'; // Đặt tên khóa chính
-    protected $fillable = ['customer_name', 'customer_email', 'customer_password', 'customer_phone', 'customer_address'];
+    protected $fillable = ['district_id', 'customer_name', 'customer_email', 'customer_password', 'customer_phone', 'customer_address', 'customer_point'];
+    public function district()
+    {
+        return $this->belongsTo(District::class, 'district_id');
+    }
 }

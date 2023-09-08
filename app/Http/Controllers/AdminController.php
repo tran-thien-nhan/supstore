@@ -43,6 +43,15 @@ class AdminController extends Controller
 
     public function AdminLogin(Request $request)
     {
+        $request->validate([
+            'admin_email' => 'required|email',
+            'admin_password' => 'required|min:5|max:50',
+        ], [
+            'required' => 'The :attribute field is required.',
+            'email' => 'The :attribute must be a valid email address.',
+            'min' => 'The :attribute must be at least :min characters.',
+            'max' => 'The :attribute may not be greater than :max characters.',
+        ]);
         $admin_email = $request->admin_email;
         $admin_password = md5($request->admin_password);
         $existingUser = Admin::where('admin_email', $admin_email)->first();

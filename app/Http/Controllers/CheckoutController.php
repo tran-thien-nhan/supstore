@@ -103,6 +103,16 @@ class CheckoutController extends Controller
 
     public function save_checkout_customer(Request $request)
     {
+        $request->validate([
+            'shipping_name' => 'required',
+            'shipping_phone' => 'required',
+            'shipping_email' => 'required|email',
+            'shipping_notes' => 'nullable',
+            'shipping_address' => 'required',
+        ], [
+            'required' => 'The :attribute field is required.',
+            'email' => 'The :attribute must be a valid email address.',
+        ]);
         $data = array();
         $data['shipping_name'] = $request->shipping_name;
         $data['shipping_phone'] = $request->shipping_phone;
@@ -371,78 +381,6 @@ class CheckoutController extends Controller
         }
     }
 
-
-    // public function manage_order()
-    // {
-    //     $this->Authenlogin();
-
-    //     $admin_id = Session::get('admin_id'); // Lấy admin_id từ session
-    //     $admin_role_value = Session::get('admin_role_value'); // Lấy role_value từ session
-
-    //     // Lấy tất cả các đơn đặt hàng và thêm phân trang
-    //     $all_order_query = DB::table('tbl_order')
-    //         ->join('tbl_customer', 'tbl_customer.customer_id', '=', 'tbl_order.customer_id')
-    //         ->join('tbl_district', 'tbl_district.district_id', '=', 'tbl_order.district_id')
-    //         ->join('tbl_admin', 'tbl_admin.admin_id', '=', 'tbl_order.admin_id')
-    //         ->select('tbl_order.*', 'tbl_customer.customer_name', 'tbl_district.district_name', 'tbl_admin.admin_name')
-    //         ->orderBy('tbl_order.order_id', 'desc');
-
-    //     if ($admin_role_value == 1) {
-    //         // Hiển thị tất cả đơn hàng nếu là admin
-    //         $all_order = $all_order_query->paginate(5);
-    //     } else {
-    //         // Lọc đơn hàng dựa trên admin_id nếu là shipper
-    //         $all_order = $all_order_query
-    //             ->where('tbl_order.admin_id', $admin_id)
-    //             ->paginate(5);
-    //     }
-
-    //     foreach ($all_order as $order) {
-    //         $payment = Payment::find($order->payment_id);
-
-    //         if ($payment) {
-    //             $order->payment_method = $payment->payment_method;
-    //         } else {
-    //             $order->payment_method = 'Unknown';
-    //         }
-    //     }
-
-    //     // Đếm số lượng đơn đặt hàng
-    //     $count_order = DB::table('tbl_order')->count();
-
-    //     // Đếm số lượng đơn đặt hàng theo trạng thái
-    //     $count_orderst_1 = DB::table('tbl_order')
-    //         ->where('order_status', 1)
-    //         ->count();
-
-    //     $count_orderst_2 = DB::table('tbl_order')
-    //         ->where('order_status', 2)
-    //         ->count();
-
-    //     $count_orderst_3 = DB::table('tbl_order')
-    //         ->where('order_status', 3)
-    //         ->count();
-
-    //     $count_orderst_4 = DB::table('tbl_order')
-    //         ->where('order_status', 4)
-    //         ->count();
-
-    //     $count_orderst_5 = DB::table('tbl_order')
-    //         ->where('order_status', 5)
-    //         ->count();
-
-    //     // Truyền dữ liệu vào view và sử dụng mảng để gom chung các biến
-    //     return view('admin.manage_order', [
-    //         'all_order' => $all_order,
-    //         'count_order' => $count_order,
-    //         'count_orderst_1' => $count_orderst_1,
-    //         'count_orderst_2' => $count_orderst_2,
-    //         'count_orderst_3' => $count_orderst_3,
-    //         'count_orderst_4' => $count_orderst_4,
-    //         'count_orderst_5' => $count_orderst_5
-    //     ]);
-    // }
-
     public function manage_order(Request $request)
     {
         $this->Authenlogin();
@@ -505,7 +443,8 @@ class CheckoutController extends Controller
             $query->where(function ($q) use ($search_customer) {
                 $q->where('tbl_customer.customer_name', 'LIKE', "%$search_customer%")
                     ->orWhere('tbl_customer.customer_phone', 'LIKE', "%$search_customer%")
-                    ->orWhere('tbl_customer.customer_address', 'LIKE', "%$search_customer%");
+                    ->orWhere('tbl_customer.customer_address', 'LIKE', "%$search_customer%")
+                    ->orWhere('tbl_admin.admin_name', 'LIKE', "%$search_customer%");
             });
         }
 

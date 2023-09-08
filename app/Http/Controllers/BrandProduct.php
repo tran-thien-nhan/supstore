@@ -14,12 +14,12 @@ session_start();
 
 class BrandProduct extends Controller
 {
-    public function Authenlogin(){
+    public function Authenlogin()
+    {
         $admin_id = Session::get('admin_id');
         if ($admin_id) {
             return Redirect::to('dashboard');
-        }
-        else{
+        } else {
             return Redirect::to('admin')->send();
         }
     }
@@ -40,7 +40,15 @@ class BrandProduct extends Controller
     public function save_brand_product(Request $request)
     {
         $this->Authenlogin();
-        //return view('admin.all_brand_product');
+
+        $request->validate([
+            'brand_product_name' => 'required',
+            'brand_product_desc' => 'required',
+            'brand_product_status' => 'required',
+        ], [
+            'required' => 'The :attribute field is required.',
+        ]);
+
         $data = array();
         $data['brand_name'] = $request->brand_product_name;
         $data['brand_desc'] = $request->brand_product_desc;
@@ -67,26 +75,37 @@ class BrandProduct extends Controller
         return Redirect::to('all-brand-product')->with('success', 'activate brand successfully');
     }
 
-    public function edit_brand_product($brand_product_id){
+    public function edit_brand_product($brand_product_id)
+    {
         $this->Authenlogin();
-        $edit_brand_product = DB::table('tbl_brand')->where('brand_id',$brand_product_id)->get();
+        $edit_brand_product = DB::table('tbl_brand')->where('brand_id', $brand_product_id)->get();
         $manager_brand_product = view('admin.edit_brand_product')->with('edit_brand_product', $edit_brand_product);
         return view('admin_layout')->with('admin.edit_brand_product', $manager_brand_product);
     }
 
-    public function update_brand_product(Request $request, $brand_product_id){
+    public function update_brand_product(Request $request, $brand_product_id)
+    {
         $this->Authenlogin();
+
+        $request->validate([
+            'brand_product_name' => 'required',
+            'brand_product_desc' => 'required',
+        ], [
+            'required' => 'The :attribute field is required.',
+        ]);
+        
         $data = array();
         $data['brand_name'] = $request->brand_product_name;
         $data['brand_desc'] = $request->brand_product_desc;
 
-        DB::table('tbl_brand')->where('brand_id',$brand_product_id)->update($data);
+        DB::table('tbl_brand')->where('brand_id', $brand_product_id)->update($data);
         return Redirect::to('all-brand-product')->with('success', 'brand updated successfully');
     }
-    
-    public function delete_brand_product($brand_product_id){
+
+    public function delete_brand_product($brand_product_id)
+    {
         $this->Authenlogin();
-        DB::table('tbl_brand')->where('brand_id',$brand_product_id)->delete();
+        DB::table('tbl_brand')->where('brand_id', $brand_product_id)->delete();
         return Redirect::to('all-brand-product')->with('success', 'brand deleted successfully');
     }
 }

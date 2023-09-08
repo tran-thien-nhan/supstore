@@ -51,11 +51,6 @@ class ProductController extends Controller
     {
         $this->Authenlogin();
 
-        // $blog_category = DB::table('tbl_category_blog')
-        //     ->where('blog_category_status', '0')
-        //     ->orderBy('blog_category_id ', 'desc')
-        //     ->get();
-
         $all_product = DB::table('tbl_product')
             ->join('tbl_category_product', 'tbl_category_product.category_id', '=', 'tbl_product.category_id')
             ->join('tbl_brand', 'tbl_brand.brand_id', '=', 'tbl_product.brand_id')
@@ -76,7 +71,26 @@ class ProductController extends Controller
     public function save_product(Request $request)
     {
         $this->Authenlogin();
-        //return view('admin.all_product');
+        $request->validate([
+            'product_name' => 'required',
+            'product_desc' => 'required',
+            'product_quantity' => 'required|numeric',
+            'product_content' => 'required',
+            'product_price' => 'required|numeric',
+            'product_discount' => 'required|numeric',
+            'product_flavour' => 'required',
+            'product_cate' => 'required|exists:tbl_category_product,category_id',
+            'product_brand' => 'required|exists:tbl_brand,brand_id',
+            'product_status' => 'required',
+            'product_image' => 'image|mimes:jpeg,png,jpg,gif|max:2048', // Kiểm tra hình ảnh
+        ], [
+            'required' => 'The :attribute field is required.',
+            'numeric' => 'The :attribute must be a number.',
+            'exists' => 'The selected :attribute is invalid.',
+            'image' => 'The :attribute must be an image.',
+            'mimes' => 'The :attribute must be a file of type: jpeg, png, jpg, gif.',
+            'max' => 'The :attribute may not be greater than :max kilobytes.',
+        ]);
         $data = array();
         $data['product_name'] = $request->product_name;
         $data['product_desc'] = $request->product_desc;
@@ -136,8 +150,9 @@ class ProductController extends Controller
             ->join('tbl_brand', 'tbl_product.brand_id', '=', 'tbl_brand.brand_id')
             ->where('tbl_product.product_id', 'LIKE', "%$search%")
             ->orWhere('tbl_product.product_name', 'LIKE', "%$search%")
+            ->orWhere('tbl_product.product_flavour', 'LIKE', "%$search%") // Thêm điều kiện tìm kiếm theo flavor
             ->select('tbl_product.*', 'tbl_category_product.category_name', 'tbl_brand.brand_name')
-            ->paginate(10);
+            ->paginate(20);
 
         return view('admin.all_product', compact('all_category_product', 'all_brand_product', 'all_product'));
     }
@@ -146,11 +161,6 @@ class ProductController extends Controller
     public function edit_product($product_id)
     {
         $this->Authenlogin();
-
-        // $blog_category = DB::table('tbl_category_blog')
-        //     ->where('blog_category_status', '0')
-        //     ->orderBy('blog_category_id ', 'desc')
-        //     ->get();
 
         $cate_product = DB::table('tbl_category_product')->orderBy('category_id', 'desc')->get();
         $brand_product = DB::table('tbl_brand')->orderBy('brand_id', 'desc')->get();
@@ -163,6 +173,25 @@ class ProductController extends Controller
     public function update_product(Request $request, $product_id)
     {
         $this->Authenlogin();
+        $request->validate([
+            'product_name' => 'required',
+            'product_desc' => 'required',
+            'product_quantity' => 'required|numeric',
+            'product_content' => 'required',
+            'product_price' => 'required|numeric',
+            'product_discount' => 'required|numeric',
+            'product_flavour' => 'required',
+            'product_cate' => 'required|exists:tbl_category_product,category_id',
+            'product_brand' => 'required|exists:tbl_brand,brand_id',
+            'product_image' => 'image|mimes:jpeg,png,jpg,gif|max:2048', // Kiểm tra hình ảnh
+        ], [
+            'required' => 'The :attribute field is required.',
+            'numeric' => 'The :attribute must be a number.',
+            'exists' => 'The selected :attribute is invalid.',
+            'image' => 'The :attribute must be an image.',
+            'mimes' => 'The :attribute must be a file of type: jpeg, png, jpg, gif.',
+            'max' => 'The :attribute may not be greater than :max kilobytes.',
+        ]);
         $data = array();
         $data['product_name'] = $request->product_name;
         $data['product_desc'] = $request->product_desc;

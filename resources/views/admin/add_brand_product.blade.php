@@ -56,7 +56,7 @@
             </section>
         </div>
     </div>
-    <script>
+    {{-- <script>
         $(document).ready(function() {
             $("#brandForm").validate({
                 onfocusout: false,
@@ -84,5 +84,5 @@
                 }
             });
         });
-    </script>
+    </script> --}}
 @endsection

@@ -317,7 +317,7 @@
             ]
         });
     </script>
-    <script>
+    {{-- <script>
         $(document).ready(function() {
             $("#productForm").validate({
                 onfocusout: false,
@@ -395,5 +395,5 @@
                 }
             });
         });
-    </script>
+    </script> --}}
 @endsection

@@ -46,7 +46,14 @@ class CategoryProduct extends Controller
     public function save_category_product(Request $request)
     {
         $this->Authenlogin();
-        //return view('admin.all_category_product');
+        $request->validate([
+            'category_product_name' => 'required',
+            'category_product_keywords' => 'required',
+            'category_product_desc' => 'required',
+            'category_product_status' => 'required',
+        ], [
+            'required' => 'The :attribute field is required.',
+        ]);
         $data = array();
         $data['category_name'] = $request->category_product_name;
         $data['meta_keywords'] = $request->category_product_keywords;
@@ -102,6 +109,14 @@ class CategoryProduct extends Controller
     public function update_category_product(Request $request, $category_product_id)
     {
         $this->Authenlogin();
+        $request->validate([
+            'category_product_name' => 'required',
+            'category_product_desc' => 'required',
+            'category_product_keywords' => 'required',
+        ], [
+            'required' => 'The :attribute field is required.',
+        ]);
+    
         $data = array();
         $data['category_name'] = $request->category_product_name;
         $data['category_desc'] = $request->category_product_desc;

@@ -89,27 +89,58 @@
     <script>
         $(document).ready(function() {
             $("#couponForm").validate({
-                onfocusout: false,
-                onkeyup: false,
-                onclick: false,
                 rules: {
                     "coupon_name": {
                         required: true,
                         maxlength: 50
                     },
-                    "coupon_desc": {
+                    "coupon_code": {
                         required: true,
-                        minlength: 50
+                    },
+                    "coupon_time": {
+                        required: true,
+                        digits: true
+                    },
+                    "coupon_expire_date": {
+                        required: true,
+                        date: true
+                    },
+                    "coupon_condition": {
+                        required: true
+                    },
+                    "coupon_number": {
+                        required: true,
+                        number: true
+                    },
+                    "coupon_status": {
+                        required: true
                     }
                 },
                 messages: {
                     "coupon_name": {
-                        required: "Bắt buộc nhập tên mã giảm giá",
-                        maxlength: "Tên mã giảm giá không được vượt quá 50 ký tự"
+                        required: "Coupon name is required.",
+                        maxlength: "Coupon name must not exceed 50 characters."
                     },
-                    "coupon_desc": {
-                        required: "Bắt buộc nhập mô tả mã giảm giá",
-                        minlength: "Mô tả mã giảm giá ít nhất phải có 50 ký tự"
+                    "coupon_code": {
+                        required: "Coupon code is required."
+                    },
+                    "coupon_time": {
+                        required: "Coupon quantity is required.",
+                        digits: "Coupon quantity must be a number."
+                    },
+                    "coupon_expire_date": {
+                        required: "Coupon expiration date is required.",
+                        date: "Please enter a valid date."
+                    },
+                    "coupon_condition": {
+                        required: "Coupon feature is required."
+                    },
+                    "coupon_number": {
+                        required: "Discount value is required.",
+                        number: "Discount value must be a number."
+                    },
+                    "coupon_status": {
+                        required: "Visibility is required."
                     }
                 }
             });

@@ -68,6 +68,19 @@ class BlogController extends Controller
     {
         $this->Authenlogin();
 
+        $request->validate([
+            'blog_title' => 'required',
+            'pre_blog_content' => 'required',
+            'blog_content' => 'required',
+            'blog_cate' => 'required',
+            'blog_thumbnail' => 'image|mimes:jpeg,png,jpg,gif|max:2048', // Kiểm tra nếu là ảnh và có định dạng phù hợp
+        ], [
+            'required' => 'The :attribute field is required.',
+            'image' => 'The :attribute must be an image.',
+            'mimes' => 'The :attribute must be a file of type: :values.',
+            'max' => 'The :attribute may not be greater than :max kilobytes.',
+        ]);
+
         $data = array();
         $data['blog_title'] = $request->blog_title;
         $data['pre_blog_content'] = $request->pre_blog_content;
@@ -79,19 +92,21 @@ class BlogController extends Controller
         if ($get_image) {
             $get_name_image = $get_image->getClientOriginalName();
             $name_image = current(explode('.', $get_name_image));
-            $timestamp = time(); // hoặc $timestamp = date('Ymd_His');
+            $timestamp = time();
             $new_image = $name_image . '_' . $timestamp . '.' . $get_image->getClientOriginalExtension();
             $get_image->move('public/uploads/blog', $new_image);
             $data['blog_thumbnail'] = $new_image;
             DB::table('tbl_blog')->insert($data);
 
-            return Redirect::to('all-blog')->with('success', 'blog created successfully');
+            return redirect()->to('all-blog')->with('success', 'Blog created successfully');
         }
+
         $data['blog_thumbnail'] = '';
         DB::table('tbl_blog')->insert($data);
 
-        return Redirect::to('all-blog')->with('success', 'blog created successfully');
+        return redirect()->to('all-blog')->with('success', 'Blog created successfully');
     }
+
 
     public function all_blog()
     {
@@ -121,19 +136,27 @@ class BlogController extends Controller
     public function save_category_blog(Request $request)
     {
         $this->Authenlogin();
-        //return view('admin.all_category_blog');
+
+        $request->validate([
+            'blog_category_name' => 'required',
+            'blog_category_desc' => 'required',
+            'blog_category_status' => 'required',
+            'category_blog_keywords' => 'required',
+        ], [
+            'required' => 'The :attribute field is required.',
+        ]);
+
         $data = array();
         $data['blog_category_name'] = $request->blog_category_name;
         $data['blog_category_desc'] = $request->blog_category_desc;
         $data['blog_category_status'] = $request->blog_category_status;
         $data['meta_keywords'] = $request->category_blog_keywords;
 
-        DB::table('tbl_category_blog')
-            ->insert($data);
+        DB::table('tbl_category_blog')->insert($data);
 
-        return Redirect::to('add-blog-category')
-            ->with('success', 'new blog category created successfully');
+        return redirect()->to('add-blog-category')->with('success', 'New blog category created successfully');
     }
+
 
     public function unactive_category_blog($blog_category_id)
     {
@@ -144,7 +167,7 @@ class BlogController extends Controller
         //Session::put('message','thêm danh mục bài viết thành công');
 
         return Redirect::to('all-blog-category')
-            ->with('success', 'không kích hoạt danh mục bài viết thành công');
+            ->with('success', 'unactivate blog category successfully');
     }
 
     public function active_category_blog($blog_category_id)
@@ -156,7 +179,7 @@ class BlogController extends Controller
         //Session::put('message','thêm danh mục sản phẩm thành công');
 
         return Redirect::to('all-blog-category')
-            ->with('success', 'kích hoạt danh mục bài viết thành công');
+            ->with('success', 'activate blog category successfully');
     }
 
     public function edit_blog($blog_id)
@@ -177,6 +200,19 @@ class BlogController extends Controller
     public function update_blog(Request $request, $blog_id)
     {
         $this->Authenlogin();
+        $request->validate([
+            'blog_title' => 'required',
+            'pre_blog_content' => 'required',
+            'blog_content' => 'required',
+            'blog_cate' => 'required',
+            'blog_status' => 'required',
+            'blog_thumbnail' => 'image|mimes:jpeg,png,jpg,gif|max:2048', // Kiểm tra nếu là ảnh và có định dạng phù hợp
+        ], [
+            'required' => 'The :attribute field is required.',
+            'image' => 'The :attribute must be an image.',
+            'mimes' => 'The :attribute must be a file of type: :values.',
+            'max' => 'The :attribute may not be greater than :max kilobytes.',
+        ]);
         $data = array();
         $data['blog_title'] = $request->blog_title;
         $data['pre_blog_content'] = $request->pre_blog_content;
@@ -223,6 +259,14 @@ class BlogController extends Controller
     public function update_category_blog(Request $request, $blog_category_id)
     {
         $this->Authenlogin();
+        $request->validate([
+            'blog_category_name' => 'required',
+            'blog_category_desc' => 'required',
+            'category_blog_keywords' => 'required',
+        ], [
+            'required' => 'The :attribute field is required.',
+        ]);
+
         $data = array();
         $data['blog_category_name'] = $request->blog_category_name;
         $data['blog_category_desc'] = $request->blog_category_desc;

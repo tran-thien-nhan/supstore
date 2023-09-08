@@ -109,11 +109,11 @@ class HomeController extends Controller
             'customer_phone' => 'nullable|string|max:15|unique:tbl_customer,customer_phone,' . $customerId . ',customer_id',
             'customer_address' => 'nullable|string|max:255|unique:tbl_customer,customer_address,' . $customerId . ',customer_id',
         ], [
-            'required' => ':attribute bắt buộc nhập.',
-            'min' => ':attribute phải chứa ít nhất :min ký tự.',
-            'max' => ':attribute không được vượt quá :max ký tự.',
-            'email' => 'phải đúng định dạng email.',
-            'unique' => 'đã tồn tại, vui lòng nhập giá trị khác.',
+            'required' => ':attribute required.',
+            'min' => ':attribute must have at least :min characters.',
+            'max' => ':attribute must not over :max characters.',
+            'email' => 'must match email form.',
+            'unique' => 'already exist, please input another one.',
         ]);
 
         $blog_category = DB::table('tbl_category_blog')->get();

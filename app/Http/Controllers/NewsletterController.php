@@ -47,4 +47,22 @@ class NewsletterController extends Controller
 
         return redirect()->back()->with('success', 'send email in bulk successfully!');
     }
+
+    public function composeEmailCustomer()
+    {
+        return view('pages.mail.compose_customer');
+    }
+
+    public function sendBulkEmailCustomer(Request $request)
+    {
+        $emailContent = $request->input('email_content');
+        $emailTitle = $request->input('email_title'); // Lấy giá trị title từ form
+        $subscribes = Subscribe::all();
+
+        foreach ($subscribes as $subscribe) {
+            Mail::to($subscribe->email_subscribe)->send(new BulkEmail($emailContent, $emailTitle));
+        }
+
+        return redirect()->back()->with('success', 'send email in bulk successfully!');
+    }
 }

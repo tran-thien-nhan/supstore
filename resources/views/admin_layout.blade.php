@@ -197,6 +197,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             </a>
                         </li>
                         <li class="sub-menu {{ $adminRole != 1 ? 'hidden' : '' }}">
+                            <a class="" href="{{ URL::to('/customers') }}">
+                                <i class="fa fa-users"></i>
+                                <span>Manage Customers</span>
+                            </a>
+                        </li>
+                        <li class="sub-menu {{ $adminRole != 1 ? 'hidden' : '' }}">
                             <a class="" href="{{ route('listSubscribedEmails') }}">
                                 <i class="fa fa-users"></i>
                                 <span>Email Subcribed list</span>

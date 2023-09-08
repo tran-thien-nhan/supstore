@@ -54,7 +54,7 @@
                             <div class="input-group">
                                 <input type="text" class="input-sm form-control" name="search" placeholder="Search by Product ID or Name">
                                 <span class="input-group-btn">
-                                    <button class="btn btn-sm btn-default" type="submit">Search</button>
+                                    <button class="btn btn-sm btn-success" type="submit">Search</button>
                                 </span>
                             </div>
                         </form>

@@ -31,7 +31,7 @@ class EmployeeController extends Controller
         $employee = Admin::findOrFail($admin_id);
 
         // Kiểm tra dữ liệu đầu vào
-        $request->validate([
+        $$request->validate([
             'admin_name' => 'required',
             'admin_email' => 'required|email|unique:tbl_admin,admin_email,' . $admin_id . ',admin_id',
             'admin_phone' => 'required',
@@ -39,6 +39,13 @@ class EmployeeController extends Controller
             'salary' => 'required|numeric',
             'district_id' => 'required|exists:tbl_district,district_id',
             'role_value' => 'required|in:1,2', // Đảm bảo rằng role_value chỉ có thể là 1 hoặc 2
+        ], [
+            'required' => 'The :attribute field is required.',
+            'email' => 'The :attribute must be a valid email address.',
+            'unique' => 'The :attribute has already been taken.',
+            'numeric' => 'The :attribute must be a number.',
+            'exists' => 'The selected :attribute is invalid.',
+            'in' => 'The selected :attribute is invalid.',
         ]);
 
         // Cập nhật thông tin nhân viên từ dữ liệu trong $request
