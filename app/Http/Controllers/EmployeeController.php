@@ -70,7 +70,7 @@ class EmployeeController extends Controller
         if ($employeeType == 'all') {
             $employees = Admin::paginate(10); // Sử dụng tên model và phương thức paginate của Laravel
         } else {
-            $employees = Admin::where('role_value', $employeeType)->paginate(10);
+            $employees = Admin::where('role_value', $employeeType)->get();
         }
 
         return view('admin.all_employees', compact('employees'));

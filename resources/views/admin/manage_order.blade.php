@@ -33,7 +33,7 @@
                 </div>
                 <br>
 
-                <div class="row" style="margin-left: 1rem">
+                <div class="row">
                     <div class="col-md-2">
                         <form action="{{ route('manage_order') }}" method="GET">
                             <div class="input-group">

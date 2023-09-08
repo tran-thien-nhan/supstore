@@ -90,7 +90,7 @@
                         </tbody>
                     </table>
                 </div>
-                {{ $employees->links() }}
+                {{-- {{ $employees->links() }} --}}
             </div>
         </div>
     </div>
