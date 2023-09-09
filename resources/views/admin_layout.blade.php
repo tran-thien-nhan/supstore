@@ -107,7 +107,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             </a>
                         </li>
                         <li class="sub-menu {{ $adminRole != 1 && $adminRole != 2 ? 'hidden' : '' }}">
-                        {{-- <li class="sub-menu {{ $adminRole != 1 ? 'hidden' : '' }}"> --}}
+                            {{-- <li class="sub-menu {{ $adminRole != 1 ? 'hidden' : '' }}"> --}}
                             <a href="javascript:;">
                                 <i class="fa fa-book"></i>
                                 <span>Order</span>
@@ -190,7 +190,20 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                 <li><a href="{{ URL::to('/admin/comments') }}">Comment List</a></li>
                             </ul>
                         </li>
+
                         <li class="sub-menu {{ $adminRole != 1 ? 'hidden' : '' }}">
+                            <a href="javascript:;">
+                                <i class="fa fa-users"></i>
+                                <span>Manage User</span>
+                            </a>
+                            <ul class="sub">
+                                <li><a href="{{ URL::to('/employees') }}">Manage Employees</a></li>
+                                <li><a href="{{ URL::to('/customers') }}">Manage Customers</a></li>
+                                <li><a href="{{ route('listSubscribedEmails') }}">Email Subcribed list</a></li>
+                            </ul>
+                        </li>
+
+                        {{-- <li class="sub-menu {{ $adminRole != 1 ? 'hidden' : '' }}">
                             <a class="" href="{{ URL::to('/employees') }}">
                                 <i class="fa fa-users"></i>
                                 <span>Manage Employees</span>
@@ -207,7 +220,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                 <i class="fa fa-users"></i>
                                 <span>Email Subcribed list</span>
                             </a>
-                        </li>
+                        </li> --}}
                     </ul>
                 </div>
                 <!-- sidebar menu end-->

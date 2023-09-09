@@ -127,11 +127,11 @@
                                             class="active styling-edit" ui-toggle-class="">
                                             <i class="fa fa-pencil-square-o text-success text-active"></i>
                                         </a>
-                                        <a onclick="return confirm('are you sure to delete?')"
+                                        {{-- <a onclick="return confirm('are you sure to delete?')"
                                             href="{{ URL::to('/delete-product/' . $pro->product_id) }}"
                                             class="active styling-delete" ui-toggle-class="">
                                             <i class="fa fa-trash text-danger text"></i>
-                                        </a>
+                                        </a> --}}
                                     </td>
                                 </tr>
                             @endforeach

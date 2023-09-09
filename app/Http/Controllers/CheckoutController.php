@@ -153,23 +153,32 @@ class CheckoutController extends Controller
             'email_account' => 'required|email',
             'password_account' => 'required|min:5|max:50',
         ], [
-            'required' => 'required',
-            'email' => 'invalid form.',
-            'min' => 'must have at least :min characters.',
-            'max' => 'must have at least :max characters',
+            'required' => 'This field is required.',
+            'email' => 'Invalid email format.',
+            'min' => 'Password must have at least :min characters.',
+            'max' => 'Password must have at most :max characters.',
         ]);
 
         $email = $request->email_account;
         $password = md5($request->password_account);
-        $result = DB::table('tbl_customer')
+
+        $customer_result = DB::table('tbl_customer')
             ->where('customer_email', $email)
             ->where('customer_password', $password)
             ->first();
 
-        if ($result) {
-            Session::put('customer_id', $result->customer_id);
-            Session::put('customer_name', $result->customer_name);
+        $admin_result = DB::table('tbl_admin')
+            ->where('admin_email', $email)
+            ->where('admin_password', $password)
+            ->first();
+
+        if ($customer_result) {
+            Session::put('customer_id', $customer_result->customer_id);
+            Session::put('customer_name', $customer_result->customer_name);
             return Redirect::to('/danh-muc-san-pham');
+        } elseif ($admin_result) {
+            // Email trùng khớp với admin_email, chuyển đến trang /admin
+            return Redirect::to('/admin');
         } else {
             return Redirect::to('/login-checkout');
         }
@@ -181,24 +190,33 @@ class CheckoutController extends Controller
             'customer_phone_2' => 'required|numeric|digits:10',
             'password_account_2' => 'required|min:5|max:50',
         ], [
-            'required' => 'required',
-            'numeric' => 'must be number.',
-            'digits' => 'must be :digits characters or numbers.',
-            'min' => 'must have at least :min characters.',
-            'max' => 'must have at least :max characters',
+            'required' => 'This field is required.',
+            'numeric' => 'Must be a number.',
+            'digits' => 'Must be exactly :digits characters.',
+            'min' => 'Password must have at least :min characters.',
+            'max' => 'Password must have at most :max characters.',
         ]);
 
         $customer_phone = $request->customer_phone_2;
         $password = md5($request->password_account_2);
-        $result = DB::table('tbl_customer')
+
+        $customer_result = DB::table('tbl_customer')
             ->where('customer_phone', $customer_phone)
             ->where('customer_password', $password)
             ->first();
 
-        if ($result) {
-            Session::put('customer_id', $result->customer_id);
-            Session::put('customer_name', $result->customer_name);
+        $admin_result = DB::table('tbl_admin')
+            ->where('admin_phone', $customer_phone) // Thay 'admin_phone' bằng trường tương ứng trong tbl_admin
+            ->where('admin_password', $password)
+            ->first();
+
+        if ($customer_result) {
+            Session::put('customer_id', $customer_result->customer_id);
+            Session::put('customer_name', $customer_result->customer_name);
             return Redirect::to('/danh-muc-san-pham');
+        } elseif ($admin_result) {
+            // Số điện thoại trùng khớp với admin_phone, chuyển đến trang /admin
+            return Redirect::to('/admin');
         } else {
             return Redirect::to('/login-checkout');
         }
