@@ -47,6 +47,11 @@
                     <th>Rank:</th>
                     <td><span class="{{ $rankColor }}" style="font-size:1rem">{{ $rank }}</span></td>
                 </tr>
+                <tr>
+                    <th>District:</th>
+                    <td>{{ $customer->district->district_name }}</td>
+                </tr>
+                
             </tbody>
         </table>
         <!-- Button to trigger the modal -->
@@ -97,6 +102,21 @@
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
+                            <div class="form-group">
+                                <label for="district_id">District:</label>
+                                <select class="form-control" id="district_id" name="district_id">
+                                    <option value="">Select District</option>
+                                    @foreach ($districts as $district)
+                                        <option value="{{ $district->district_id }}" {{ $customer->district_id == $district->district_id ? 'selected' : '' }}>
+                                            {{ $district->district_name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                @error('district_id')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                            
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

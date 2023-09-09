@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use App\Http\Requests;
 use App\Models\Coupon;
 use App\Models\Customer;
+use App\Models\District;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
@@ -50,7 +51,7 @@ class HomeController extends Controller
             ->limit(4)
             ->get();
         $currentDate = Carbon::now()->format('Y-m-d');
-
+        $districts = District::all();
         $validCoupons = Coupon::where('coupon_expire_date', '>', $currentDate)->get();
         return view("pages.home")
             ->with('category', $cate_product)
@@ -65,6 +66,7 @@ class HomeController extends Controller
             ->with('meta_image', $meta_image)
             ->with('validCoupons', $validCoupons)
             ->with('currentDate', $currentDate)
+            ->with('districts', $districts)
             ->with('blog_category', $blog_category);
 
         // return view("pages.home")
@@ -82,7 +84,7 @@ class HomeController extends Controller
 
         $search_product = DB::table('tbl_product')->where('product_name', 'like', '%' . $keyword . '%')->get();
         $currentDate = Carbon::now()->format('Y-m-d');
-
+        $districts = District::all();
         $validCoupons = Coupon::where('coupon_expire_date', '>', $currentDate)->get();
         return view("pages.sanpham.search")
             ->with('category', $cate_product)
@@ -90,6 +92,7 @@ class HomeController extends Controller
             ->with('search_product', $search_product)
             ->with('validCoupons', $validCoupons)
             ->with('currentDate', $currentDate)
+            ->with('districts', $districts)
             ->with('blog_category', $blog_category);
     }
 
@@ -104,13 +107,14 @@ class HomeController extends Controller
         $customer_id = Session::get('customer_id');
         $customer = Customer::find($customer_id);
         $currentDate = Carbon::now()->format('Y-m-d');
-
+        $districts = District::all();
         $validCoupons = Coupon::where('coupon_expire_date', '>', $currentDate)->get();
         return view('pages.customer_information')
             ->with('category', $cate_product)
             ->with('brand', $brand_product)
             ->with('customer', $customer)
             ->with('validCoupons', $validCoupons)
+            ->with('districts', $districts)
             ->with('blog_category', $blog_category);
     }
 
@@ -141,9 +145,10 @@ class HomeController extends Controller
             'customer_email' => $request->input('customer_email'),
             'customer_phone' => $request->input('customer_phone'),
             'customer_address' => $request->input('customer_address'),
+            'district_id' => $request->input('district_id'),
         ]);
         $currentDate = Carbon::now()->format('Y-m-d');
-
+        $districts = District::all();
         $validCoupons = Coupon::where('coupon_expire_date', '>', $currentDate)->get();
         return view('pages.customer_information', compact('customer'))
             ->with('blog_category', $blog_category)
@@ -151,6 +156,7 @@ class HomeController extends Controller
             ->with('brand', $brand_product)
             ->with('validCoupons', $validCoupons)
             ->with('currentDate', $currentDate)
+            ->with('districts', $districts)
             ->with('success', 'Customer information updated successfully.');
     }
 
@@ -164,7 +170,7 @@ class HomeController extends Controller
         $customer_id = Session::get('customer_id');
         $customer = Customer::find($customer_id);
         $currentDate = Carbon::now()->format('Y-m-d');
-
+        $districts = District::all();
         $validCoupons = Coupon::where('coupon_expire_date', '>', $currentDate)->get();
         return view('pages.change_password', [
             'blog_category' => $blog_category,
@@ -172,6 +178,7 @@ class HomeController extends Controller
             'brand' => $brand_product,
             'validCoupons' => $validCoupons,
             'currentDate' => $currentDate,
+            'districts' => $districts,
             'customer' => $customer, // Truyền biến customer vào view
         ]);
     }
@@ -225,7 +232,7 @@ class HomeController extends Controller
             ->orderBy('order_id', 'desc')
             ->get();
         $currentDate = Carbon::now()->format('Y-m-d');
-
+        $districts = District::all();
         $validCoupons = Coupon::where('coupon_expire_date', '>', $currentDate)->get();
         return view('pages.cart_history')
             ->with('category', $cate_product)
@@ -235,6 +242,7 @@ class HomeController extends Controller
             ->with('cart_history', $cart_history)
             ->with('validCoupons', $validCoupons)
             ->with('currentDate', $currentDate)
+            ->with('districts', $districts)
             ->with('cart_history_detail', $cart_history_detail);
     }
 }
