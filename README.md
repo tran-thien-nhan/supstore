@@ -1,3 +1,40 @@
+<p>
+0.
+vào phpmyadmin tạo 1 database mới tên là "supstore"
+lấy file supstore.sql được gửi vào phpmyadmin nạp vào, hướng dẫn cách nạp theo link sau:
+https://longvan.net/cong-dong/huong-dan-import-export-database-trong-phpmyadmin/?gidzl=tkXcU0pJrqVS_cH_0C_MIDtyP7uMpTOMnwzdBXlAXXNA_JLw7Po75yYeOoeVc8D2d_vWV3db0u8E2TlMGm
+
+1.
+git clone https://github.com/tran-thien-nhan/supstore.git
+
+2.
+sửa env.example thành .env
+
+3.
+sửa trong file ".env" chỗ mail như sau:
+
+MAIL_MAILER=smtp
+MAIL_HOST=smtp.gmail.com
+MAIL_PORT=587
+MAIL_USERNAME=pipclup28061997@gmail.com //hoặc mail cá nhân đã được xác minh 2 bước
+MAIL_PASSWORD=zodinfceiozqhtex 		//mặt khẩu secret app của mail cá nhân 
+MAIL_ENCRYPTION=null
+MAIL_FROM_ADDRESS="hello@example.com"
+MAIL_FROM_NAME="${APP_NAME}"
+
+4.
+composer install
+
+5.
+php artisan key:generate
+
+6.
+php artisan migrate
+
+7.
+php artisan serve
+</p>
+<hr>
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
 <p align="center">
