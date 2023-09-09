@@ -133,31 +133,6 @@ class BlogController extends Controller
         return view('admin.add_blog_category');
     }
 
-    public function save_category_blog(Request $request)
-    {
-        $this->Authenlogin();
-
-        $request->validate([
-            'blog_category_name' => 'required',
-            'blog_category_desc' => 'required',
-            'blog_category_status' => 'required',
-            'category_blog_keywords' => 'required',
-        ], [
-            'required' => 'The :attribute field is required.',
-        ]);
-
-        $data = array();
-        $data['blog_category_name'] = $request->blog_category_name;
-        $data['blog_category_desc'] = $request->blog_category_desc;
-        $data['blog_category_status'] = $request->blog_category_status;
-        $data['meta_keywords'] = $request->category_blog_keywords;
-
-        DB::table('tbl_category_blog')->insert($data);
-
-        return redirect()->to('add-blog-category')->with('success', 'New blog category created successfully');
-    }
-
-
     public function unactive_category_blog($blog_category_id)
     {
         $this->Authenlogin();
@@ -259,6 +234,7 @@ class BlogController extends Controller
     public function update_category_blog(Request $request, $blog_category_id)
     {
         $this->Authenlogin();
+
         $request->validate([
             'blog_category_name' => 'required',
             'blog_category_desc' => 'required',
@@ -276,8 +252,33 @@ class BlogController extends Controller
             ->where('blog_category_id', $blog_category_id)
             ->update($data);
 
-        return Redirect::to('all-blog-category')
-            ->with('success', 'category updated successfully');
+        return redirect()->route('all-blog-category')
+            ->with('success', 'Category updated successfully');
+    }
+
+
+    public function save_category_blog(Request $request)
+    {
+        $this->Authenlogin();
+
+        $request->validate([
+            'blog_category_name' => 'required',
+            'blog_category_desc' => 'required',
+            'blog_category_status' => 'required',
+            'category_blog_keywords' => 'required',
+        ], [
+            'required' => 'The :attribute field is required.',
+        ]);
+
+        $data = array();
+        $data['blog_category_name'] = $request->blog_category_name;
+        $data['blog_category_desc'] = $request->blog_category_desc;
+        $data['blog_category_status'] = $request->blog_category_status;
+        $data['meta_keywords'] = $request->category_blog_keywords;
+
+        DB::table('tbl_category_blog')->insert($data);
+
+        return redirect()->to('update-blog-category')->with('success', 'New blog category created successfully');
     }
 
     public function delete_category_blog($blog_category_id)

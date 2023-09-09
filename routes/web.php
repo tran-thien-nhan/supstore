@@ -170,7 +170,7 @@ Route::post('/store-batch-coupon', [CouponController::class, 'storeBatchCoupon']
 Route::get('/add-blog', [BlogController::class, 'add_blog']);
 Route::get('/all-blog', [BlogController::class, 'all_blog']);
 Route::get('/all-blog/category-blog/{category_id}', [BlogController::class, 'showBlogsByCategory']);
-Route::get('/all-blog-category', [BlogController::class, 'all_blog_category']);
+Route::get('/all-blog-category', [BlogController::class, 'all_blog_category'])->name('all-blog-category');
 Route::post('/save-blog', [BlogController::class, 'save_blog']);
 
 Route::get('/unactive-blog/{blog_id}', [BlogController::class, 'unactive_blog']);
@@ -186,7 +186,9 @@ Route::post('/save-category-blog', [BlogController::class, 'save_category_blog']
 Route::get('/edit-blog/{blog_id}', [BlogController::class, 'edit_blog']);
 Route::post('/update-blog/{blog_id}', [BlogController::class, 'update_blog']);
 Route::get('/delete-blog/{blog_id}', [BlogController::class, 'delete_blog']);
-Route::post('/update-category-blog/{blog_category_id}', [BlogController::class, 'update_category_blog']);
+// Route::post('/update-category-blog/{blog_category_id}', [BlogController::class, 'update_category_blog']);
+Route::post('/update-category-blog/{blog_category_id}', [BlogController::class, 'update_category_blog'])->name('update-category-blog');
+
 Route::get('/delete-category-blog/{blog_category_id}', [BlogController::class, 'delete_category_blog']);
 
 Route::get('/chi-tiet-bai-viet/{blog_id}', [BlogController::class, 'show_blog_details']);

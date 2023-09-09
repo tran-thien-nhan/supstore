@@ -12,6 +12,7 @@ use App\Models\Customer;
 use App\Models\District;
 use Illuminate\Http\Request;
 use App\Mail\OrderConfirmation;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Redirect;
@@ -155,17 +156,17 @@ class CheckoutController extends Controller
             'required' => 'required',
             'email' => 'invalid form.',
             'min' => 'must have at least :min characters.',
-            'max' => 'must have at least :max characters',
+            'max' => 'must have at most :max characters.',
         ]);
 
         $email = $request->email_account;
-        $password = md5($request->password_account);
+        $password = $request->password_account;
+
         $result = DB::table('tbl_customer')
             ->where('customer_email', $email)
-            ->where('customer_password', $password)
             ->first();
 
-        if ($result) {
+        if ($result && Hash::check($password, $result->customer_password)) {
             Session::put('customer_id', $result->customer_id);
             Session::put('customer_name', $result->customer_name);
             return Redirect::to('/danh-muc-san-pham');
@@ -181,20 +182,20 @@ class CheckoutController extends Controller
             'password_account_2' => 'required|min:5|max:50',
         ], [
             'required' => 'required',
-            'numeric' => 'must be number.',
+            'numeric' => 'must be a number.',
             'digits' => 'must be :digits characters or numbers.',
             'min' => 'must have at least :min characters.',
-            'max' => 'must have at least :max characters',
+            'max' => 'must have at most :max characters.',
         ]);
 
         $customer_phone = $request->customer_phone_2;
-        $password = md5($request->password_account_2);
+        $password = $request->password_account_2;
+
         $result = DB::table('tbl_customer')
             ->where('customer_phone', $customer_phone)
-            ->where('customer_password', $password)
             ->first();
 
-        if ($result) {
+        if ($result && Hash::check($password, $result->customer_password)) {
             Session::put('customer_id', $result->customer_id);
             Session::put('customer_name', $result->customer_name);
             return Redirect::to('/danh-muc-san-pham');

@@ -20,7 +20,7 @@
                 <input type="password" class="form-control" id="new_password" name="new_password" placeholder="*****" required>
             </div>
             <div class="form-group">
-                <label for="new_password_confirmation">Enter new [assword]:</label>
+                <label for="new_password_confirmation">Enter new password:</label>
                 <input type="password" class="form-control" id="new_password_confirmation" name="new_password_confirmation" placeholder="*****" required>
             </div>
             <br>

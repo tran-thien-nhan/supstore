@@ -4,7 +4,7 @@
         <div class="col-lg-12">
             <section class="panel">
                 <header class="panel-heading">
-                    Cập nhật tình trạng đơn hàng
+                    UPDATE ORDER STATUS
                 </header>
                 <div class="panel-body">
                     @if (session('success'))
