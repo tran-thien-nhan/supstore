@@ -76,7 +76,7 @@ class CheckoutController extends Controller
         $data['customer_name'] = $request->customer_name;
         $data['customer_phone'] = $request->customer_phone;
         $data['customer_email'] = $request->customer_email;
-        $data['customer_password'] = bcrypt($request->customer_password); // Use bcrypt for password hashing
+        $data['customer_password'] = md5($request->customer_password); // Use bcrypt for password hashing
         $data['customer_address'] = $request->customer_address;
         $data['customer_point'] = 0;
         $data['district_id'] = $request->district_id;
@@ -156,17 +156,17 @@ class CheckoutController extends Controller
             'required' => 'required',
             'email' => 'invalid form.',
             'min' => 'must have at least :min characters.',
-            'max' => 'must have at most :max characters.',
+            'max' => 'must have at least :max characters',
         ]);
 
         $email = $request->email_account;
-        $password = $request->password_account;
-
+        $password = md5($request->password_account);
         $result = DB::table('tbl_customer')
             ->where('customer_email', $email)
+            ->where('customer_password', $password)
             ->first();
 
-        if ($result && Hash::check($password, $result->customer_password)) {
+        if ($result) {
             Session::put('customer_id', $result->customer_id);
             Session::put('customer_name', $result->customer_name);
             return Redirect::to('/danh-muc-san-pham');
@@ -182,20 +182,20 @@ class CheckoutController extends Controller
             'password_account_2' => 'required|min:5|max:50',
         ], [
             'required' => 'required',
-            'numeric' => 'must be a number.',
+            'numeric' => 'must be number.',
             'digits' => 'must be :digits characters or numbers.',
             'min' => 'must have at least :min characters.',
-            'max' => 'must have at most :max characters.',
+            'max' => 'must have at least :max characters',
         ]);
 
         $customer_phone = $request->customer_phone_2;
-        $password = $request->password_account_2;
-
+        $password = md5($request->password_account_2);
         $result = DB::table('tbl_customer')
             ->where('customer_phone', $customer_phone)
+            ->where('customer_password', $password)
             ->first();
 
-        if ($result && Hash::check($password, $result->customer_password)) {
+        if ($result) {
             Session::put('customer_id', $result->customer_id);
             Session::put('customer_name', $result->customer_name);
             return Redirect::to('/danh-muc-san-pham');
