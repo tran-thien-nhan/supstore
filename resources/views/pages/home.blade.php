@@ -18,9 +18,7 @@
         }
 
         .carousel-item {
-            background-color: black;
             color: white;
-            padding: 10px;
             border-radius: 10px;
         }
 
@@ -45,6 +43,39 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- carousel -->
     @include('layout.carousel')
+    {{-- modal --}}
+    <!-- Modal -->
+    <div class="modal fade" id="subscribeModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content bg-dark text-white">
+                <style>
+                    /* Thêm CSS trực tiếp vào modal */
+                    .modal-open {
+                        overflow: auto !important;
+                    }
+
+                    .modal {
+                        overflow: hidden !important;
+                    }
+                </style>
+                <div class="modal-body">
+                    <h3 style="text-align: center">Sign up to get the latest on sales, new releases, and more!</h3>
+                    <form method="post" action="{{ route('subscribe') }}" id="subscribeForm" accept-charset="UTF-8">
+                        @csrf
+                        <div class="mb-3">
+                            <input type="email" class="form-control" name="email" required
+                                placeholder="Enter your email address...">
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-dark" style="border-color: white">Subscribe</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{-- end modal --}}
     <!-- end carousel -->
     {{-- Phần hiển thị danh sách coupon --}}
     <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
@@ -205,7 +236,8 @@
                             class="card-img-top" alt="">
                     </a>
                     <div class="card-body">
-                        <h5 class="card-title text-center" style="font-size: 1rem">{{ $product_stack->product_name }}</h5>
+                        <h5 class="card-title text-center" style="font-size: 1rem">{{ $product_stack->product_name }}
+                        </h5>
                         <div class="d-flex" style="justify-content: center; gap: 10px;">
                             <h5 class="card-title text-center" style="font-size: 1rem; color: red; margin-right: 0.1rem;">
                                 {{ number_format($product_stack->product_price * (1 - $product_stack->product_discount / 100), 0, ',', '.') }}đ
@@ -237,6 +269,19 @@
         clipboard.on('error', function(e) {
             // Hiển thị thông báo lỗi (nếu cần)
             alert('Copy failed. Please try again.');
+        });
+
+        $(document).ready(function() {
+            // Hiển thị modal sau 2 giây
+            setTimeout(function() {
+                $('#subscribeModal').modal('show');
+            }, 2000); // 2000 milliseconds (2 giây)
+
+            // Xử lý khi người dùng nhấn nút Subscribe
+            $('#subscribeForm').submit(function(e) {
+                // Ẩn modal ngay lập tức sau khi nhấn Subscribe
+                $('#subscribeModal').modal('hide');
+            });
         });
     </script>
 @endsection

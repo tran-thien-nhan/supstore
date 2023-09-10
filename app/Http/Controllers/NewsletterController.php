@@ -23,6 +23,15 @@ class NewsletterController extends Controller
     }
     public function subscribe(Request $request)
     {
+        // Xác thực dữ liệu đầu vào
+        $request->validate([
+            'email' => 'required|email|unique:tbl_subscribe,email_subscribe',
+        ], [
+            'required' => 'The :attribute field is required.',
+            'email' => 'The :attribute must be a valid email address.',
+            'unique' => 'The :attribute has already been taken.',
+        ]);        
+
         // Lấy thông tin email từ biểu mẫu
         $email = $request->input('email');
 
@@ -34,6 +43,7 @@ class NewsletterController extends Controller
 
         return redirect()->back()->with('success', 'Thank you for subscribing!');
     }
+
 
     public function listSubscribedEmails()
     {
