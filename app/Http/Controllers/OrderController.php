@@ -39,9 +39,16 @@ class OrderController extends Controller
             ->where('order_id', $order_id)
             ->first();
 
+        $district_id = $edit_order_status->district_id;
+
+        // Lấy tất cả các shipper, không phân biệt quận
+        $allShippers = DB::table('tbl_admin')
+            ->where('role_value', 2) // Chỉ lấy các shipper (role_value = 2)
+            ->get();
+
         $shippers = DB::table('tbl_admin')
             ->where('role_value', 2)
-            ->where('district_id', $edit_order_status->district_id)
+            ->where('district_id', $district_id)
             ->get();
 
         $selectedShipperId = $edit_order_status->admin_id; // Lấy shipper đã được chọn trước đó
@@ -50,7 +57,8 @@ class OrderController extends Controller
             ->with([
                 'edit_order_status' => $edit_order_status,
                 'shippers' => $shippers,
-                'selectedShipperId' => $selectedShipperId, // Truyền giá trị shipper đã chọn vào view
+                'allShippers' => $allShippers, // Truyền danh sách tất cả các shipper vào view
+                'selectedShipperId' => $selectedShipperId,
                 'admin_role_value' => $admin_role_value,
                 'admin_id' => $admin_id,
             ]);
@@ -58,40 +66,49 @@ class OrderController extends Controller
             ->with('admin.edit_order_status', $manager_order_status);
     }
 
+
     public function update_order_status(Request $request, $order_id)
     {
         // Lấy dữ liệu từ form
         $admin_id = Session::get('admin_id'); // Lấy admin_id từ session
         $new_status = $request->input('order_status');
         $new_shipper_id = $request->input('shipper_id');
+
         $admin_role_value = Session::get('admin_role_value'); // Lấy role_value từ session
+        // Cập nhật trạng thái và shipper mới cho đơn hàng
 
-        // Kiểm tra nếu admin_role_value là 1 (Admin) và new_shipper_id không phải là shipper hiện tại
-        if ($admin_role_value == 1 && $new_shipper_id != $admin_id) {
-            // Kiểm tra xem shipper có thuộc quận đó không
-            $shipper = Admin::where('admin_id', $new_shipper_id)
-                ->where('role_value', 2) // Đảm bảo đây là shipper
-                ->where('district_id', 'quận_mà_bạn_muốn_kiểm_tra') // Thay 'quận_mà_bạn_muốn_kiểm_tra' bằng quận cần kiểm tra
-                ->first();
-
-            if (!$shipper) {
-                // Nếu không có shipper cho quận đó, cập nhật admin_id thành 1 (hoặc giá trị mặc định khác)
-                $new_shipper_id = 1; // Hoặc giá trị mặc định khác nếu cần
+        if ($admin_role_value == 1) {
+            if ($new_shipper_id !== null) {
+                DB::table('tbl_order')
+                    ->where('order_id', $order_id)
+                    ->update([
+                        'order_status' => $new_status,
+                        'admin_id' => $new_shipper_id
+                    ]);
+            } else {
+                return redirect()->back()->with('error', 'Please select a shipper.');
             }
+        } else {
+            // Kiểm tra xem có shipper nào trong cùng quận không
+            $district_id = $request->input('district_id');
+            // $shipperInDistrict = Admin::where('role_value', 2)
+            //     ->where('district_id', $district_id)
+            //     ->first();
+
+            // if (!$shipperInDistrict) {
+            //     return redirect()->back()->with('error', 'No shipper in this district.');
+            // }
+
+            DB::table('tbl_order')
+                ->where('order_id', $order_id)
+                ->update([
+                    'order_status' => $new_status
+                    // 'admin_id' => $shipperInDistrict->admin_id // Sử dụng admin_id của shipper trong cùng quận
+                ]);
         }
 
-        // Cập nhật trạng thái và shipper mới cho đơn hàng
-        DB::table('tbl_order')
-            ->where('order_id', $order_id)
-            ->update([
-                'order_status' => $new_status,
-                'admin_id' => $new_shipper_id
-            ]);
-
-        return redirect()->back()->with('success', 'update order status successfully.');
+        return redirect()->back()->with('success', 'Update order status successfully.');
     }
-
-
 
     public function save_order_status(Request $request)
     {

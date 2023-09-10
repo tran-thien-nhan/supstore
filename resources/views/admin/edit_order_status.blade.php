@@ -37,17 +37,34 @@
                         </div>
                         @if ($admin_role_value != 2)
                             {{-- Kiểm tra nếu không phải là shipper --}}
-                            <div class="form-group">
-                                <label for="shipper_id">Choose new shipper:</label>
-                                <select class="form-control" id="shipper_id" name="shipper_id">
-                                    @foreach ($shippers as $shipper)
-                                        <option value="{{ $shipper->admin_id }}"
-                                            {{ $selectedShipperId == $shipper->admin_id ? 'selected' : '' }}>
-                                            {{ $shipper->admin_name }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                            </div>
+                            @if ($shippers->isEmpty())
+                                <p class="alert alert-warning">No shipper in this district. You can choose from all
+                                    available shippers below:</p>
+
+                                <div class="form-group">
+                                    <label for="shipper_id">Choose shipper:</label>
+                                    <select class="form-control" id="shipper_id" name="shipper_id">
+                                        @foreach ($allShippers as $shipper)
+                                            <option value="{{ $shipper->admin_id }}"
+                                                {{ $selectedShipperId == $shipper->admin_id ? 'selected' : '' }}>
+                                                {{ $shipper->admin_name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            @else
+                                <div class="form-group">
+                                    <label for="shipper_id">Choose new shipper:</label>
+                                    <select class="form-control" id="shipper_id" name="shipper_id">
+                                        @foreach ($shippers as $shipper)
+                                            <option value="{{ $shipper->admin_id }}"
+                                                {{ $selectedShipperId == $shipper->admin_id ? 'selected' : '' }}>
+                                                {{ $shipper->admin_name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            @endif
                         @endif
                         <button type="submit" class="btn btn-primary">Update</button>
                         <a href="{{ URL::to('/manage-order') }}" class="btn btn-warning">Back</a>
