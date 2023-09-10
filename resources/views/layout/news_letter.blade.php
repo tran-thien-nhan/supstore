@@ -10,6 +10,7 @@
         margin-right: 10px;
     }
 </style>
+<br>
 <section class="section is-width-wide has-no-side-gutter">
     <div class="newsletter_section newsletter-both-names--false newsletter-bgr-true text-center blur-up lazyloaded"
         data-bg="//axeandsledge.com/cdn/shop/files/Banner_d29f134e-2d84-422d-8016-21406da74ef1_1600x.jpg?v=1613692537"

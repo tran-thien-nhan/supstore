@@ -1,33 +1,44 @@
 @extends('layout')
 @section('content')
     <style>
+        .coupon-card {
+            background-color: black;
+            color: white;
+            border-radius: 10px;
+        }
+
+        .countdown-timer {
+            font-size: 1.5rem;
+            font-weight: bold;
+            font-style: italic;
+        }
+
+        .copy-button {
+            margin-top: 20px;
+        }
+
+        .carousel-item {
+            background-color: black;
+            color: white;
+            padding: 10px;
+            border-radius: 10px;
+        }
+
         /* CSS cho màu chữ trên slider */
         @media (max-width: 767px) {
-
-            /* Điều này áp dụng cho thiết bị di động có độ rộng màn hình tối đa 767px */
             .carousel-item {
                 background-color: black;
-                /* Đặt màu nền của carousel thành màu đen */
                 color: white;
-                /* Đặt màu chữ thành màu trắng */
-                padding: 20px;
-                /* Tạo khoảng cách xung quanh nội dung của carousel */
+                padding: 10px;
                 border-radius: 10px;
-                /* Tạo góc bo cho khung đen */
             }
 
             .carousel-item h3,
-            /* Chọn tất cả thẻ h3 trong .carousel-item */
             .carousel-item h1,
-            /* Chọn tất cả thẻ h1 trong .carousel-item */
             .carousel-item h3.text-light,
-            /* Chọn tất cả thẻ h3 có class "text-light" trong .carousel-item */
             .carousel-control-prev,
-            /* Chọn nút Previous */
             .carousel-control-next {
-                /* Chọn nút Next */
-                color: black !important;
-                /* Đặt màu chữ thành màu đen */
+                color: white !important;
             }
         }
     </style>
@@ -62,7 +73,8 @@
                                             @endif
                                             for total value
                                         </h3>
-                                        <button id="copyButton" class="btn btn-success copy-button"
+                                        <div class="countdown-timer" id="countdown_{{ $key }}"></div>
+                                        <button id="copyButton_{{ $key }}" class="btn btn-success copy-button"
                                             data-clipboard-text="{{ $coupon_item->coupon_code }}">
                                             Copy Coupon
                                         </button>
@@ -72,8 +84,37 @@
                             </div>
                         </div>
                     </div>
+
+                    <script>
+                        // Tính thời gian còn lại đến coupon_expire_date
+                        var couponExpireDate_{{ $key }} = new Date("{{ $coupon_item->coupon_expire_date }}");
+
+                        function updateCountdown_{{ $key }}() {
+                            var now = new Date();
+                            var timeLeft = couponExpireDate_{{ $key }} - now;
+                            if (timeLeft <= 0) {
+                                document.getElementById("countdown_{{ $key }}").innerHTML = "Hết hạn";
+                            } else {
+                                var days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+                                var hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                                var minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+                                var seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+                                document.getElementById("countdown_{{ $key }}").innerHTML = days + " days " + hours + " hour " +
+                                    minutes + " minute " +
+                                    seconds + " second";
+                            }
+                        }
+
+                        // Cập nhật thời gian đếm ngược mỗi giây
+                        var countdownInterval_{{ $key }} = setInterval(updateCountdown_{{ $key }}, 1000);
+
+                        // Đảm bảo rằng thời gian đếm ngược được cập nhật ngay khi trang tải
+                        updateCountdown_{{ $key }}();
+                    </script>
                 @endif
             @endforeach
+
         </div>
         <a class="carousel-control-prev" href="#carouselExample" role="button" data-bs-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -87,7 +128,7 @@
 
     <h3 style="text-align:center; margin-top: 1rem; margin-bottom: 1rem">FOR THE HARDEST WORKERS IN THE TEAM</h3>
     <div class="horizontal-line"></div>
-    
+
     <div class="row row-cols-1 row-cols-md-2 row-cols-sm-2 row-cols-lg-4">
         @foreach ($all_product as $key => $product)
             <div class="col mb-4">
@@ -185,18 +226,17 @@
     <script>
         // Khởi tạo Clipboard.js
         var clipboard = new ClipboardJS('#copyButton');
-    
+
         // Xử lý khi sao chép thành công
         clipboard.on('success', function(e) {
             // Hiển thị thông báo
             alert('Copy coupon code successfully !');
         });
-    
+
         // Xử lý khi sao chép thất bại
         clipboard.on('error', function(e) {
             // Hiển thị thông báo lỗi (nếu cần)
             alert('Copy failed. Please try again.');
         });
     </script>
-    
 @endsection
