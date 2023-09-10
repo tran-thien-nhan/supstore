@@ -95,12 +95,16 @@ class CheckoutController extends Controller
         $cate_product = DB::table('tbl_category_product')->orderBy('category_id', 'desc')->get();
         $brand_product = DB::table('tbl_brand')->orderBy('brand_id', 'desc')->get();
 
+        // Kiểm tra xem thông tin khách hàng có trong session không
+        $customer_id = Session::get('customer_id');
+        $customer = Customer::find($customer_id);
+
         return view('pages.checkout.show_checkout')
             ->with('category', $cate_product)
             ->with('brand', $brand_product)
-            ->with('blog_category', $blog_category);
+            ->with('blog_category', $blog_category)
+            ->with('customer', $customer); // Truyền thông tin khách hàng vào view
     }
-
 
     public function save_checkout_customer(Request $request)
     {
@@ -140,6 +144,7 @@ class CheckoutController extends Controller
             ->with('brand', $brand_product)
             ->with('blog_category', $blog_category);
     }
+
 
     public function logout_checkout()
     {

@@ -21,20 +21,22 @@
                                     @csrf
                                     <div class="form-group my-3">
                                         <input type="text" name="shipping_email" class="form-control bg-light"
-                                            placeholder="Email*">
+                                            placeholder="Email*" value="{{ $customer['customer_email'] ?? '' }}">
                                     </div>
                                     <div class="form-group my-3">
                                         <input type="text" name="shipping_name" class="form-control bg-light"
-                                            placeholder="Name *">
+                                            placeholder="Name *" value="{{ $customer['customer_name'] ?? '' }}">
                                     </div>
                                     <div class="form-group my-3">
                                         <input type="text" name="shipping_phone" class="form-control bg-light"
-                                            placeholder="Phone">
+                                            placeholder="Phone" value="{{ $customer['customer_phone'] ?? '' }}">
                                     </div>
                                     <div class="form-group my-3">
                                         <input type="text" name="shipping_address" class="form-control bg-light"
-                                            placeholder="Address">
+                                            placeholder="Address" value="{{ $customer['customer_address'] ?? '' }}">
                                     </div>
+                                    
+
                                     <div class="form-group my-3">
                                         <textarea class="form-control bg-light" name="shipping_notes"
                                             placeholder="Notes about your order, Special Notes for Delivery" rows="6"></textarea>
