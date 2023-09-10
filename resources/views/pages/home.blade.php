@@ -39,7 +39,7 @@
     <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-inner">
             @foreach ($validCoupons as $key => $coupon_item)
-                @if ($coupon_item->coupon_time == 1 && $coupon_item->coupon_expire_date > $currentDate)
+                @if ($coupon_item->coupon_time != 0 && $coupon_item->coupon_expire_date > $currentDate)
                     <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
                         <div class="container">
                             <div class="row justify-content-center align-items-center coupon-card">
@@ -66,7 +66,6 @@
                                             data-clipboard-text="{{ $coupon_item->coupon_code }}">
                                             Copy Coupon
                                         </button>
-
                                         </p>
                                     </div>
                                 </div>

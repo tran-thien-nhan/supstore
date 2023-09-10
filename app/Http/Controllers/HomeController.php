@@ -52,7 +52,10 @@ class HomeController extends Controller
             ->get();
         $currentDate = Carbon::now()->format('Y-m-d');
         $districts = District::all();
-        $validCoupons = Coupon::where('coupon_expire_date', '>', $currentDate)->get();
+        $validCoupons = Coupon::where('coupon_expire_date', '>', $currentDate)
+            ->where('coupon_time', '>=', 1)
+            ->get();
+
         return view("pages.home")
             ->with('category', $cate_product)
             ->with('brand', $brand_product)
@@ -85,7 +88,10 @@ class HomeController extends Controller
         $search_product = DB::table('tbl_product')->where('product_name', 'like', '%' . $keyword . '%')->get();
         $currentDate = Carbon::now()->format('Y-m-d');
         $districts = District::all();
-        $validCoupons = Coupon::where('coupon_expire_date', '>', $currentDate)->get();
+        $validCoupons = Coupon::where('coupon_expire_date', '>', $currentDate)
+            ->where('coupon_time', '>=', 1)
+            ->get();
+
         return view("pages.sanpham.search")
             ->with('category', $cate_product)
             ->with('brand', $brand_product)
@@ -108,7 +114,10 @@ class HomeController extends Controller
         $customer = Customer::find($customer_id);
         $currentDate = Carbon::now()->format('Y-m-d');
         $districts = District::all();
-        $validCoupons = Coupon::where('coupon_expire_date', '>', $currentDate)->get();
+        $validCoupons = Coupon::where('coupon_expire_date', '>', $currentDate)
+            ->where('coupon_time', '>=', 1)
+            ->get();
+
         return view('pages.customer_information')
             ->with('category', $cate_product)
             ->with('brand', $brand_product)
@@ -149,7 +158,10 @@ class HomeController extends Controller
         ]);
         $currentDate = Carbon::now()->format('Y-m-d');
         $districts = District::all();
-        $validCoupons = Coupon::where('coupon_expire_date', '>', $currentDate)->get();
+        $validCoupons = Coupon::where('coupon_expire_date', '>', $currentDate)
+            ->where('coupon_time', '>=', 1)
+            ->get();
+
         return view('pages.customer_information', compact('customer'))
             ->with('blog_category', $blog_category)
             ->with('category', $cate_product)
@@ -171,7 +183,10 @@ class HomeController extends Controller
         $customer = Customer::find($customer_id);
         $currentDate = Carbon::now()->format('Y-m-d');
         $districts = District::all();
-        $validCoupons = Coupon::where('coupon_expire_date', '>', $currentDate)->get();
+        $validCoupons = Coupon::where('coupon_expire_date', '>', $currentDate)
+            ->where('coupon_time', '>=', 1)
+            ->get();
+
         return view('pages.change_password', [
             'blog_category' => $blog_category,
             'category' => $cate_product,
@@ -233,7 +248,10 @@ class HomeController extends Controller
             ->get();
         $currentDate = Carbon::now()->format('Y-m-d');
         $districts = District::all();
-        $validCoupons = Coupon::where('coupon_expire_date', '>', $currentDate)->get();
+        $validCoupons = Coupon::where('coupon_expire_date', '>', $currentDate)
+            ->where('coupon_time', '>=', 1)
+            ->get();
+
         return view('pages.cart_history')
             ->with('category', $cate_product)
             ->with('brand', $brand_product)

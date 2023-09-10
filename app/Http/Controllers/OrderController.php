@@ -64,27 +64,33 @@ class OrderController extends Controller
         $admin_id = Session::get('admin_id'); // Lấy admin_id từ session
         $new_status = $request->input('order_status');
         $new_shipper_id = $request->input('shipper_id');
-
         $admin_role_value = Session::get('admin_role_value'); // Lấy role_value từ session
-        // Cập nhật trạng thái và shipper mới cho đơn hàng
 
-        if ($admin_role_value == 1) {
-            DB::table('tbl_order')
-                ->where('order_id', $order_id)
-                ->update([
-                    'order_status' => $new_status,
-                    'admin_id' => $new_shipper_id
-                ]);
-        } else {
-            DB::table('tbl_order')
-                ->where('order_id', $order_id)
-                ->update([
-                    'order_status' => $new_status
-                ]);
+        // Kiểm tra nếu admin_role_value là 1 (Admin) và new_shipper_id không phải là shipper hiện tại
+        if ($admin_role_value == 1 && $new_shipper_id != $admin_id) {
+            // Kiểm tra xem shipper có thuộc quận đó không
+            $shipper = Admin::where('admin_id', $new_shipper_id)
+                ->where('role_value', 2) // Đảm bảo đây là shipper
+                ->where('district_id', 'quận_mà_bạn_muốn_kiểm_tra') // Thay 'quận_mà_bạn_muốn_kiểm_tra' bằng quận cần kiểm tra
+                ->first();
+
+            if (!$shipper) {
+                // Nếu không có shipper cho quận đó, cập nhật admin_id thành 1 (hoặc giá trị mặc định khác)
+                $new_shipper_id = 1; // Hoặc giá trị mặc định khác nếu cần
+            }
         }
+
+        // Cập nhật trạng thái và shipper mới cho đơn hàng
+        DB::table('tbl_order')
+            ->where('order_id', $order_id)
+            ->update([
+                'order_status' => $new_status,
+                'admin_id' => $new_shipper_id
+            ]);
 
         return redirect()->back()->with('success', 'update order status successfully.');
     }
+
 
 
     public function save_order_status(Request $request)

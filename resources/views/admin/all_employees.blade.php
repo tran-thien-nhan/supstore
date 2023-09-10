@@ -28,6 +28,16 @@
                         <button class="btn btn-success" type="submit">Search</button>
                     </form>
                 </div>
+                <form action="{{ route('filter-employees-by-district') }}" method="GET" id="filter-form-district" style="margin-left: 1rem">
+                    <label for="district_id">Select District:</label>
+                    <select name="district_id" id="district_id" onchange="submitForm1()">
+                        <option value="none">--select--</option>
+                        <option value="all">All</option>
+                        @foreach ($districts as $district)
+                            <option value="{{ $district->district_id }}">{{ $district->district_name }}</option>
+                        @endforeach
+                    </select>
+                </form>
                 
                 <div class="table-responsive">
                     <table class="table table-striped b-t b-light">
@@ -97,6 +107,9 @@
     <script>
         function submitForm() {
             document.getElementById('filter-form').submit();
+        }
+        function submitForm1() {
+            document.getElementById('filter-form-district').submit();
         }
     </script>    
 @endsection

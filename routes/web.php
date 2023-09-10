@@ -217,7 +217,7 @@ Route::post('/update-employee/{admin_id}', [EmployeeController::class, 'updateEm
 Route::get('/delete-employee/{admin_id}', [EmployeeController::class, 'deleteEmployee']);
 Route::get('/filter-employees', [EmployeeController::class, 'filterEmployees'])->name('filter-employees');
 Route::get('/search-employees', [EmployeeController::class, 'searchEmployees'])->name('search-employees');
-Route::get('/filter-employees-by-district', [EmployeeController::class, 'filterEmployeesByDistrict'])->name('filter-employees-by-district');
+Route::get('/filter-employees-by-district', [EmployeeController::class, 'filterByDistrict'])->name('filter-employees-by-district');
 
 //newsletter
 Route::post('/subscribe', [NewsletterController::class, 'subscribe'])->name('subscribe');

@@ -12,7 +12,7 @@ class EmployeeController extends Controller
 {
     public function index()
     {
-        $employees = Admin::whereIn('role_value', [1, 2])->paginate(5);
+        $employees = Admin::whereIn('role_value', [1, 2])->get();
         $districts = District::all();
         return view('admin.all_employees', compact('employees', 'districts'));
     }
@@ -31,7 +31,7 @@ class EmployeeController extends Controller
         $employee = Admin::findOrFail($admin_id);
 
         // Kiểm tra dữ liệu đầu vào
-        $$request->validate([
+        $request->validate([
             'admin_name' => 'required',
             'admin_email' => 'required|email|unique:tbl_admin,admin_email,' . $admin_id . ',admin_id',
             'admin_phone' => 'required',
@@ -72,7 +72,7 @@ class EmployeeController extends Controller
     public function filterEmployees(Request $request)
     {
         $employeeType = $request->input('employee_type');
-
+        $districts = District::all();
         // Query dựa trên loại nhân viên được chọn
         if ($employeeType == 'all') {
             $employees = Admin::paginate(10); // Sử dụng tên model và phương thức paginate của Laravel
@@ -80,21 +80,36 @@ class EmployeeController extends Controller
             $employees = Admin::where('role_value', $employeeType)->get();
         }
 
-        return view('admin.all_employees', compact('employees'));
+        return view('admin.all_employees', compact('employees', 'districts'));
     }
 
     public function searchEmployees(Request $request)
     {
         $searchQuery = $request->input('search');
-
+        $districts = District::all();
         $employees = Admin::where('admin_id', 'LIKE', "%$searchQuery%")
             ->orWhere('admin_name', 'LIKE', "%$searchQuery%")
             ->orWhere('admin_phone', 'LIKE', "%$searchQuery%") // Thêm điều kiện tìm kiếm theo số điện thoại
             ->orWhereHas('district', function ($query) use ($searchQuery) {
                 $query->where('district_name', 'LIKE', "%$searchQuery%");
             })
-            ->paginate(10);
+            ->get();
 
-        return view('admin.all_employees', compact('employees'));
+        return view('admin.all_employees', compact('employees', 'districts'));
+    }
+
+    public function filterByDistrict(Request $request)
+    {
+        $district_id = $request->input('district_id');
+        $districts = District::all();
+
+        // Query dựa trên district_id được chọn
+        if ($district_id == 'all') {
+            $employees = Admin::whereIn('role_value', [1, 2])->get();
+        } else {
+            $employees = Admin::where('district_id', $district_id)->whereIn('role_value', [1, 2])->get();
+        }
+
+        return view('admin.all_employees', compact('employees', 'districts'));
     }
 }
