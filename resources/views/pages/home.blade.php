@@ -74,7 +74,7 @@
                                             for total value
                                         </h3>
                                         <div class="countdown-timer" id="countdown_{{ $key }}"></div>
-                                        <button id="copyButton_{{ $key }}" class="btn btn-success copy-button"
+                                        <button id="copyButton" class="btn btn-success copy-button"
                                             data-clipboard-text="{{ $coupon_item->coupon_code }}">
                                             Copy Coupon
                                         </button>
