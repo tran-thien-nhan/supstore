@@ -43,8 +43,11 @@ class OrderController extends Controller
 
         // Lấy tất cả các shipper, không phân biệt quận
         $allShippers = DB::table('tbl_admin')
-            ->where('role_value', 2) // Chỉ lấy các shipper (role_value = 2)
+            ->join('tbl_district', 'tbl_admin.district_id', '=', 'tbl_district.district_id')
+            ->where('tbl_admin.role_value', 2)
+            ->select('tbl_admin.admin_id', 'tbl_admin.admin_name', 'tbl_district.district_name')
             ->get();
+
 
         $shippers = DB::table('tbl_admin')
             ->where('role_value', 2)
@@ -89,21 +92,13 @@ class OrderController extends Controller
                 return redirect()->back()->with('error', 'Please select a shipper.');
             }
         } else {
-            // Kiểm tra xem có shipper nào trong cùng quận không
-            $district_id = $request->input('district_id');
-            // $shipperInDistrict = Admin::where('role_value', 2)
-            //     ->where('district_id', $district_id)
-            //     ->first();
-
-            // if (!$shipperInDistrict) {
-            //     return redirect()->back()->with('error', 'No shipper in this district.');
-            // }
+            // // Kiểm tra xem có shipper nào trong cùng quận không
+            // $district_id = $request->input('district_id');
 
             DB::table('tbl_order')
                 ->where('order_id', $order_id)
                 ->update([
                     'order_status' => $new_status
-                    // 'admin_id' => $shipperInDistrict->admin_id // Sử dụng admin_id của shipper trong cùng quận
                 ]);
         }
 

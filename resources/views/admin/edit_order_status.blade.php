@@ -47,9 +47,10 @@
                                         @foreach ($allShippers as $shipper)
                                             <option value="{{ $shipper->admin_id }}"
                                                 {{ $selectedShipperId == $shipper->admin_id ? 'selected' : '' }}>
-                                                {{ $shipper->admin_name }}
+                                                {{ $shipper->admin_name }} - {{ $shipper->district_name }}
                                             </option>
                                         @endforeach
+
                                     </select>
                                 </div>
                             @else
