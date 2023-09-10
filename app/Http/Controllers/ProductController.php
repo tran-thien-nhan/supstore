@@ -375,4 +375,85 @@ class ProductController extends Controller
             ->with('all_category_product', $all_category_product)
             ->with('all_brand_product', $all_brand_product);
     }
+
+    public function sortByPriceAscending(Request $request)
+    {
+        $meta_title = '';
+        $url_canonical = $request->url();
+
+        $blog_category = DB::table('tbl_category_blog')
+            ->get();
+
+        $cate_product = DB::table('tbl_category_product')
+            ->where('category_status', '0')
+            ->orderBy('category_id', 'asc')
+            ->get();
+
+        $brand_product = DB::table('tbl_brand')
+            ->where('brand_status', '0')
+            ->orderBy('brand_id', 'asc')
+            ->get();
+
+        $products = DB::table('tbl_product')
+            ->where('product_status', 0)
+            ->orderByRaw('product_price * (1 - product_discount / 100) ASC')
+            ->get();
+
+
+        foreach ($products as $key => $val) {
+            //seo
+            $meta_title = $val->product_name;
+            $url_canonical = $request->url();
+            //--seo--
+        }
+
+        return view('pages.sanpham.product_ascending')
+            ->with('category', $cate_product)
+            ->with('brand', $brand_product)
+            ->with('meta_title', $meta_title)
+            ->with('url_canonical', $url_canonical)
+            ->with('blog_category', $blog_category)
+            ->with('products', $products);
+    }
+
+    // Phương thức lọc sản phẩm theo giá giảm dần
+    public function sortByPriceDescending(Request $request)
+    {
+        $meta_title = '';
+        $url_canonical = $request->url();
+
+        $blog_category = DB::table('tbl_category_blog')
+            ->get();
+
+        $cate_product = DB::table('tbl_category_product')
+            ->where('category_status', '0')
+            ->orderBy('category_id', 'desc')
+            ->get();
+
+        $brand_product = DB::table('tbl_brand')
+            ->where('brand_status', '0')
+            ->orderBy('brand_id', 'desc')
+            ->get();
+
+        $products = DB::table('tbl_product')
+            ->where('product_status', 0)
+            ->orderByRaw('product_price * (1 - product_discount / 100) DESC')
+            ->get();
+
+
+        foreach ($products as $key => $val) {
+            //seo
+            $meta_title = $val->product_name;
+            $url_canonical = $request->url();
+            //--seo--
+        }
+
+        return view('pages.sanpham.product_descending')
+            ->with('category', $cate_product)
+            ->with('brand', $brand_product)
+            ->with('meta_title', $meta_title)
+            ->with('url_canonical', $url_canonical)
+            ->with('products', $products)
+            ->with('blog_category', $blog_category);
+    }
 }

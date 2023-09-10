@@ -51,6 +51,7 @@
                             <tr>
                                 <th>address on bill</th>
                                 <th>phone on bill</th>
+                                <th>customer noted</th>
                                 <th style="width:30px;"></th>
                             </tr>
                         </thead>
@@ -59,6 +60,7 @@
                             <tr>
                                 <td>{{ $order_by_id->shipping_address }}</td>
                                 <td>{{ $order_by_id->shipping_phone }}</td>
+                                <td>{{ $order_by_id->shipping_notes }}</td>
                             </tr>
 
                         </tbody>
@@ -132,9 +134,12 @@
                                 <th></th>
                             </tr>
                         </tfoot>
-
                     </table>
                 </div>
+            </div>
+            
+            <div class="row">
+                <a href="{{ url('/manage-order') }}" class="btn btn-warning" style="float: right;">Back</a>
             </div>
         </div>
     </div>

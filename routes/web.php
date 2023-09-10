@@ -52,6 +52,9 @@ Route::get('/thuong-hieu-san-pham/{brand_id}', [CategoryProduct::class, 'show_br
 Route::get('/danh-muc-bai-viet', [CategoryProduct::class, 'show_all_blog']);
 Route::get('/danh-muc-bai-viet/{blog_category_id}', [CategoryProduct::class, 'show_blog_by_category']);
 
+Route::get('/price-ascending', [ProductController::class, 'sortByPriceAscending']);
+Route::get('/price-descending', [ProductController::class, 'sortByPriceDescending']);
+
 //backend (admin)
 Route::get('/admin', [AdminController::class, 'index']);
 Route::get('/dashboard', [AdminController::class, 'show_dashboard']);
