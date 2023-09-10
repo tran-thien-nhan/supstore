@@ -28,11 +28,13 @@ class CouponController extends Controller
 
     public function insert_coupon()
     {
+        $this->Authenlogin();
         return view('admin.coupon.insert_coupon');
     }
 
     public function list_coupon()
     {
+        $this->Authenlogin();
         $coupon = Coupon::orderby('coupon_id', 'DESC')->paginate(5);
         return view('admin.coupon.list_coupon')
             ->with(compact('coupon'));
@@ -168,6 +170,7 @@ class CouponController extends Controller
 
     public function createBatchCoupon()
     {
+        $this->Authenlogin();
         return view('admin.coupon.create_batch_coupon');
     }
 

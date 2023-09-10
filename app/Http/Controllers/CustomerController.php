@@ -21,8 +21,18 @@ use Illuminate\Support\Facades\DB; // Import DB facade
 
 class CustomerController extends Controller
 {
+    public function Authenlogin()
+    {
+        $admin_id = Session::get('admin_id');
+        if ($admin_id) {
+            return Redirect::to('dashboard');
+        } else {
+            return Redirect::to('admin')->send();
+        }
+    }
     public function index()
     {
+        $this->Authenlogin();
         $customers = Customer::paginate(5);
         $districts = DB::table('tbl_district')->get();
         return view('admin.all_customers', compact('customers', 'districts'));
@@ -30,6 +40,7 @@ class CustomerController extends Controller
 
     public function filterByRank(Request $request)
     {
+        $this->Authenlogin();
         $rank = $request->input('rank');
         $districts = District::all();
         $customers = Customer::query();
@@ -84,6 +95,7 @@ class CustomerController extends Controller
 
     public function filterCustomersByDistrict(Request $request)
     {
+        $this->Authenlogin();
         $districtId = $request->input('district');
 
         // Query để lọc khách hàng theo quận (hoặc tất cả nếu chọn "All")
@@ -105,6 +117,7 @@ class CustomerController extends Controller
 
     public function searchCustomers(Request $request)
     {
+        $this->Authenlogin();
         $search = $request->input('search');
 
         // Query để tìm kiếm khách hàng theo số điện thoại, tên, hoặc email

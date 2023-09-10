@@ -7,9 +7,20 @@ use App\Models\Subscribe;
 use Illuminate\Http\Request;
 use App\Mail\WelcomeNewsletter;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Redirect;
 
 class NewsletterController extends Controller
 {
+    public function Authenlogin()
+    {
+        $admin_id = Session::get('admin_id');
+        if ($admin_id) {
+            return Redirect::to('dashboard');
+        } else {
+            return Redirect::to('admin')->send();
+        }
+    }
     public function subscribe(Request $request)
     {
         // Lấy thông tin email từ biểu mẫu
@@ -26,6 +37,7 @@ class NewsletterController extends Controller
 
     public function listSubscribedEmails()
     {
+        $this->Authenlogin();
         $subscribes = Subscribe::all();
         return view('admin.all_subscribe', compact('subscribes'));
     }
@@ -37,6 +49,7 @@ class NewsletterController extends Controller
 
     public function sendBulkEmail(Request $request)
     {
+        $this->Authenlogin();
         $emailContent = $request->input('email_content');
         $emailTitle = $request->input('email_title'); // Lấy giá trị title từ form
         $subscribes = Subscribe::all();
@@ -50,11 +63,13 @@ class NewsletterController extends Controller
 
     public function composeEmailCustomer()
     {
+        $this->Authenlogin();
         return view('pages.mail.compose_customer');
     }
 
     public function sendBulkEmailCustomer(Request $request)
     {
+        $this->Authenlogin();
         $emailContent = $request->input('email_content');
         $emailTitle = $request->input('email_title'); // Lấy giá trị title từ form
         $subscribes = Subscribe::all();

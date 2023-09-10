@@ -7,11 +7,23 @@ use App\Models\Admin;
 use App\Models\District;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Redirect;
 
 class EmployeeController extends Controller
 {
+    public function Authenlogin()
+    {
+        $admin_id = Session::get('admin_id');
+        if ($admin_id) {
+            return Redirect::to('dashboard');
+        } else {
+            return Redirect::to('admin')->send();
+        }
+    }
     public function index()
     {
+        $this->Authenlogin();
         $employees = Admin::whereIn('role_value', [1, 2])->get();
         $districts = District::all();
         return view('admin.all_employees', compact('employees', 'districts'));
@@ -19,6 +31,7 @@ class EmployeeController extends Controller
 
     public function editEmployee($admin_id)
     {
+        $this->Authenlogin();
         $employee = Admin::findOrFail($admin_id);
         $districts = District::all(); // Lấy danh sách quận từ bảng tbl_district
         $roles = Role::all(); // Lấy danh sách vai trò từ bảng tbl_role
@@ -28,6 +41,7 @@ class EmployeeController extends Controller
 
     public function updateEmployee(Request $request, $admin_id)
     {
+        $this->Authenlogin();
         $employee = Admin::findOrFail($admin_id);
 
         // Kiểm tra dữ liệu đầu vào
@@ -71,6 +85,7 @@ class EmployeeController extends Controller
 
     public function filterEmployees(Request $request)
     {
+        $this->Authenlogin();
         $employeeType = $request->input('employee_type');
         $districts = District::all();
         // Query dựa trên loại nhân viên được chọn
@@ -85,6 +100,7 @@ class EmployeeController extends Controller
 
     public function searchEmployees(Request $request)
     {
+        $this->Authenlogin();
         $searchQuery = $request->input('search');
         $districts = District::all();
         $employees = Admin::where('admin_id', 'LIKE', "%$searchQuery%")
@@ -100,6 +116,7 @@ class EmployeeController extends Controller
 
     public function filterByDistrict(Request $request)
     {
+        $this->Authenlogin();
         $district_id = $request->input('district_id');
         $districts = District::all();
 
