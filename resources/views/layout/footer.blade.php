@@ -10,7 +10,7 @@
                 <div class="col-12 col-md-6 col-lg-4">
                     <div class="widget">
                         <h4 class="widget-title mb-4">Get in Touch</h4>
-                        <address class="mb-4">8014 Edith Blvd NE, Albuquerque, New York, United States</address>
+                        <address class="mb-4">391a Nam Ky Khoi Nghia, Ward. Vo Thi Sau, District 3, Ho Chi Minh City</address>
                         <p class="mb-1">
                             <a class="link-secondary text-decoration-none" href="tel:+15057922430">(505) 792-2430</a>
                         </p>
@@ -82,6 +82,10 @@
                 </div>
             </div>
         </div>
+        <iframe
+            src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15677.106713978874!2d106.6837196!3d10.7901085!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x317529b20f1b9ee1%3A0x95e0d0da743a6f39!2zRlBUIEFwdGVjaCBIQ00gMiAtIEjhu4cgVGjhu5FuZyDEkMOgbyBU4bqhbyBM4bqtcCBUcsOsbmggVmnDqm4gUXXhu5FjIFThur8gKFNpbmNlIDE5OTkp!5e0!3m2!1svi!2s!4v1675409742414!5m2!1svi!2s"
+            width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+            data-gtm-yt-inspected-4="true" data-gtm-yt-inspected-31="true"></iframe>
     </section>
 
     <!-- Copyright - Bootstrap Brain Component -->
@@ -91,8 +95,8 @@
                 <div class="col-xs-12 col-sm-6 col-md-4 order-0 order-md-0">
                     <div class="footer-logo-wrapper text-center text-sm-start">
                         <a href="#!">
-                            <img src="{{asset('public/uploads/product/logo.jpg')}}"
-                                alt="" style="width: 10rem; height: 10rem">
+                            <img src="{{ asset('public/uploads/product/logo.jpg') }}" alt=""
+                                style="width: 10rem; height: 10rem">
                         </a>
                     </div>
                 </div>

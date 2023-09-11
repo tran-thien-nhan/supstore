@@ -176,7 +176,7 @@ class CouponController extends Controller
 
     public function storeBatchCoupon(Request $request)
     {
-        $couponName = 'giảm giá ' . $request->input('coupon_name') . ' ' . $request->input('coupon_expire_date');
+        $couponName = $request->input('coupon_name') . ' ' . $request->input('coupon_expire_date');
         $couponTime = 1;
         $couponCondition = $request->input('coupon_condition');
         $couponNumber = $request->input('coupon_number');
