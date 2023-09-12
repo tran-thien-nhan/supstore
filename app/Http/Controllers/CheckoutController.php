@@ -112,18 +112,25 @@ class CheckoutController extends Controller
             'shipping_name' => 'required',
             'shipping_phone' => 'required',
             'shipping_email' => 'required|email',
-            'shipping_notes' => 'nullable',
             'shipping_address' => 'required',
         ], [
             'required' => 'The :attribute field is required.',
             'email' => 'The :attribute must be a valid email address.',
         ]);
-        $data = array();
-        $data['shipping_name'] = $request->shipping_name;
-        $data['shipping_phone'] = $request->shipping_phone;
-        $data['shipping_email'] = $request->shipping_email;
-        $data['shipping_notes'] = $request->shipping_notes;
-        $data['shipping_address'] = $request->shipping_address;
+
+        // Kiểm tra nếu 'shipping_notes' rỗng hoặc null, thì gán giá trị mặc định "không có note"
+        $shipping_notes = $request->input('shipping_notes');
+        if (empty($shipping_notes)) {
+            $shipping_notes = 'nothing';
+        }
+
+        $data = [
+            'shipping_name' => $request->shipping_name,
+            'shipping_phone' => $request->shipping_phone,
+            'shipping_email' => $request->shipping_email,
+            'shipping_notes' => $shipping_notes,
+            'shipping_address' => $request->shipping_address,
+        ];
 
         $shipping_id = DB::table('tbl_shipping')->insertGetId($data);
 
@@ -131,6 +138,7 @@ class CheckoutController extends Controller
 
         return Redirect::to('/payment');
     }
+
 
     public function payment()
     {
