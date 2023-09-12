@@ -37,11 +37,11 @@
                     <table class="table table-striped b-t b-light">
                         <thead>
                             <tr>
-                                <th style="width:20px;">
+                                {{-- <th style="width:20px;">
                                     <label class="i-checks m-b-none">
                                         <input type="checkbox"><i></i>
                                     </label>
-                                </th>
+                                </th> --}}
                                 <th>Category Name</th>
                                 <th>Visibility</th>
                                 <th>Category Description</th>
@@ -52,9 +52,9 @@
                         <tbody>
                             @foreach ($all_category_product as $key => $cate_pro)
                                 <tr>
-                                    <td><label class="i-checks m-b-none"><input type="checkbox"
+                                    {{-- <td><label class="i-checks m-b-none"><input type="checkbox"
                                                 name="post[]"><i></i></label>
-                                    </td>
+                                    </td> --}}
                                     <td>{{ $cate_pro->category_name }}</td>
                                     <td>
                                         <span class="text-ellipsis">
@@ -102,7 +102,7 @@
                     <div class="row">
 
                         <div class="col-sm-5 text-center">
-                            <small class="text-muted inline m-t-sm m-b-sm">showing 20-30 of 50 items</small>
+                            {{-- <small class="text-muted inline m-t-sm m-b-sm">showing 20-30 of 50 items</small> --}}
                         </div>
                         <div class="col-sm-7 text-right text-center-xs">
                             {{ $all_category_product->links() }}

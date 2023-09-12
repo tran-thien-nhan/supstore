@@ -36,11 +36,11 @@
                     <table class="table table-striped b-t b-light">
                         <thead>
                             <tr>
-                                <th style="width:20px;">
+                                {{-- <th style="width:20px;">
                                     <label class="i-checks m-b-none">
                                         <input type="checkbox"><i></i>
                                     </label>
-                                </th>
+                                </th> --}}
                                 <th>Blog Category Name</th>
                                 <th>Visibility</th>
                                 <th>Blog Category Description</th>
@@ -50,9 +50,9 @@
                         <tbody>
                             @foreach ($all_blog_category as $key => $cate_blog)
                                 <tr>
-                                    <td><label class="i-checks m-b-none"><input type="checkbox"
+                                    {{-- <td><label class="i-checks m-b-none"><input type="checkbox"
                                                 name="post[]"><i></i></label>
-                                    </td>
+                                    </td> --}}
                                     <td>{{ $cate_blog->blog_category_name }}</td>
                                     <td>
                                         <span class="text-ellipsis">

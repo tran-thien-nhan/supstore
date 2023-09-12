@@ -15,11 +15,11 @@
                     <table class="table table-striped b-t b-light">
                         <thead>
                             <tr>
-                                <th style="width:20px;">
+                                {{-- <th style="width:20px;">
                                     <label class="i-checks m-b-none">
                                         <input type="checkbox"><i></i>
                                     </label>
-                                </th>
+                                </th> --}}
                                 <th>product ID</th>
                                 <th>product name</th>
                                 <th>customer id</th>
@@ -32,8 +32,8 @@
                         <tbody>
                             @foreach ($comments as $comment)
                                 <tr>
-                                    <td><label class="i-checks m-b-none"><input type="checkbox"
-                                                name="post[]"><i></i></label></td>
+                                    {{-- <td><label class="i-checks m-b-none"><input type="checkbox"
+                                                name="post[]"><i></i></label></td> --}}
                                     <td>{{ $comment->product_id }}</td>
                                     <td>{{ $comment->product->product_name }}</td>
                                     <td>{{ $comment->customer_id }}</td>

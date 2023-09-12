@@ -48,7 +48,7 @@ class NewsletterController extends Controller
     public function listSubscribedEmails()
     {
         $this->Authenlogin();
-        $subscribes = Subscribe::all();
+        $subscribes = Subscribe::paginate(5);
         return view('admin.all_subscribe', compact('subscribes'));
     }
 

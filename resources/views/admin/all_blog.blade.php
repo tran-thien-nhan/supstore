@@ -59,11 +59,11 @@
                     <table class="table table-striped b-t b-light">
                         <thead>
                             <tr>
-                                <th style="width:20px;">
+                                {{-- <th style="width:20px;">
                                     <label class="i-checks m-b-none">
                                         <input type="checkbox"><i></i>
                                     </label>
-                                </th>
+                                </th> --}}
                                 <th>Blog Title</th>
                                 <th>Blog Thumbnail</th>
                                 <th>Blog Category</th>
@@ -76,9 +76,9 @@
                         <tbody>
                             @foreach ($all_blog as $key => $blog)
                                 <tr>
-                                    <td><label class="i-checks m-b-none"><input type="checkbox"
+                                    {{-- <td><label class="i-checks m-b-none"><input type="checkbox"
                                                 name="post[]"><i></i></label>
-                                    </td>
+                                    </td> --}}
                                     <td>{{ $blog->blog_title }}</td>
                                     <td>
                                         <img src="{{ asset('public/uploads/blog/' . $blog->blog_thumbnail) }}"

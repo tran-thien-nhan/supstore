@@ -83,11 +83,11 @@
                     <table class="table table-striped b-t b-light">
                         <thead>
                             <tr>
-                                <th style="width:20px;">
+                                {{-- <th style="width:20px;">
                                     <label class="i-checks m-b-none">
                                         <input type="checkbox"><i></i>
                                     </label>
-                                </th>
+                                </th> --}}
                                 <th>order id</th>
                                 <th>address</th>
                                 <th>customer name</th>
@@ -103,9 +103,9 @@
                         <tbody>
                             @foreach ($all_order as $key => $order)
                                 <tr>
-                                    <td><label class="i-checks m-b-none"><input type="checkbox"
+                                    {{-- <td><label class="i-checks m-b-none"><input type="checkbox"
                                                 name="post[]"><i></i></label>
-                                    </td>
+                                    </td> --}}
                                     <td>{{ $order->order_id }}</td>
                                     <td>{{ $order->district_name }}</td>
                                     <td>{{ $order->customer_name }}</td>

@@ -18,11 +18,11 @@
                     <table class="table table-striped b-t b-light">
                         <thead>
                             <tr>
-                                <th style="width:20px;">
+                                {{-- <th style="width:20px;">
                                     <label class="i-checks m-b-none">
                                         <input type="checkbox"><i></i>
                                     </label>
-                                </th>
+                                </th> --}}
                                 <th>Coupon name</th>
                                 <th>coupon code</th>
                                 <th>coupon quantity</th>
@@ -37,9 +37,9 @@
                         <tbody>
                             @foreach ($coupon as $key => $coupon_item)
                                 <tr>
-                                    <td><label class="i-checks m-b-none"><input type="checkbox"
+                                    {{-- <td><label class="i-checks m-b-none"><input type="checkbox"
                                                 name="post[]"><i></i></label>
-                                    </td>
+                                    </td> --}}
                                     <td>{{ $coupon_item->coupon_name }}</td>
                                     <td>{{ $coupon_item->coupon_code }}</td>
                                     <td>{{ $coupon_item->coupon_time }}</td>
