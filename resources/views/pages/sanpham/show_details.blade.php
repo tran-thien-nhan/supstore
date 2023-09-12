@@ -90,6 +90,17 @@
             background-color: #fff;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
+
+        .product-content img {
+            max-width: 70%;
+            /* Giới hạn chiều rộng của hình ảnh */
+            height: auto;
+            /* Duy trì tỷ lệ khung hình */
+            display: block;
+            /* Đảm bảo hình ảnh được xem xét như một khối dạng khung */
+            margin: 0 auto;
+            /* Căn giữa hình ảnh trong khung chứa */
+        }
     </style>
 @endsection
 @section('product_content')
@@ -190,8 +201,7 @@
                                 </div>
                             </div>
 
-                            <form action="{{ URL::to('/save-cart/' . $detail_product_by_id->product_id) }}"
-                                method="post">
+                            <form action="{{ URL::to('/save-cart/' . $detail_product_by_id->product_id) }}" method="post">
                                 @csrf
                                 <div class="d-flex">
                                     <div class="d-flex justify-content-left align-items-left mt-2">
@@ -231,14 +241,15 @@
 
     <div class="container mt-3">
         <div class="row">
-            <div class="col" style="width: 75%">
+            <div class="col product-content" style="width: 75%">
                 {!! $detail_product_by_id->product_content !!}
             </div>
         </div>
         {{-- <div class="fb-comments" data-href="{{ URL::current() }}" data-width="100%" data-numposts="20">
         </div> --}}
         <span type="button" class="button-cm mt-10 write-rate"
-            style="background: #005696; font-size: 17px; text-align: left; padding: 10px; border: none; color: white">Comment Section ({{$comments_count}})</span>
+            style="background: #005696; font-size: 17px; text-align: left; padding: 10px; border: none; color: white">Comment
+            Section ({{ $comments_count }})</span>
         @foreach ($product->comments as $comment)
             @if ($comment->approved)
                 <div class="box-product-mini index mb-4" id="comment-{{ $comment->comment_id }}">

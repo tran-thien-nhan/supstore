@@ -29,6 +29,7 @@
                             </ul>
                         </div>
                     </div>
+
                     <div class="col-sm-1 m-b-xs dropdown">
                         <div class="brand-group">
                             <button class="btn btn-secondary dropdown-toggle" type="button" id="brandDropdown"
@@ -49,13 +50,16 @@
                     <div class="col-sm-4">
                     </div>
                     <div class="col-sm-3">
-                        <div class="input-group">
-                            <input type="text" class="input-sm form-control" placeholder="Search">
-                            <span class="input-group-btn">
-                                <button class="btn btn-sm btn-default" type="button">Go!</button>
-                            </span>
-                        </div>
+                        <form action="{{ route('admin.product.all_product') }}" method="GET">
+                            <div class="input-group">
+                                <input type="text" class="input-sm form-control" name="search" placeholder="Search by Product ID or Name">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-sm btn-success" type="submit">Search</button>
+                                </span>
+                            </div>
+                        </form>
                     </div>
+                    
                 </div>
                 <div class="table-responsive">
                     <table class="table table-striped b-t b-light">
@@ -66,15 +70,17 @@
                                         <input type="checkbox"><i></i>
                                     </label>
                                 </th>
-                                <th>tên sản phẩm</th>
-                                <th>só lượng</th>
+                                <th>product id</th>
+                                <th>Product Name</th>
+                                <th>Product Quantity</th>
                                 <th>price</th>
                                 <th>discount</th>
-                                <th>hình sản phẩm</th>
+                                <th>Image</th>
                                 <th>flavour</th>
-                                <th>danh mục</th>
-                                <th>thương hiệu</th>
-                                <th>hiển thị</th>
+                                <th>Category</th>
+                                <th>Brand</th>
+                                <th>Product Point</th>
+                                <th>Visibility</th>
                                 {{-- <th>mô tả </th> --}}
                                 <th style="width:30px;"></th>
                             </tr>
@@ -85,6 +91,7 @@
                                     <td><label class="i-checks m-b-none"><input type="checkbox"
                                                 name="post[]"><i></i></label>
                                     </td>
+                                    <td>PD-{{ $pro->product_id }}</td>
                                     <td>{{ $pro->product_name }}</td>
                                     <td>{{ $pro->product_quantity }}</td>
                                     <td>{{ number_format($pro->product_price, 0, ',', '.') }}đ</td>
@@ -93,11 +100,10 @@
                                         <img src="{{ asset('public/uploads/product/' . $pro->product_image) }}"
                                             height="100" width="100" alt="">
                                     </td>
-
                                     <td>{{ $pro->product_flavour }}</td>
                                     <td>{{ $pro->category_name }}</td>
                                     <td>{{ $pro->brand_name }}</td>
-
+                                    <td>{{ number_format($pro->product_point, 1) }}</td>
                                     <td>
                                         <span class="text-ellipsis">
                                             <?php 
@@ -146,7 +152,7 @@
                             {{-- <small class="text-muted inline m-t-sm m-b-sm">showing 20-30 of 50 items</small> --}}
                         </div>
                         <div class="col-sm-7 text-right text-center-xs">
-                            {{-- {{ $brand_by_id->links() }} --}}
+                            {{-- {{ $all_product->links() }} --}}
                         </div>
                     </div>
                 </footer>

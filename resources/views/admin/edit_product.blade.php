@@ -119,14 +119,14 @@
                                         @endforeach
                                     </select>
                                 </div>
-                                <div class="form-group">
+                                {{-- <div class="form-group">
                                     <label for="product_status">Visibility</label>
                                     <select name="product_status" class="form-control input-sm m-bot15">
                                         <option value="0" @if ($pro->product_status == 0) selected @endif>Show</option>
                                         <option value="1" @if ($pro->product_status == 1) selected @endif>Hide
                                         </option>
                                     </select>
-                                </div>
+                                </div> --}}
 
                                 <button type="submit" name="add_product" class="btn btn-info">update product</button>
                             </form>

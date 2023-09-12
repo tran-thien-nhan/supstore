@@ -315,7 +315,10 @@ class ProductController extends Controller
     public function all_product_by_category($category_id)
     {
         $this->Authenlogin();
-
+        $all_product = DB::table('tbl_product')
+            ->join('tbl_category_product', 'tbl_category_product.category_id', '=', 'tbl_product.category_id')
+            ->join('tbl_brand', 'tbl_brand.brand_id', '=', 'tbl_product.brand_id')
+            ->get();
         $blog_category = DB::table('tbl_category_blog')
             ->get();
 
@@ -326,10 +329,11 @@ class ProductController extends Controller
             ->join('tbl_category_product', 'tbl_category_product.category_id', '=', 'tbl_product.category_id')
             ->join('tbl_brand', 'tbl_brand.brand_id', '=', 'tbl_product.brand_id')
             ->where('tbl_product.category_id', $category_id)
-            ->paginate(5);
+            ->get();
 
         return view('admin.all_product_by_category')
             ->with('category_by_id', $category_by_id)
+            ->with('all_product', $all_product)
             ->with('all_category_product', $all_category_product)
             ->with('all_brand_product', $all_brand_product)
             ->with('blog_category', $blog_category);
@@ -338,7 +342,10 @@ class ProductController extends Controller
     public function all_product_by_brand($brand_id)
     {
         $this->Authenlogin();
-
+        $all_product = DB::table('tbl_product')
+            ->join('tbl_category_product', 'tbl_category_product.category_id', '=', 'tbl_product.category_id')
+            ->join('tbl_brand', 'tbl_brand.brand_id', '=', 'tbl_product.brand_id')
+            ->get();
         $blog_category = DB::table('tbl_category_blog')
             ->get();
 
@@ -349,10 +356,11 @@ class ProductController extends Controller
             ->join('tbl_category_product', 'tbl_category_product.category_id', '=', 'tbl_product.category_id')
             ->join('tbl_brand', 'tbl_brand.brand_id', '=', 'tbl_product.brand_id')
             ->where('tbl_product.brand_id', $brand_id)
-            ->paginate(5);
+            ->get();
 
         return view('admin.all_product_by_brand')
             ->with('brand_by_id', $brand_by_id)
+            ->with('all_product', $all_product)
             ->with('all_category_product', $all_category_product)
             ->with('all_brand_product', $all_brand_product)
             ->with('blog_category', $blog_category);

@@ -80,7 +80,7 @@
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
-                                <div class="form-group">
+                                {{-- <div class="form-group">
                                     <label for="blog_status">Visibility</label>
                                     <select name="blog_status" class="form-control input-sm m-bot15">
                                         <option value="0" {{ old('blog_status') == 0 ? 'selected' : '' }}>Hide
@@ -88,7 +88,7 @@
                                         <option value="1" {{ old('blog_status') == 1 ? 'selected' : '' }}>Show
                                         </option>
                                     </select>
-                                </div>
+                                </div> --}}
                                 <button type="submit" name="add_blog" class="btn btn-info">Update Blog</button>
                             </form>
                         @endforeach
