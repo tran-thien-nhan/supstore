@@ -8,7 +8,7 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ URL::to('/trang-chu') }}">Home</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">thanh toán giỏ hàng</li>
+                    <li class="breadcrumb-item active" aria-current="page">payment</li>
                 </ol>
             </nav>
             <!--/breadcrums-->
@@ -17,7 +17,7 @@
                 <div class="row">
                     <div class="clearfix">
                         <div class="bill-to">
-                            <h2>xem lại giỏ hàng</h2>
+                            <h2>Check Your Cart</h2>
                             <div class="form-one">
                                 <div class="table-responsive cart_info">
                                     <?php
@@ -199,7 +199,7 @@
                         <span class="text-danger">{{ $message }}</span>
                     @enderror
                 </div>
-                <input type="submit" name="send_order_place" class="btn btn-outline-dark" value="đặt hàng">
+                <input type="submit" name="send_order_place" class="btn btn-outline-dark" value="Order">
             </form>
         </div>
     </section>
