@@ -389,7 +389,7 @@ class CheckoutController extends Controller
         $customer_email = $customer->customer_email;
         $customer_name = $customer->customer_name;
         Mail::send('pages.mail.order_confirmation', $order_data, function ($message) use ($customer_email, $customer_name) {
-            $message->to($customer_email, $customer_name)->subject('Xác nhận đơn hàng');
+            $message->to($customer_email, $customer_name)->subject('Order Confirmation');
             $message->from(config('mail.from.address'), config('mail.from.name'));
         });
 
