@@ -74,7 +74,7 @@
                             <div class="form-group">
                                 <label for="customer_name">Name:</label>
                                 <input type="text" class="form-control" id="customer_name" name="customer_name"
-                                    value="{{ $customer->customer_name }}">
+                                    value="{{ $customer->customer_name }}" readonly>
                                 @error('customer_name')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror

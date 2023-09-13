@@ -17,9 +17,23 @@ class CartController extends Controller
 {
     public function save_cart(Request $request, $product_id)
     {
-        // Cart::destroy();
+        // Lấy thông tin sản phẩm từ cơ sở dữ liệu bằng product_id
         $product = Product::find($product_id);
-        $quantity = $request->input('quantity_input'); // Update this line to get the correct quantity input
+
+        // Lấy số lượng đã nhập từ request
+        $quantity = $request->input('quantity_input');
+
+        // Kiểm tra số lượng nhập vào với số lượng sản phẩm hiện có
+        if ($product && $quantity > $product->product_quantity) {
+            return Redirect::to('/chi-tiet-san-pham/' . $product_id)
+                ->with('error', 'Exceeds the allowed quantity.');
+        }
+
+        if ($product && $quantity < 0) {
+            return Redirect::to('/chi-tiet-san-pham/' . $product_id)
+                ->with('error', 'input wrong quantity, try again.');
+        }
+
         $customer_id = Session::get('customer_id');
         $customer = Customer::find($customer_id);
 
@@ -31,6 +45,7 @@ class CartController extends Controller
             $customer_point = 0;
         }
 
+        // Thêm sản phẩm vào giỏ hàng
         Cart::add([
             'id' => $product->product_id,
             'name' => $product->product_name,
@@ -88,11 +103,29 @@ class CartController extends Controller
     public function update(Request $request)
     {
         $data = $request->get('qty');
-        foreach ($data as $k => $v) {
-            Cart::update($k, $v);
+
+        // Lấy thông tin sản phẩm từ giỏ hàng
+        $cartContent = Cart::content();
+
+        foreach ($data as $cartItemId => $newQuantity) {
+            foreach ($cartContent as $cartItem) {
+                if ($cartItem->rowId == $cartItemId) {
+                    // Kiểm tra số lượng sản phẩm hiện có trong bảng tbl_product
+                    $product = Product::find($cartItem->id);
+                    if ($product && ($newQuantity > $product->product_quantity || $newQuantity < 0)) {
+                        return Redirect::to('/show-cart')->with('error', 'input wrong quantity.');
+                    }
+
+                    // Cập nhật giỏ hàng
+                    Cart::update($cartItemId, $newQuantity);
+                    break;
+                }
+            }
         }
+
         return Redirect::to('/show-cart')->with('success', 'Product updated successfully.');
     }
+
 
     public function check_coupon(Request $request)
     {

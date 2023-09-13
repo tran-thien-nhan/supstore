@@ -10,6 +10,7 @@ use App\Models\Coupon;
 use App\Models\Customer;
 use App\Models\District;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Redirect;
@@ -130,18 +131,27 @@ class HomeController extends Controller
     public function updateCustomer(Request $request, $customerId)
     {
         $request->validate([
-            'customer_name' => 'nullable|string|max:255|unique:tbl_customer,customer_name,' . $customerId . ',customer_id',
-            'customer_email' => 'nullable|email|unique:tbl_customer,customer_email,' . $customerId . ',customer_id',
-            'customer_phone' => 'nullable|string|max:15|unique:tbl_customer,customer_phone,' . $customerId . ',customer_id',
-            'customer_address' => 'nullable|string|max:255|unique:tbl_customer,customer_address,' . $customerId . ',customer_id',
+            'customer_name' => 'nullable|string|max:255',
+            'customer_email' => 'nullable|email',
+            'customer_phone' => [
+                'nullable',
+                'string',
+                'max:15',
+                'regex:/^[0-9]{10}$/',
+                Rule::unique('tbl_customer', 'customer_phone')->ignore($customerId, 'customer_id'),
+            ],
+            'customer_address' => 'nullable|string|max:255',
         ], [
             'required' => ':attribute required.',
             'min' => ':attribute must have at least :min characters.',
             'max' => ':attribute must not over :max characters.',
             'email' => 'must match email form.',
-            'unique' => 'already exist, please input another one.',
+            'unique' => 'already exist, please input another one for :attribute.',
+            'regex' => 'Invalid :attribute format. Please enter a 10-digit phone number.',
         ]);
-
+        
+        
+        
         $blog_category = DB::table('tbl_category_blog')->get();
         $cate_product = DB::table('tbl_category_product')->where('category_status', '0')->orderBy('category_id', 'desc')->get();
         $brand_product = DB::table('tbl_brand')->where('brand_status', '0')->orderBy('brand_id', 'desc')->get();

@@ -118,7 +118,13 @@
             </ul>
         </div>
     @endif
-
+    <br>
+    @if (session('error'))
+        <div class="alert alert-danger alert-dismissible">
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            <strong>Error!</strong> {{ session('error') }}
+        </div>
+    @endif
     <div class="container-fluid mt-2">
         <div class="container d-flex justify-content-center">
             @foreach ($detail_product_by_id as $key => $detail_product_by_id)
@@ -368,6 +374,31 @@
         document.getElementById("addToCartButton").addEventListener("click", function() {
             //alertify.success('Added to cart successfully!');   
             swal("Successfully!", "added product successfully!", "success");
+        });
+
+        document.getElementById("addToCartButton").addEventListener("click", function(e) {
+            //e.preventDefault(); // Ngăn chặn gửi form mặc định
+
+            // Lấy số lượng sản phẩm từ input
+            var quantityInput = document.getElementById("quantity-input").value;
+
+            // Kiểm tra số lượng nhập vào
+            if (quantityInput <= 0) {
+                swal("Error!", "Cannot add product. Quantity must be greater than 0.", "error");
+            } else {
+                // Kiểm tra số lượng sản phẩm hiện có trong bảng tbl_product
+                var productQuantity = <?php echo $detail_product_by_id->product_quantity; ?>;
+
+                if (quantityInput > productQuantity) {
+                    swal("Error!", "Cannot add product. Quantity exceeds available stock.", "error");
+                } else {
+                    // Nếu số lượng hợp lệ, thực hiện thêm sản phẩm vào giỏ hàng
+                    document.getElementById("addToCartForm").submit();
+
+                    // Hiển thị Sweet Alert sau khi thêm sản phẩm thành công
+                    swal("Successfully!", "Added product successfully!", "success");
+                }
+            }
         });
     </script>
 @endsection

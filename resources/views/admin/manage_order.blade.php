@@ -89,7 +89,7 @@
                                     </label>
                                 </th> --}}
                                 <th>order id</th>
-                                <th>address</th>
+                                <th>district</th>
                                 <th>customer name</th>
                                 <th>shipper</th>
                                 <th>total</th>
