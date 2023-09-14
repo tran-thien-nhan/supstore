@@ -74,10 +74,10 @@ class ProductController extends Controller
         $request->validate([
             'product_name' => 'required',
             'product_desc' => 'required',
-            'product_quantity' => 'required|numeric',
+            'product_quantity' => 'required|numeric|min:0',
             'product_content' => 'required',
             'product_price' => 'required|numeric',
-            'product_discount' => 'required|numeric',
+            'product_discount' => 'required|numeric|min:0|max:100',
             'product_flavour' => 'required',
             'product_cate' => 'required|exists:tbl_category_product,category_id',
             'product_brand' => 'required|exists:tbl_brand,brand_id',
@@ -90,7 +90,10 @@ class ProductController extends Controller
             'image' => 'The :attribute must be an image.',
             'mimes' => 'The :attribute must be a file of type: jpeg, png, jpg, gif.',
             'max' => 'The :attribute may not be greater than :max kilobytes.',
+            'min' => 'The :attribute must be at least :min.',
+            'max' => 'The :attribute may not be greater than :max.',
         ]);
+        
         $data = array();
         $data['product_name'] = $request->product_name;
         $data['product_desc'] = $request->product_desc;

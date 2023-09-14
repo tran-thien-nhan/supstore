@@ -30,7 +30,7 @@ class NewsletterController extends Controller
             'required' => 'The :attribute field is required.',
             'email' => 'The :attribute must be a valid email address.',
             'unique' => 'The :attribute has already been taken.',
-        ]);        
+        ]);
 
         // Lấy thông tin email từ biểu mẫu
         $email = $request->input('email');
@@ -60,8 +60,17 @@ class NewsletterController extends Controller
     public function sendBulkEmail(Request $request)
     {
         $this->Authenlogin();
+
+        $request->validate([
+            'email_content' => 'required|min:10',
+            'email_title' => 'required|min:10',
+        ], [
+            'required' => 'The :attribute field is required.',
+            'min' => 'The :attribute must be at least :min characters.',
+        ]);
+
         $emailContent = $request->input('email_content');
-        $emailTitle = $request->input('email_title'); // Lấy giá trị title từ form
+        $emailTitle = $request->input('email_title');
         $subscribes = Subscribe::all();
 
         foreach ($subscribes as $subscribe) {
@@ -70,6 +79,7 @@ class NewsletterController extends Controller
 
         return redirect()->back()->with('success', 'send email in bulk successfully!');
     }
+
 
     public function composeEmailCustomer()
     {

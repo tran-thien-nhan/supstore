@@ -105,15 +105,18 @@ class CouponController extends Controller
         $this->Authenlogin();
         $request->validate([
             'coupon_name' => 'required',
-            'coupon_time' => 'required|numeric',
-            'coupon_condition' => 'required',
-            'coupon_number' => 'required|numeric',
+            'coupon_time' => 'required|numericmin:0|max:1',
+            'coupon_condition' => 'required|in:1,2',
+            'coupon_number' => 'required|numericmin:0|max:100',
             'coupon_code' => 'required',
             'coupon_expire_date' => 'required|date',
         ], [
             'required' => 'The :attribute field is required.',
             'numeric' => 'The :attribute must be a number.',
             'date' => 'The :attribute must be a valid date format.',
+            'min' => 'The :attribute must be at least :min.',
+            'max' => 'The :attribute may not be greater than :max.',
+            'in' => 'The :attribute must be either 1 or 2.',
         ]);
         $data = array();
         $data['coupon_name'] = $request->coupon_name;

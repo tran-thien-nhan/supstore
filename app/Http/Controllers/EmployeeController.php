@@ -48,7 +48,7 @@ class EmployeeController extends Controller
         $request->validate([
             'admin_name' => 'required',
             'admin_email' => 'required|email|unique:tbl_admin,admin_email,' . $admin_id . ',admin_id',
-            'admin_phone' => 'required',
+            'admin_phone' => 'required|regex:/^[0-9]{10}$/',
             'address' => 'nullable',
             'salary' => 'required|numeric',
             'district_id' => 'required|exists:tbl_district,district_id',
@@ -60,7 +60,9 @@ class EmployeeController extends Controller
             'numeric' => 'The :attribute must be a number.',
             'exists' => 'The selected :attribute is invalid.',
             'in' => 'The selected :attribute is invalid.',
+            'regex' => 'The :attribute must be a 10-digit number.', // Thông báo cho trường admin_phone
         ]);
+        
 
         // Cập nhật thông tin nhân viên từ dữ liệu trong $request
         $employee->admin_name = $request->input('admin_name');

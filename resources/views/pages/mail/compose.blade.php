@@ -13,10 +13,16 @@
                         <div class="form-group">
                             <label for="email_title">Email Title:</label>
                             <input type="text" id="email_title" name="email_title" class="form-control">
+                            @error('email_title')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <label for="email_content">Email Content:</label>
                             <textarea id="email_content" name="email_content" class="form-control"></textarea>
+                            @error('email_content')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
                         </div>
                         <button type="submit" class="btn btn-primary">Send Email In Bulk</button>
                     </form>
