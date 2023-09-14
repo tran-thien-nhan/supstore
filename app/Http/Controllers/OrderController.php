@@ -102,7 +102,7 @@ class OrderController extends Controller
                 ]);
         }
 
-        return redirect()->back()->with('success', 'Update order status successfully.');
+        return redirect()->back()->with('success', 'Update order successfully.');
     }
 
     public function save_order_status(Request $request)

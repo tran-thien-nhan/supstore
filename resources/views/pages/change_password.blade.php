@@ -18,10 +18,17 @@
             <div class="form-group">
                 <label for="new_password">New Password:</label>
                 <input type="password" class="form-control" id="new_password" name="new_password" placeholder="*****" required>
+                @error('new_password')
+                    <span class="text-danger">{{ $message }}</span>
+                @enderror
             </div>
             <div class="form-group">
                 <label for="new_password_confirmation">Enter new password:</label>
-                <input type="password" class="form-control" id="new_password_confirmation" name="new_password_confirmation" placeholder="*****" required>
+                <input type="password" class="form-control" id="new_password_confirmation" name="new_password_confirmation"
+                    placeholder="*****" required>
+                @error('new_password_confirmation')
+                    <span class="text-danger">{{ $message }}</span>
+                @enderror
             </div>
             <br>
             <button type="submit" class="btn btn-primary">Update Password</button>

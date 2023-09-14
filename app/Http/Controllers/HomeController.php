@@ -149,9 +149,9 @@ class HomeController extends Controller
             'unique' => 'already exist, please input another one for :attribute.',
             'regex' => 'Invalid :attribute format. Please enter a 10-digit phone number.',
         ]);
-        
-        
-        
+
+
+
         $blog_category = DB::table('tbl_category_blog')->get();
         $cate_product = DB::table('tbl_category_product')->where('category_status', '0')->orderBy('category_id', 'desc')->get();
         $brand_product = DB::table('tbl_brand')->where('brand_status', '0')->orderBy('brand_id', 'desc')->get();
@@ -213,7 +213,13 @@ class HomeController extends Controller
     {
         $this->validate($request, [
             'new_password' => 'required|min:5|confirmed',
+            'new_password_confirmation' => 'required',
+        ], [
+            'required' => 'The :attribute field is required.',
+            'min' => 'The :attribute must have at least :min characters.',
+            'confirmed' => 'The :attribute confirmation does not match.',
         ]);
+
 
         $customer = Customer::find($customer_id);
 
